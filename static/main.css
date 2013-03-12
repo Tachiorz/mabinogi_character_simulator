@@ -1,0 +1,63 @@
+@charset "Shift_JIS";
+innerBorde
+body,table,tr,td,textarea,input, select {font-size:9pt;}
+
+input, textarea {border:1px solid #ff888b;background-color:white;}
+a:link, a:visited, a:active {color:#404040;text-decoration:none;}
+a:hover {color:#202020;text-decoration:underline;}
+
+.miniTitle {font-family:tahoma;font-size:10px;color:#777777;}
+.copyright {text-align:right;font-family:verdana;font-size:10px;color:#575757;margin-top:0;padding-right:7px}
+.notice {font-family:verdana;font-size:14px;font-weight:bold;}
+a.notice:link, a.notice:visited {font-family:verdana;font-size:14px;font-weight:bold;color:#6767b7;text-decoration:underline;}
+a.notice:hover, a.notice:active {font-family:verdana;font-size:14px;font-weight:bold;color:#ccccff;text-decoration:underline;}
+
+.mainFrame {width:580px;height:220px;margin-left:auto;margin-right:auto;}
+.contRgn {background-color:#ffffff;}
+.miniHeader {background-color:#808080;text-align:center}
+.homeLogo {background-color:#f2f2f2;width:210px;height:210px;margin-left:auto;margin-right:auto;text-align:center;}
+.homeLink {text-align:left;margin-top:0.4em;margin-bottom:0.4em;margin-left:0.2em;margin-right:0.2em;padding-bottom:0.1em;border-bottom: 1px dashed #b7b7b7;}
+
+td.topLink {padding: 2px;text-align:right}
+.topLink {font-family:verdana;font-size:10px;color:#575757;}
+a.topLink:link, a.topLink:visited {font-family:verdana;font-size:10px;color:#ffffff;}
+a.topLink:hover, a.topLink:active {font-family:verdana;font-size:10px;color:#ffff44;text-decoration:none;}
+
+.notesContRgn {width:46em;background-color:#ffffff;}
+.notesFrame {width:45em}
+.notesBody {width:44em;padding:2px}
+.messageArea {width:40em}
+.info {font-family:Meiryo,"ÇlÇr ÇoÉSÉVÉbÉN","Osaka";font-size:10px;color:#5787b7;}
+.warn {font-family:Meiryo,"ÇlÇr ÇoÉSÉVÉbÉN","Osaka";font-size:10px;color:#ff9999;}
+.title {font-family:verdana;font-size:10px;color:#575757;}
+
+.replyTitle {font-family:verdana;font-size:10px;color:#202020;background-color:#e7e7e7;}
+.replyMessage {color:#272727;font-family:Meiryo,"ÇlÇr ÇoÉSÉVÉbÉN","OsakaÅ|ìôïù","Osaka-mono";}
+a.replyMessage:link, a.replyMessage:visited {color:#6767b7;text-decoration:underline;}
+a.replyMessage:hover, a.replyMessage:active {color:#ccccff;text-decoration:underline;}
+.replyQuote {display:block;color:#676767; margin-bottom:0.1em; margin-top:0.2em; border-left: 3px double #777777;padding-left:0.5em}
+.replyQuoteEmphasis {display:block;color:#d75700; margin-bottom:0.1em; margin-top:0.2em; border-left: 3px double #d75700;padding-left:0.5em}
+.replyNotice {display:block;color:#d75700; margin-bottom:0.1em; margin-top:0.2em; border-left: 3px solid #d75700;padding-left:0.5em}
+.notesEmphasis {color:#d75700;}
+
+.about {font-family:Meiryo,"ÇlÇr ÇoÉSÉVÉbÉN","Osaka";}
+.aboutTitle {font-family:verdana;font-size:11px;font-weight:bold;}
+
+/*
+body {background-color:#58A1CA; padding-top : 0px;margin-top : 0px;}
+.outerBorder {background-color:#4B97C2;}
+.innerBorder {background-color:#9bc7df;}
+.contRgn {background-color:#ffffff;}
+.miniHeader {background-color:#9bc7df;}
+
+.topLink {font-family:verdana;font-size:10px;color:#1767a7;}
+a.topLink:link, a.topLink:visited {font-family:verdana;font-size:10px;color:#ffffff;}
+a.topLink:hover, a.topLink:active {font-family:verdana;font-size:10px;color:#ffff44;text-decoration:none;}
+
+.replyTitle {font-family:verdana;font-size:10px;color:#1767a7;}
+.replyTitle {background-color:#f2f4f4}
+a.replyMessage:link, a.replyMessage:visited {color:#6767ff;}
+a.replyMessage:hover, a.replyMessage:active {color:#ccccff;text-decoration:none;}
+.replyQuote {color:#306087;}
+.notesEmphasis {color:#d05d18;}
+*/

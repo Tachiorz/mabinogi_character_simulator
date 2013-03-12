@@ -1,0 +1,82 @@
+@charset "Shift_JIS";
+
+//html,body {height:100%}
+form { margin:0px;padding:0px; }
+//#mainFrame {width:1024px;margin-left:auto;margin-right:auto;height:100%}
+
+#specLinks {float:left}
+#commonLink {float:right;text-align:right}
+
+#outerBorder {
+	padding:0;
+	margin:0;
+	height:100%
+}
+
+#innerBorder {
+	background:#fff;
+	padding:0;
+	margin:0;
+	height:100%
+}
+
+.menu_but{
+  font-size : 12px;
+  font-weight : bold;
+  background-image : url(img/pbg2.png);
+  text-align : center;
+  width : 75px;
+  height : 35px;
+  color : #990000;
+  font-family : "Meiryo UI";
+}
+a.menu_but{
+color : #990000;
+}
+
+#csBlock {width:570px;float:left;text-align:center;}
+#formBlock {width:444px;height:900px;overflow:auto;float:right}
+
+#footer {clear:both}
+#versionBlock {float:left}
+#copyrightBlock {float:right}
+
+.loadingBox {width:416px;height:4em; position:relative;top:50%; font-family:verana;font-size:12pt;font-weight:bold;color:#575757;text-align:center; display:block}
+.loadingInnerBox {background-color:#ffffff;padding:2px;line-height:2em;border-style:solid;border-width:2px;border-color:#575757}
+
+.controllerBlock {border-width: 1px; border-style: solid;border-color:#ffe6e7;padding:2px;padding-left:4px}
+.controllerTitle {font-family:verdana;font-size:10px;background-color:#ff5155;padding:2px}
+.controllerHeader {font-family:verdana;font-size:10px;color:#d60e13;}
+.secondaryControllerHeader {font-family:verdana;font-size:10px;background-color:#ff888b;padding: 1px 2px }
+.secondaryControllerBlock {padding: 2px;border-style:solid;border-width:2px;border-color:#ff888b;background-color:#ffffff}
+.miniCaps {font-family:verdana;font-size:10px;color:#575757;}
+
+a.secondaryControllerHeader:link, a.secondaryControllerHeader:visited {font-family:verdana;font-size:10px;color:#ffffff;text-decoration:none;}
+a.secondaryControllerHeader:hover, a.secondaryControllerHeader:active {font-family:verdana;font-size:10px;color:#ffffff;text-decoration:underline;}
+
+a.configLink:link, a.configLink:visited {font-family:verdana;font-size:10px;color:#ffffff;text-decoration:none;}
+a.configLink:hover, a.configLink:active {font-family:verdana;font-size:10px;color:#ffffff;text-decoration:underline;}
+
+select,input{color:#d60e13;}
+//a.controllerLink:link, a.controllerLink:visited {font-family:verdana;font-size:10px;color:#2276A5;text-decoration:none;}
+//a.controllerLink:hover, a.controllerLink:active {font-family:verdana;font-size:10px;color:#2276A5;text-decoration:underline;}
+
+/* {font-family:verdana;font-size:10px;color:#1767a7;}
+ {font-family:verdana;font-size:10px;color:#ffffff;text-decoration:none;}*/
+.colorPaletteSelected {width:60px; height:60px; border-width: 1px; border-style: solid; border-color:#000000;}
+.colorPalettePicker {width:16px; height:16px; background:#ffffff; border-width: 1px; border-style: dotted; border-color:#000000;}
+.colorPaletteLog {width:16px; height:16px; background:#ffffff; border-width: 1px; border-style: none; border-color:black;}
+.colorPaletteMini {background:#000000; border-width: 1px; border-style: solid;border-color:#000000; }
+.colorPickerArea {padding:0px;margin:0px}
+
+#colorPickerFrame {width:100%;margin:0;padding:0}
+#colorPickerBlock {width:100%;margin:0;padding:0}
+#animationBlock {width:100%}
+.animationControllerFrame {width:100%}
+
+.block { display:block;}
+.inline{display:inline;}
+#avatar {float:left}
+#form { width:416px;float:right;}
+.clear{ clear:both; }
+.version {vertical-align:top;padding-left:6px; font-family:verdana;font-size:9px;color:#575757;cursor: help}
