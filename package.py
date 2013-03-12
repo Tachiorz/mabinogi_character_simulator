@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
-import struct, zlib
+import os, struct, zlib
 import MT
 #this is shallow port of https://github.com/darknesstm/MabinogiPackageTool/
 
-class pack_entry:
-    name = ""
-    seed = 0
-    offset = 0
-    compress_size = 0
-    decompress_size = 0
-    is_compressed = False
-    filetime = None
-    def __init__(self):
-        self.filetime = [0] * 5
 
+class pack_entry(tuple):
+    _fields = ('package',
+               'index',
+               'name',
+               'seed',
+               'offset',
+               'compress_size',
+               'decompress_size',
+               'is_compressed',
+               'name',
+               'filetime',
+        )
 
 class mabi_pack:
     filename = None
@@ -31,7 +33,7 @@ class mabi_pack:
     dataSectionSize = 0
     entries = None
 
-    def __init__(self, filename):
+    def __init__(self, filename=None):
         self.filename = filename
         if filename is not None:
             self.open(filename)
@@ -52,8 +54,10 @@ class mabi_pack:
         struct.unpack("LLLL16s",f.read(32))
         self.entries = list()
         off = f.tell() + self.headerSize
-        for _ in range(self.listCount):
+        for i in range(self.listCount):
             e = pack_entry()
+            e.package = self
+            e.index = i
             l = ord(f.read(1))
             if l < 4:
                 e.name = f.read((l+1)*0x10-1)
@@ -61,7 +65,8 @@ class mabi_pack:
                 e.name = f.read(0x60-1)
             else:
                 l = struct.unpack("l", f.read(4))[0]
-                e.name = f.read(l-5)
+                e.name = f.read(l)
+            e.name = e.name.strip('\0')
             e.seed, _, e.offset, e.compress_size, e.decompress_size, e.is_compressed =\
                 struct.unpack("LLLLLL", f.read(24))
             e.offset += off
@@ -83,3 +88,80 @@ class mabi_pack:
         buf = self._decrypt(buf, self.entries[index].seed)
         buf = zlib.decompress(buf)
         return buf
+
+class mabi_assets:
+    tree = None
+    types = None
+    key = (0xEE, 0xA6, 0x60, 0x64, 0x47, 0x37, 0xFC)
+    def __init__(self, path = None):
+        self.tree = dict()
+        self.types = dict()
+        self.types['.frm'] = dict()
+        self.types['.pmg'] = dict()
+        self.types['.dds'] = dict()
+        self.types['.ani'] = dict()
+        if path is None: return
+        files = os.listdir(path)
+        for f in files:
+            if f[-5:] == '.pack':
+                p = mabi_pack(path+f)
+                self._add_enties(p)
+
+    def _add_enties(self, pack):
+        for e in pack.entries:
+            cur = self.tree
+            for p in e.name.split(os.sep):
+                if p.find('.') != -1:
+                    cur[p] = e
+                    t = p[-4:]
+                    if self.types.has_key(t): self.types[t][p] = e
+                    break
+                if not cur.has_key(p):
+                    cur[p] = dict()
+                cur = cur[p]
+
+    def _encrypt(self, buf):
+        buf = bytearray(buf)
+        for i in range(len(buf)):
+            buf[i] ^= (i ^ (self.key[(i^5)%7] + 1)) & 0xFF
+        return bytes(buf)
+
+    def get_file(self,f):
+        d = None
+        t = f[-4:]
+        if self.types.has_key(t) and self.types[t].has_key(f): d = self.types[t][f]
+        else :
+            if f[-5:] == '.desc':
+                # this is ugly
+                return """CastShadow 1
+EnableCartoonRender 0
+GlossTexture _!hairmap
+BackFaceCulling 1
+EnableZCompare 1
+EnableZWrite 1
+EnableAlphaTest 1
+EnableAlphaBlend 1
+ColorOp_0 addsigned
+ColorArg1_0 texture
+ColorArg2_0 diffuse
+AlphaOp_0 selectfirst
+AlphaArg1_0 texture
+AlphaArg2_0 diffuse
+UVGeneration_0 vertex
+ColorOp_1 modulate4x
+ColorArg1_1 texture
+ColorArg2_1 current
+AlphaOp_1 selectfirst
+AlphaArg1_1 current
+AlphaArg2_1 diffuse
+UVGeneration_1 sphere
+"""
+        if d is None: return None
+        return d.package.read_for_entry(d.index)
+
+    def get_x_file(self, f):
+        buf = self.get_file(f)
+        if buf is None: return None
+        l = len(buf)
+        buf = zlib.compress(buf)[2:-4]
+        return self._encrypt(struct.pack('I',l) + buf)
