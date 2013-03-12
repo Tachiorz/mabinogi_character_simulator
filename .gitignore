@@ -38,3 +38,4 @@ nosetests.xml
 *.exe
 *.dll
 .idea
+*.pack
