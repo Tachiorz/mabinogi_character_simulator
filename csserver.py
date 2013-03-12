@@ -9,7 +9,9 @@ app = Bottle()
 @app.route('/cs/serve.x/<name>')
 def callback(name):
     print name
-    if name[-2:] == '.z': return assets.get_x_file(name[:-2])
+    if name[-2:] == '.z':
+        res = assets.get_x_file(name[:-2])
+        if res is not None: return res
     abort(404, "Not found")
 
 @app.route('/main', method=['POST','GET'])
