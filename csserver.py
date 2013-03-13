@@ -10,6 +10,7 @@ import package
 assets = None
 locale = dict()
 db = dict()
+framework = 3
 TEMPLATE_PATH.insert(0, 'tpl')
 app = Bottle()
 
@@ -50,23 +51,39 @@ def load_db():
     entry = {'name': "", 'fname': "", 't1': "", 't2': "", 't3': ""}
     sex = {'male': list(), 'female': list()}
     item = {'human': deepcopy(sex), 'giant': deepcopy(sex), 'elf': deepcopy(sex)}
-    #get body list
     db['body'] = deepcopy(item)
+    db['hand'] = deepcopy(item)
+    db['foot'] = deepcopy(item)
+    db['head'] = deepcopy(item)
+    db['robe'] = deepcopy(item)
     body = '/equip/armor/'
+    hand = '/equip/hand/'
+    foot = '/equip/foot/'
+    head = '/equip/head/'
+    robe = '/equip/robe/'
     items = iterparse(itemdb)
     for i in items:
-        if 'Category' in i[1].attrib and i[1].attrib['Category'][:len(body)] == body:
+        if 'Category' in i[1].attrib:
+            if i[1].attrib['Category'][:len(body)] == body: equip = 'body'
+            elif i[1].attrib['Category'][:len(hand)] == hand: equip = 'hand'
+            elif i[1].attrib['Category'][:len(foot)] == foot: equip = 'foot'
+            elif i[1].attrib['Category'][:len(head)] == head: equip = 'head'
+            elif i[1].attrib['Category'][:len(robe)] == robe: equip = 'robe'
+            else: continue
             name = get_local_name(i[1].attrib['Text_Name1'])
             if name is None: name = get_local_name(i[1].attrib['Text_Name0'])
             t = i[1].attrib['App_WearType']
             e = entry.copy()
             e['name'] = name
-            if len(t) > 2: e['t3'] = encrypt(t[2])
-            if len(t) > 1: e['t2'] = encrypt(t[1])
-            if len(t) > 0: e['t1'] = encrypt(t[0])
+            if equip == 'body':
+                if len(t) > 2: e['t3'] = encrypt(t[2])
+                if len(t) > 1: e['t2'] = encrypt(t[1])
+                if len(t) > 0: e['t1'] = encrypt(t[0])
+            else:
+                e['t1'] = t[0]
             if 'File_GiantMesh' in i[1].attrib:
                 e['fname'] = encrypt(i[1].attrib['File_GiantMesh'] + '.pmg')
-                db['body']['giant']['male'] += [e]
+                db[equip]['giant']['male'] += [e]
     t2 = time.clock()
     print "Loaded DB in", t2 - t1, "sec"
 
@@ -90,8 +107,16 @@ def callback():
 
 @app.route('/control')
 def callback():
-    body = db['body']['giant']['male']
-    return template('control.tpl', body=body)
+    race = 'giant'
+    sex = 'male'
+    if framework == 3:
+        race, sex = 'giant', 'male'
+    body = db['body'][race][sex]
+    hand = db['hand'][race][sex]
+    foot = db['foot'][race][sex]
+    head = db['head'][race][sex]
+    robe = db['robe'][race][sex]
+    return template('control.tpl', body=body, hand=hand, foot=foot, head=head, robe=robe)
 
 
 @app.route('/')
