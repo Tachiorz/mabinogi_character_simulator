@@ -809,9 +809,9 @@ function csExecute( script )
 		cmd += "O1W2U428" + script;
 	}
 	document.getElementById("excute_cmd").value = cmd
-
-			execute( script );
-		updateLinks();
+    script = csScript();
+	execute( script );
+	updateLinks();
 }
 function request_full_execute() {
 	parent.full_execute( csScript() );
@@ -9845,7 +9845,7 @@ Now Loading
 <span class="controllerHeader">Robe:</span><br>
 <select name="robeMenu" onChange = "changeRobe(this.value)" style="width:300px;">
 <OPTION value="-1">(none)</OPTION>
-%n = 0
+%n = 1
 %for i in robe:
 <option value="{{n}}">{{i['name']}}</option>
 %n += 1

@@ -143,9 +143,11 @@ def main():
     #ie = webbrowser.get(webbrowser.iexplore)
     #ie.open('localhost')
     #run(app=app,port=80)
+    print "Starting web server..."
     server = wsgiserver.CherryPyWSGIServer(
         ('127.0.0.1', 80), app,
         server_name='')
+    print "Started"
     server.start()
 
 if __name__ == "__main__": main()

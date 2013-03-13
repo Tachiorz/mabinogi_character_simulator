@@ -25,7 +25,7 @@ function softreset( script )
 function config_load()
 {
 	//jsinitvals
-		contol.sLanguageIndex = "1";	//1@1
+    contol.sLanguageIndex = "1";	//1@1
 	contol.sAvatarSize = "1";	//1@2
 	contol.sAvatarAA = "2";	//1@3
 	contol.sBgColorp = "FFFFFF";	//1@4
@@ -44,7 +44,7 @@ function config_load()
 	contol.sHairColorIndex = "11";	//6@2
 	contol.sHairColorp = "7B2C10";	//7@1
 	contol.sHairColor = contol.convertColor(contol.sHairColorp);
-	contol.sHeadIndex = "4";	//8@1
+	contol.sHeadIndex = "-1";	//8@1
 	contol.sHeadWearState = "0";	//8@2
 	contol.sHeadColor1p = "00687F";	//9@1
 	contol.sHeadColor1 = contol.convertColor(contol.sHeadColor1p);
@@ -72,14 +72,14 @@ function config_load()
 	contol.sHandColor2 = contol.convertColor(contol.sHandColor2p);
 	contol.sHandColor3p = "4a76a1";	//15@3
 	contol.sHandColor3 = contol.convertColor(contol.sHandColor3p);
-	contol.sFootIndex = "16";	//16@1
+	contol.sFootIndex = "-1";	//16@1
 	contol.sFootColor1p = "183532";	//17@1
 	contol.sFootColor1 = contol.convertColor(contol.sFootColor1p);
 	contol.sFootColor2p = "4E7070";	//17@2
 	contol.sFootColor2 = contol.convertColor(contol.sFootColor2p);
 	contol.sFootColor3p = "2A4F61";	//17@3
 	contol.sFootColor3 = contol.convertColor(contol.sFootColor3p);
-	contol.sWeaponFirstIndex = "82";	//18@1
+	contol.sWeaponFirstIndex = "-1";	//18@1
 	contol.sWeaponFirstWearState = "0";	//18@2
 	contol.sWeaponFirstColor1p = "4AD7D1";	//19@1
 	contol.sWeaponFirstColor1 = contol.convertColor(contol.sWeaponFirstColor1p);
@@ -87,7 +87,7 @@ function config_load()
 	contol.sWeaponFirstColor2 = contol.convertColor(contol.sWeaponFirstColor2p);
 	contol.sWeaponFirstColor3p = "13609B";	//19@3
 	contol.sWeaponFirstColor3 = contol.convertColor(contol.sWeaponFirstColor3p);
-	contol.sWeaponSecondIndex = "12";	//20@1
+	contol.sWeaponSecondIndex = "-1";	//20@1
 	contol.sWeaponSecondWearState = "1";	//20@2
 	contol.sWeaponSecondColor1p = "808080";	//21@1
 	contol.sWeaponSecondColor1 = contol.convertColor(contol.sWeaponSecondColor1p);
