@@ -59,7 +59,7 @@ function config_load()
 	contol.sFaceColor2 = contol.convertColor(contol.sFaceColor2p);
 	contol.sFaceColor3p = "000000";	//11@3
 	contol.sFaceColor3 = contol.convertColor(contol.sFaceColor3p);
-	contol.sBodyIndex = "42";	//12@1
+	contol.sBodyIndex = "-2";	//12@1
 	contol.sBodyColor1p = "516E7B";	//13@1
 	contol.sBodyColor1 = contol.convertColor(contol.sBodyColor1p);
 	contol.sBodyColor2p = "1F4C56";	//13@2

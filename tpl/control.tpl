@@ -1,9 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="ja-JP" style="-webkit-text-size-adjust:none;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Mabinogi Character Simulator</title>
-
-<meta http-equiv="Content-Script-Type" content="text/javascript">
-<meta http-equiv="Content-Style-Type" content="text/css">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja-JP" style="-webkit-text-size-adjust:none;">
+<head>
+<title>Mabinogi Character Simulator 2</title>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Content-Script-Type" content="text/javascript">
+<META http-equiv="Content-Style-Type" content="text/css">
 <link rel="stylesheet" href="main.css" type="text/css">
 <link rel="stylesheet" href="pmcs2.css" type="text/css">
 <script type="text/javascript">
@@ -105,7 +106,7 @@ function runSearch( )
 		for (var i=0; i<searchTargetArray.length; i++) {
 			resultBuffer += ""+runSearchCategory( searchTargetArray[i], searchArray, searchStrKana, searchKanaArray );
 			if (resultBuffer.length >= 5000) {
-				resultBuffer += "<br>* <i>検索結果が多すぎるため全て表示できません。語句を長くするか、カテゴリーを絞り込んでください。</i>";
+				resultBuffer += "<br>* <i>Search results was too much...</i>";
 				break;
 			}
 		}
@@ -114,7 +115,7 @@ function runSearch( )
 	}
 	
 	if (resultBuffer == "") {
-		resultBuffer = "* <i>"+searchStr+" を含むものは見つかりませんでした。</i>";
+		resultBuffer = "* <i>"+searchStr+" not found.</i>";
 	}
 	
 	searchResult.innerHTML = resultBuffer;
@@ -159,25 +160,25 @@ function runSearchCategory( target, searchArray, searchStrKana, searchKanaArray 
 }
 var equip_table = new Array();
 
-equip_table["head"] = { type: "装備", name : "頭" };
-equip_table["body"] = { type: "装備", name : "体" };
-equip_table["foot"] = { type: "装備", name : "足" };
-equip_table["hand"] = { type: "装備", name : "手" };
-equip_table["robe"] = { type: "装備", name : "ローブ" };
-equip_table["weaponFirst"] = { type: "装備", name : "メイン武器(右手)" };
-equip_table["shieldFirst"] = { type: "装備", name : "メイン武器(左手)" };
-equip_table["weaponSecond"] = { type: "装備", name : "サブ武器(右手)" };
-equip_table["shieldSecond"] = { type: "装備", name : "サブ武器(左手)" };
+equip_table["head"] = { type: "Equip", name : "Head" };
+equip_table["body"] = { type: "Equip", name : "Body" };
+equip_table["foot"] = { type: "Equip", name : "Foot" };
+equip_table["hand"] = { type: "Equip", name : "Hand" };
+equip_table["robe"] = { type: "Equip", name : "Robe" };
+equip_table["weaponFirst"] = { type: "Equip", name : "Weapon Main (Left Hand)" };
+equip_table["shieldFirst"] = { type: "Equip", name : "Weapon Main (Right Hand)" };
+equip_table["weaponSecond"] = { type: "Equip", name : "Weapon Sub (Left Hand)" };
+equip_table["shieldSecond"] = { type: "Equip", name : "Weapon Sub (Right Hand)" };
 
-equip_table["animation"] = { type: "キャラ", name : "モーション" };
-equip_table["hair"] = { type: "キャラ", name : "髪型" };
-equip_table["hairColor"] = { type: "キャラ", name : "髪色" };
-equip_table["eyeEmotion"] = { type: "キャラ", name : "目" };
-equip_table["eyeColor"] = { type: "キャラ", name : "目の色" };
-equip_table["face"] = { type: "キャラ", name : "顔" };
-equip_table["mouthEmotion"] = { type: "キャラ", name : "口" };
-equip_table["reaction"] = { type: "キャラ", name : "表情" };
-equip_table["skinColor"] = { type: "キャラ", name : "肌色" };
+equip_table["animation"] = { type: "Char", name : "Motion" };
+equip_table["hair"] = { type: "Char", name : "Hair Style" };
+equip_table["hairColor"] = { type: "Char", name : "Hair Color" };
+equip_table["eyeEmotion"] = { type: "Char", name : "Eye Style" };
+equip_table["eyeColor"] = { type: "Char", name : "Eye Color" };
+equip_table["face"] = { type: "Char", name : "Face" };
+equip_table["mouthEmotion"] = { type: "Char", name : "Mouth" };
+equip_table["reaction"] = { type: "Char", name : "Face Reaction" };
+equip_table["skinColor"] = { type: "Char", name : "Skin Color" };
 
 var last_history = "";
 var history_master = new Array();
@@ -345,18 +346,18 @@ function nextHistory()
 function checkHistoryButtonStatus() {
 	if (history_master_max > history_master_pos) {
 		document.getElementById("nextHistoryButton").disabled = "";
-		document.getElementById("nextHistoryButton").value = "操作を進める »";
+		document.getElementById("nextHistoryButton").value = "Next ->";
 	} else {
 		document.getElementById("nextHistoryButton").disabled = "disabled";
-		document.getElementById("nextHistoryButton").value = "(進められません)";
+		document.getElementById("nextHistoryButton").value = "---";
 	}
 	
 	if (history_master_pos > history_master_pos_first) {
 		document.getElementById("backHistoryButton").disabled = "";
-		document.getElementById("backHistoryButton").value = "« 操作を戻す";
+		document.getElementById("backHistoryButton").value = "<- Back";
 	} else {
 		document.getElementById("backHistoryButton").disabled = "disabled";
-		document.getElementById("backHistoryButton").value = "(戻れません)";
+		document.getElementById("backHistoryButton").value = "---";
 	}
 }
 
@@ -606,7 +607,7 @@ function searchList( target )
 		}
 	}
 
-	alert("を含むものは見つかりませんでした。");
+	alert("not found.");
 }
 function encodeHiraToKata( text )
 {
@@ -652,7 +653,7 @@ function captureBlogparts()
 
 function changeFramework()
 {
-	//if (confirm('性別または種族を変更すると、現在の設定内容は破棄され、性別・種族ごとの初期状態を開きます。\n切り替えてもよろしいですか？')){
+	//if (confirm('')){
 		sFramework = controller.csFramework.value;
 		parent.location.href="?action=changeFramework&framework="+sFramework;
 	//} else {
@@ -820,7 +821,6 @@ function request_full_execute() {
 
 
 //http://labo.erinn.biz/cs_server/sv.php/
-//var sBase = "gTqIXBaE0BGNET7RzvWC286PRomPyfaQGoWPbZLO71rMePqQ2PaRC8r;M4b;Bm2Ql8a2zVqMZnaQERaPk;6Q:5LNX1KMycE3P5LNakKOi038BK3Ar8Y2olqMM5rPpFXFT4IF8dE3";
 var sBase = "gTqIXBaE0BGNET7RzvWC3k6PUxKMA0rP;8q;R8r;pLbQTZb;l8a2zVqMZnaQERaPk;6Q:5LNX1KMpMZ2t3bQMpqPsyGAWj0BL1qNGk6PqQ48fRIFmikB";
 
 var sFrameworkArray = new Array(
@@ -3036,7 +3036,7 @@ function slowmotionBackward()
 		return;
 	}
 	setAnimateState(2);
-	controller.slowmotionBackwardButton.src = "slowmotionbackwardactive.png";
+	controller.slowmotionBackwardButton.src = " slowmotionbackwardactive.png";
 	sAnimatorPlayingState = 1;
 	updateLinks();
 	sAnimatorTimer = setInterval("backwardPlayer()",1);
@@ -3060,7 +3060,7 @@ function scanBackward()
 		return;
 	}
 	setAnimateState(2);
-	controller.scanBackwardButton.src = "scanbackwardactive.png";
+	controller.scanBackwardButton.src = " scanbackwardactive.png";
 	sAnimatorPlayingState = 3;
 	updateLinks();
 	sAnimatorTimer = setInterval("backwardScanPlayer()",1);
@@ -3084,7 +3084,7 @@ function slowmotionForward()
 		return;
 	}
 	setAnimateState(2);
-	controller.slowmotionForwardButton.src = "slowmotionforwardactive.png";
+	controller.slowmotionForwardButton.src = " slowmotionforwardactive.png";
 	sAnimatorPlayingState = 2;
 	updateLinks();
 	sAnimatorTimer = setInterval("forwardPlayer()",1);
@@ -3108,7 +3108,7 @@ function scanForward()
 		return;
 	}
 	setAnimateState(2);
-	controller.scanForwardButton.src = "scanforwardactive.png";
+	controller.scanForwardButton.src = " scanforwardactive.png";
 	sAnimatorPlayingState = 4;
 	updateLinks();
 	sAnimatorTimer = setInterval("forwardScanPlayer()",1);
@@ -3127,28 +3127,28 @@ function setAnimateState( state )
 {
 	if(sAnimationAnimateState==2)
 	{
-		controller.slowmotionBackwardButton.src = "slowmotionbackward.png";
-		controller.scanBackwardButton.src = "scanbackward.png";
-		controller.slowmotionForwardButton.src = "slowmotionforward.png";
-		controller.scanForwardButton.src = "scanforward.png";
+		controller.slowmotionBackwardButton.src = " slowmotionbackward.png";
+		controller.scanBackwardButton.src = " scanbackward.png";
+		controller.slowmotionForwardButton.src = " slowmotionforward.png";
+		controller.scanForwardButton.src = " scanforward.png";
 		clearInterval(sAnimatorTimer);
 		setAnimatorSliders(sAnimationCurFrame);
 		sAnimatorPlayingState = 0;
 	}
 	if(state==0)	//animator disabled, normal motion
 	{
-		controller.playButton.src = "stop.png";
+		controller.playButton.src = " stop.png";
 		sAnimationFrame = "81H;";
 		csExecute("gTqIVlKEQ8KPakKOi168ZBGOc6GA");
 	}
 	else if(state==1)	//animator enabled, user controlling
 	{
-		controller.playButton.src = "play.png";
+		controller.playButton.src = " play.png";
 		changeAnimationFrame(sAnimationCurFrame);
 	}
 	else if(state==2)	//animator enabled, animator controlling
 	{
-		controller.playButton.src = "pause.png";
+		controller.playButton.src = " pause.png";
 		changeAnimationFrame(sAnimationCurFrame);
 	}
 	sAnimationAnimateState = state;
@@ -3436,32 +3436,32 @@ function reloadURL()
 function shortURL()
 {
 	updateLinks();
-	parent.location.href = "?q="+sCurConfig+"&action=createShorturl";
+	parent.location.href = "action.php?q="+sCurConfig+"&action=createShorturl";
 }
 function shortURL2()
 {
 	updateLinks();
-	parent.location.href = "?q="+sCurConfig+"&action=createShorturl2";
+	parent.location.href = "action.php?q="+sCurConfig+"&action=createShorturl2";
 }
 function tweetURL()
 {
 	updateLinks();
-	window.open("?q="+sCurConfig+"&action=createShorturlTwitter");
+	window.open("action.php?q="+sCurConfig+"&action=createShorturlTwitter");
 }
 function entryMyList()
 {
 	var mylistNameStr = "";
-	mylistNameStr = window.prompt("このキャラクター設定に名前を設定してください。","無題");
+	mylistNameStr = window.prompt("Please input list name.","My Character");
 	if (mylistNameStr) {
 		updateLinks();
-		window.open("?q="+sCurConfig+"&action=addMyList&name="+encodeURI(mylistNameStr), "mylistif");
+		window.open("mylist.php?q="+sCurConfig+"&action=addMyList&name="+encodeURI(mylistNameStr), "mylistif");
 		myListBlock.style.display = "block";
 	}
 }
 function entryMyList2()
 {
 	var mylistNameStr = "";
-	mylistNameStr = window.prompt("このキャラクター設定に名前を設定してください。","無題");
+	mylistNameStr = window.prompt("Please input list name.","My Character");
 	if (mylistNameStr) {
 		updateLinks();
 		var script = csScript();
@@ -6527,7 +6527,7 @@ var sAnimationArray = new Array(
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:42.
+// rebuild 2013-02-20 14:21:45.
 
 
 /* ../data/ja/Giant_common/EyeEmotion.js */
@@ -6662,7 +6662,7 @@ var sEyeEmotionArray = new Array(
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:42.
+// rebuild 2013-02-20 14:21:45.
 
 
 /* ../data/ja/Giant_common/MouthEmotion.js */
@@ -6714,7 +6714,7 @@ var sMouthEmotionArray = new Array(
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:43.
+// rebuild 2013-02-20 14:21:45.
 
 
 /* ../data/ja/Giant_common/Reaction.js */
@@ -6858,7 +6858,7 @@ var sHairColorArray = new Array(
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:43.
+// rebuild 2013-02-20 14:21:45.
 
 
 /* ../data/ja/Giant_common/SkinColor.js */
@@ -7024,7 +7024,7 @@ var sShieldArray = new Array(
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:43.
+// rebuild 2013-02-20 14:21:46.
 
 
 /* ../data/ja/Giant_common/Weapon.js */
@@ -7220,11 +7220,11 @@ var sWeaponArray = new Array(
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:43.
+// rebuild 2013-02-20 14:21:46.
 
 
 
-// merge 2013-01-17 18:45:43.
+// merge 2013-02-20 14:21:46.
 
 /* ./data/ja/Giant_male/_Parts.js */
 /* mergefile */
@@ -7256,7 +7256,7 @@ var sFaceArray = new Array(
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:41.
+// rebuild 2013-02-20 14:21:44.
 
 
 /* ../data/ja/Giant_male/Hair.js */
@@ -7377,11 +7377,11 @@ var sHairArray = new Array(
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:41.
+// rebuild 2013-02-20 14:21:44.
 
 
 
-// merge 2013-01-17 18:45:41.
+// merge 2013-02-20 14:21:44.
 
 /* ./data/ja/Giant_male/_Equips.js */
 /* mergefile */
@@ -7393,218 +7393,15 @@ var sHairArray = new Array(
 
 /* ../data/ja/Giant_male/Body.js */
 var sBodyArray = new Array(
-	new Array(1,"NhqFjQbP48KPRlJNJQaPpHbQL5LMX1bMR4b;MAmN","s:mI","s:mI",""), //0
-	new Array(1,"NhqFjQbP48KP;lJNHk6PoDrQhRLMT33AXtaMR4b;MAmN","s:mI","s:mI",""), //1
-	new Array(1,"NhqFjQbP48KP9lJNzvaQYCXQ;2qLcrmQ8FKP","s:mI","s:mI",""), //2
-	new Array(1,"NhqFjQbP48KPTlJNDdKNVQ7OzvaQVCXQ;2qLcrmQ8FKP","s:mI","s:mI",""), //3
-	new Array(1,"NdqNjQbP48KPPlJN9RLNzvaQVCXQ;2qLcrmQ8FKP","s:mI","s:mI",""), //4
-	new Array(1,"NdqNjQbP48KPMlJNI86PQAHN;2qLMoGP8FKP","s:mI","89GH",""), //5
-	new Array(1,"NdqNjQbP48KPAlJNr;aQboqPZ5LM85rPevJAq2rQbv6Q","sCmQ","sCmQ",""), //6
-	new Array(1,"NdqNjQbP48KP:lJNP5LN35LNi23Abv6Q","s:mI","s:mI",""), //7
-	new Array(1,"NdqNjQbP48KP:lJNP5LN35LNiC3Abv6Q","s:mI","s:mI",""), //8
-	new Array(1,"NdqNjQbP48KP:lJNP5LN35LNi:3Abv6Q","s:mI","s:mI",""), //9
-	new Array(1,"NdqNjQbP48KP:lJNP5LN35LNiK3Abv6Q","s:mI","s:mI",""), //10
-	new Array(1,"NdqNjQbPBJLNjQbPq;qQz;6RoPaQR4b;MAmN","s:mI","s:mI",""), //11
-	new Array(1,"NdqNjQbPBJLNjQbPq;qQz;6RZxaMMpGN8FKP","s:mI","s:mI",""), //12
-	new Array(1,"NdqNjQbPBJLNjQbPq;qQz;6RR5rN6oKNbv6Q","s:mI","s:mI",""), //13
-	new Array(1,"NdqNjQbPBJLNjQbPq;qQz;6RYOKSLk6PR4b;MAmN","s:mI","s:mI",""), //14
-	new Array(1,"NdqNjQbPBJLNjQbPq;qQz;6Rif6QcomO8FKP","s:mI","s:mI",""), //15
-	new Array(1,"NhqFjQbP48KP9lJNzvaQVCXQ;2qLcrmQ8FKP","sCmQ","sCmQ",""), //16
-	new Array(1,"NhqFjQbP48KP;lJNic6Ou9KMOkKPT33AX1bMR4b;MAmN","sCmQ","sCmQ",""), //17
-	new Array(1,"NhqFjQbP48KP9lJNzvaQXCXQ;2qLcrmQ8FKP","sCmQ","sCmQ",""), //18
-	new Array(1,"NdqNjQbP48KP4lJNQ9KNmM6O18KPIB3P;2qLcrmQ8FKP","sCmQ","sCmQ",""), //19
-	new Array(1,"NhqFjQbP48KP2lJNj36QJQbPcSrQmvZAq2rQbv6Q","sCmQ","sCmQ",""), //20
-	new Array(1,"NdqNjQbP48KP4lJNQ9KN25LNX1KMMQLNevJAq2rQbv6Q","sCmQ","sCmQ",""), //21
-	new Array(1,"NdqNjQbP48KPYlJNRjLR3fbQAf7ROAHNI2qLEo2P8FKP","092H","092H",""), //22
-	new Array(1,"NhqFjQbP48KPAlJNOMrPIM6PT33AXtaMR4b;MAmN","8BGP","sCmQ",""), //23
-	new Array(1,"NhqFjQbP48KPGlJNBRKNVCXQJ2qLMoGP8FKP","89GH","89GH",""), //24
-	new Array(1,"NhqFjQbP48KP3lJNR4rPw1JMhyKST33AwxaMR4b;MAmN","092H","092H",""), //25
-	new Array(1,"NhqFjQbP48KPMlJNxPaQZMLOTD3AxxaMR4b;MAmN","092H","89GH",""), //26
-	new Array(1,"NdqNjQbP48KPTlJNARKNjoKOT33AwxaMR4b;MAmN","0B2P","0B2P",""), //27
-	new Array(1,"NhqFjQbP48KP;lJNzRLMO9KNT33AwxaMR4b;MAmN","0B2P","0B2P",""), //28
-	new Array(1,"NdqNjQbP48KPOlJNe5KMsRLOevJACx6Pbv6Q","0B2P","0B2P",""), //29
-	new Array(1,"NdqNjQbP48KP;lJNRUqPT33AX1bMR4b;MAmN","sCmQ","sCmQ",""), //30
-	new Array(1,"NhqFjQbP48KPPlJN5vKRr5LNZ77QRcKPNBHP;2qLcrmQ8FKP","sCmQ","sCmQ",""), //31
-	new Array(1,"NdqNjQbP48KP6lJN:FLNsNKOGvZB61LPbv6Q","8BGP","sCmQ",""), //32
-	new Array(1,"NhqFjQbP48KP2lJNdBLM2QaPP1LNT33AwxaMR4b;MAmN","0B2P","0B2P",""), //33
-	new Array(1,"NhqFjQbP48KPPlJNJfqRT33AX1bMR4b;MAmN","sCmQ","sCmQ",""), //34
-	new Array(1,"NhqFjQbP48KPPlJNJfqRTD3AX1bMR4b;MAmN","sCmQ","sCmQ",""), //35
-	new Array(1,"NhqFjQbP48KPPlJNJfqRT;3AX1bMR4b;MAmN","sCmQ","sCmQ",""), //36
-	new Array(1,"NhqFjQbP48KP3lJNR4rPhFLMs4LMevJACt6Pbv6Q","0B2P","8BGP",""), //37
-	new Array(1,"NdqNjQbP48KPelJN2dKNjoKOR8rHU:aQevJACx6Pbv6Q","0B2P","0B2P",""), //38
-	new Array(1,"NdqNjQbP48KP5lJNYBLMNAHN;2qLEo2P8FKP","sCmQ","0B2P",""), //39
-	new Array(1,"NhqFjQbP48KPPlJNwpKMtAHMI2qLEo2P8FKP","0B2P","0B2P",""), //40
-	new Array(1,"NdqNjQbP48KPTlJNwoKOM4LNevJAC17Pbv6Q","0B2P","sCmQ",""), //41
-	new Array(1,"NhqFjQbP48KPPkJNDTaQZ77QRcKP:kJPCt6Pbv6Q","0B2P","8BGP",""), //42
-	new Array(1,"NdqNjQbP48KP9lJN486PCd6NT33Aw1bMR4b;MAmN","sCmQ","0B2P",""), //43
-	new Array(1,"NdqNjQbP48KP2lJNj36QJQbPcSrQuvpACx6Pbv6Q","0B2P","0B2P",""), //44
-	new Array(1,"NhqFjQbP48KPDlJNU1KMkAHMTP3AxxaMR4b;MAmN","0B2P","8BGP",""), //45
-	new Array(1,"NdqNjQbP48KP;lJNqvpAT36QonqQ5d6NVCXQR4b;MAmN","0B2P","0B2P",""), //46
-	new Array(1,"NdqNjQbP48KP2lJNdBLM2QaPP1LNTT3AwxaMR4b;MAmN","0B2P","0B2P",""), //47
-	new Array(1,"NdqNjQbP48KPPlJNJfqRTL3AX1bMR4b;MAmN","sCmQ","sCmQ",""), //48
-	new Array(1,"NdqNjQbP48KP;lJNfvpAO9KNO4qPM4LNmvZA61LPbv6Q","8BGP","sCmQ",""), //49
-	new Array(1,"NdqNjQbP48KP;lJNtvpA806P1tKNcSrQevJA6tKPbv6Q","8BGP","8BGP",""), //50
-	new Array(1,"NdqNjQbP48KPAlJNr;aQ8pqPevJAq2rQbv6Q","sCmQ","sCmQ",""), //51
-	new Array(1,"NdqNjQbP48KP;lJNfvpAO9KNO4qPM4LNevJA61LPbv6Q","8BGP","sCmQ",""), //52
-	new Array(1,"NdqNjQbP48KP;lJNfvpAO9KNO4qPM4LNuvpAq2rQbv6Q","sCmQ","sCmQ",""), //53
-	new Array(1,"NdqNjQbP48KP;lJNfvpAO9KNO4qPM4LN2v5Bq2rQbv6Q","sCmQ","sCmQ",""), //54
-	new Array(1,"NhqFjQbP48KP9lJN8k6PtAHM;2qLcrmQ8FKP","sCmQ","sCmQ",""), //55
-	new Array(1,"NdqNjQbP48KP;lJNfvpA5vKR;5LNIk6PlB3O;2qLcrmQ8FKP","sCmQ","sCmQ",""), //56
-	new Array(1,"NdqNjQbP48KPPlJNoMqO7RLN1BXPJ2qLMoGP8FKP","8BGP","8BGP",""), //57
-	new Array(1,"NdqNjQbP48KP;lJNzvpAEQrPAk6PtBHOJ2qLcrmQ8FKP","8BGP","sCmQ",""), //58
-	new Array(1,"NdqNjQbP48KP;lJNzvpAEQrPAk6PuBHO;2qLcrmQ8FKP","s:mI","s:mI",""), //59
-	new Array(1,"NdqNjQbP48KP;lJNzvpAEQrPAk6PvBHOJ2qLcrmQ8FKP","8BGP","sCmQ",""), //60
-	new Array(1,"NdqNjQbP48KP;lJNzvpAEQrPAk6PwBHOI2qLEo2P8FKP","0B2P","0B2P",""), //61
-	new Array(1,"NdqNjQbP48KP;lJNzvpAEQrPAk6PxBHOI2qLEo2P8FKP","0B2P","0B2P",""), //62
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQ6N6NPpKNMAHN;2qLcrmQ8FKP","sCmQ","sCmQ",""), //63
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQ6N6NPpKNNAHN;2qLcrmQ8FKP","sCmQ","sCmQ",""), //64
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQ6N6NPpKNOAHN;2qLcrmQ8FKP","sCmQ","sCmQ",""), //65
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQtvqQciqQWv5Aq2rQbv6Q","sCmQ","sCmQ",""), //66
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQtvqQciqQevJAq2rQbv6Q","sCmQ","sCmQ",""), //67
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQtvqQciqQmvZAq2rQbv6Q","sCmQ","sCmQ",""), //68
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQhlqMJQbPUCXQ;2qLcrmQ8FKP","sCmQ","sCmQ",""), //69
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQhlqMJQbPVCXQ;2qLcrmQ8FKP","sCmQ","sCmQ",""), //70
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQhlqMJQbPWCXQ;2qLcrmQ8FKP","sCmQ","sCmQ",""), //71
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQKfqR9t6NEx6PWv5Aq2rQbv6Q","sCmQ","sCmQ",""), //72
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQKfqR9t6NEx6PevJAq2rQbv6Q","sCmQ","sCmQ",""), //73
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQKfqR9t6NEx6PmvZAq2rQbv6Q","sCmQ","sCmQ",""), //74
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQD8KPRMbPT73AX1bMR4b;MAmN","sCmQ","sCmQ",""), //75
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQD8KPRMbPT33AX1bMR4b;MAmN","sCmQ","sCmQ",""), //76
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQD8KPRMbPTD3AX1bMR4b;MAmN","sCmQ","sCmQ",""), //77
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQplqMY9aMQ8KPxTrQUCXQ;2qLcrmQ8FKP","sCmQ","sCmQ",""), //78
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQplqMY9aMQ8KPxTrQVCXQ;2qLcrmQ8FKP","sCmQ","sCmQ",""), //79
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQplqMY9aMQ8KPxTrQWCXQ;2qLcrmQ8FKP","sCmQ","sCmQ",""), //80
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQy;aQJNqNvRLMGP6RT73AX1bMR4b;MAmN","sCmQ","sCmQ",""), //81
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQy;aQJNqNvRLMGP6RT33AX1bMR4b;MAmN","sCmQ","sCmQ",""), //82
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQy;aQJNqNvRLMGP6RTD3AX1bMR4b;MAmN","sCmQ","sCmQ",""), //83
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQD8KPV0KOcMqMWv5Aq2rQbv6Q","sCmQ","sCmQ",""), //84
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQD8KPV0KOcMqMevJAq2rQbv6Q","sCmQ","sCmQ",""), //85
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQD8KPV0KOcMqMmvZAq2rQbv6Q","sCmQ","sCmQ",""), //86
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQD8KPi0KOh4LOT73AX1bMR4b;MAmN","sCmQ","sCmQ",""), //87
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQD8KPi0KOh4LOT33AX1bMR4b;MAmN","sCmQ","sCmQ",""), //88
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQD8KPi0KOh4LOTD3AX1bMR4b;MAmN","sCmQ","sCmQ",""), //89
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQD8KPY0KOUEKO9r6R0FaPWv5Aq2rQbv6Q","sCmQ","sCmQ",""), //90
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQD8KPY0KOUEKO9r6R0FaPevJAq2rQbv6Q","sCmQ","sCmQ",""), //91
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQD8KPY0KOUEKO9r6R0FaPmvZAq2rQbv6Q","sCmQ","sCmQ",""), //92
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQNPqR0OaRWv5Aq2rQbv6Q","sCmQ","sCmQ",""), //93
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQNPqR0OaRevJAq2rQbv6Q","sCmQ","sCmQ",""), //94
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQNPqR0OaRmvZAq2rQbv6Q","sCmQ","sCmQ",""), //95
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQlxaMfVqMQcKPkB3O;2qLcrmQ8FKP","sCmQ","sCmQ",""), //96
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQlxaMfVqMQcKPlB3O;2qLcrmQ8FKP","sCmQ","sCmQ",""), //97
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQlxaMfVqMQcKPmB3O;2qLcrmQ8FKP","sCmQ","sCmQ",""), //98
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQ3daNic6O8AnN;2qLcrmQ8FKP","sCmQ","sCmQ",""), //99
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQ3daNic6O9AnN;2qLcrmQ8FKP","sCmQ","sCmQ",""), //100
-	new Array(1,"NhqFjQbP48KPwlJNVlKM7TrQ3daNic6O:AnN;2qLcrmQ8FKP","sCmQ","sCmQ",""), //101
-	new Array(1,"HP6R7n5Ra8KOBn5RhxKMBOqLFsKPrxqMzj6RX1bMR4b;MAmN","s:mI","s:mI",""), //102
-	new Array(1,"HP6R7n5Ra8KOBn5RhxKMBOqLFsKPrxqMzj6Rx1bMR4b;MAmN","s:mI","89GH",""), //103
-	new Array(1,"HP6R7n5Ra8KOBn5RhxKMBOqLFsKPrxqMzj6Rw1bMR4b;MAmN","s:mI","092H",""), //104
-	new Array(1,"HP6R7n5Ra8KOBn5RhxKMBOqLFsKPrxqMzj6RXtaMR4b;MAmN","89GH","s:mI",""), //105
-	new Array(1,"HP6R7n5Ra8KOBn5RhxKMBOqLFsKPrxqMzj6RxtaMR4b;MAmN","89GH","89GH",""), //106
-	new Array(1,"HP6R7n5Ra8KOBn5RhxKMBOqLFsKPrxqMzj6RwtaMR4b;MAmN","89GH","092H",""), //107
-	new Array(1,"HP6R7n5Ra8KOBn5RhxKMBOqLFsKPrxqMzj6RXxaMR4b;MAmN","092H","s:mI",""), //108
-	new Array(1,"HP6R7n5Ra8KOBn5RhxKMBOqLFsKPrxqMzj6RxxaMR4b;MAmN","092H","89GH",""), //109
-	new Array(1,"HP6R7n5Ra8KOBn5RhxKMBOqLFsKPrxqMzj6RwxaMR4b;MAmN","092H","092H",""), //110
-	new Array(1,"NhqFjQbP48KPzlJNvpKMFC3RI2qLMoGP8FKP","092H","89GH",""), //111
-	new Array(1,"NdqNjQbP48KPDlJNU1KMlAHMT33A2laN48KPmlZMCt6Pbv6Q","0B2P","8BGP",""), //112
-	new Array(1,"NdqNjQbP48KPDlJNU1KMlAHMT33A2laN48KPelJMCt6Pbv6Q","0B2P","8BGP",""), //113
-	new Array(1,"z75JAMKPL8KONdqNjQbP68KP9;nLJ2qLMoGP8FKP","8BGP","8BGP",""), //114
-	new Array(1,"NdqNjQbP48KP;lJNrvpAMSLRevJA6tKPbv6Q","8BGP","8BGP",""), //115
-	new Array(1,"NdqNjQbP48KP;lJNrvpAMSLRmvZAq2rQbv6Q","sCmQ","sCmQ",""), //116
-	new Array(1,"NdqNjQbP48KP;lJNrvpAMSLR2v5B61LPbv6Q","8BGP","sCmQ",""), //117
-	new Array(1,"NdqNjQbP48KP;lJNLRLMZ5LM85rPevJAq2rQbv6Q","sCmQ","sCmQ",""), //118
-	new Array(1,"NhqFjQbP48KP5lJNvRLM17LRT33AX1bMR4b;MAmN","sCmQ","sCmQ",""), //119
-	new Array(1,"NdqNjQbP48KPRlJNw;qQjpKM9BnP;2qLcrmQ8FKP","sCmQ","sCmQ",""), //120
-	new Array(1,"NhqFjQbP48KPRkJNzj6RZ77QRcKP:kJPCt6Pbv6Q","0B2P","8BGP",""), //121
-	new Array(1,"NdqNjQbPDAbO48KP;lJNAoqPQ1LNTT3Ax1bMR4b;MAmN","sCmQ","sCmQ",""), //122
-	new Array(1,"NdqNjQbP48KPDlJNU1KMlAHMTP3AX1bMR4b;MAmN","sCmQ","sCmQ",""), //123
-	new Array(1,"NdqNjQbP48KPQlJNbrqRlHrQNBHP;2qLcrmQ8FKP","sCmQ","sCmQ",""), //124
-	new Array(1,"NdqNjQbP48KPQlJNbrqRlHrQOBHP;2qLcrmQ8FKP","sCmQ","sCmQ",""), //125
-	new Array(1,"NdqNjQbP48KP;lJNrvpAMSLRuvpA61LPbv6Q","8BGP","sCmQ",""), //126
-	new Array(1,"NdqNjQbP48KP;lJNrvpAMSLRGvZBq2rQbv6Q","sCmQ","sCmQ",""), //127
-	new Array(1,"NdqNjQbP48KP2lJNXn5QAoqPQ1LNTP3AX1bMR4b;MAmN","sCmQ","sCmQ",""), //128
-	new Array(1,"NdqNjQbP48KPDlJNU1KMlAHML3HAw1bMR4b;MAmN","sCmQ","sCmQ",""), //129
-	new Array(1,"z75Jz36RNdqNjQbPflqMBP7R5lJNLpKMT33AxtaMR4b;MAmN","8BGP","8BGP",""), //130
-	new Array(1,"NhqFjQbP48KP;lJNjvpAwoKOM4LNevJA6tKPbv6Q","8BGP","8BGP",""), //131
-	new Array(1,"NdqNjQbP48KP;lJNeupAt63AZ5LM85rPevJAq2rQbv6Q","sCmQ","sCmQ",""), //132
-	new Array(1,"NdqNjQbP48KP;lJNevpANcrPA86PxhqMPcKPFC3RJ2qLcrmQ8FKP","8BGP","sCmQ",""), //133
-	new Array(1,"NdqNjQbP48KP;lJNcvpAyfaQCf6R9AnN;2qLcrmQ8FKP","sCmQ","sCmQ",""), //134
-	new Array(1,"NdqNjQbP48KP;lJNeupAk23AFjqR4P6RddLMI2qLcrmQ8FKP","0B2P","sCmQ",""), //135
-	new Array(1,"NdqNjQbP48KPPlJNi86OylJMmvZAq2rQbv6Q","sCmQ","sCmQ",""), //136
-	new Array(1,"NdqNjQbP48KPPlJNi86OwlJMNEqPI2qLEo2P8FKP","0B2P","0B2P",""), //137
-	new Array(1,"NhqFjQbP48KP;lJNAoqPQ1LNU6XAeuJC6tKPbv6Q","8BGP","8BGP",""), //138
-	new Array(1,"NdqNjQbP48KPPlJN;fqRdCnQ;2qLcrmQ8FKP","sCmQ","sCmQ",""), //139
-	new Array(1,"NdqNjQbP48KPPlJN5vKR;5LNIk6PmB3O;2qLEo2P8FKP","sCmQ","0B2P",""), //140
-	new Array(1,"NdqNjQbP48KP;lJNAoqPQ1LNU6XAYuJCUEKOG;6ROkKPT33AX1bMR4b;MAmN","sCmQ","sCmQ",""), //141
-	new Array(1,"NdqNjQbP48KP;lJN;v5BLcaPVQ7OzvaQVCXQI2qLcrmQ8FKP","0B2P","sCmQ",""), //142
-	new Array(1,"NdqNjQbP48KP;lJN6v5B4zKRZ5LM85rPmvZAC17Pbv6Q","0B2P","sCmQ",""), //143
-	new Array(1,"NhqFjQbP48KP;lJNhv5BVFKMtdqM1BXPI2qLcrmQ8FKP","0B2P","sCmQ",""), //144
-	new Array(1,"NhqFjQbP48KP;lJNhv5B;5LNi86OFC3R;2qLcrmQ8FKP","sCmQ","sCmQ",""), //145
-	new Array(1,"NhqFjQbP48KP;lJNhv5B;5LNi86OGC3RI2qLcrmQ8FKP","0B2P","sCmQ",""), //146
-	new Array(1,"NhqFjQbP48KP;lJN2v5Bg5LMdCnQI2qLcrmQ8FKP","0B2P","sCmQ",""), //147
-	new Array(1,"NhqFjQbP48KP;lJN2v5Bg5LMeCnQ;2qLcrmQ8FKP","sCmQ","sCmQ",""), //148
-	new Array(1,"NdqNjQbP48KP;lJN1v5B806P1tKNcSrQevJAC17Pbv6Q","0B2P","sCmQ",""), //149
-	new Array(1,"NdqNjQbP48KP2lJNVn5Q806P1tKN7TrQhxKMWm5SqyqQbv6Q","sCmQ","0B2P",""), //150
-	new Array(1,"NdqNjQbP48KP2lJNVn5Q806P1tKN7TrQsxKMik6OunpQC17Pbv6Q","0B2P","sCmQ",""), //151
-	new Array(1,"NdqNjQbP48KPMlJNjwKOxfaQT33AXtaMR4b;MAmN","8BGP","sCmQ",""), //152
-	new Array(1,"NdqNjQbP48KPMlJNuRLMX0KOT33AXtaMR4b;MAmN","8BGP","sCmQ",""), //153
-	new Array(1,"NhqFjQbP48KP;lJNeupAk23AZ77QRcKPNBHP;2qLcrmQ8FKP","sCmQ","sCmQ",""), //154
-	new Array(1,"NdqNjQbP48KP;lJNEv5BxfaQZMLOI2qLcrmQ8FKP","0B2P","sCmQ",""), //155
-	new Array(1,"NdqNjQbP48KP;lJNLv5BjoKO18KP2k5Pq2rQbv6Q","sCmQ","sCmQ",""), //156
-	new Array(1,"NdqNjQbP7RnM157NKlqN:CqLOkKPI2qLcrmQ8FKP","0B2P","sCmQ",""), //157
-	new Array(1,"NdqNjQbP48KP;lJNGv5BRsqPT33Aw1bMR4b;MAmN","sCmQ","0B2P",""), //158
-	new Array(1,"NdqNjQbP48KP;lJNOv5BL4rPT33AX1bMR4b;MAmN","sCmQ","sCmQ",""), //159
-	new Array(1,"NdqNjQbP48KP;lJNiv5BUEKO1v6RDPaQXxaMR4b;MAmN","0B2P","sCmQ",""), //160
-	new Array(1,"NdqNjQbP48KPQlJNzdKMsoKMeuJCq2rQbv6Q","sCmQ","sCmQ",""), //161
-	new Array(1,"NdqNjQbP48KP;lJNAoqPQ1LNU6XAwuJCsdKMMcKNevJACt6Pbv6Q","092H","89GH",""), //162
-	new Array(1,"NdqNjQbP48KPOkJNl23ACSqLQpKNT33AwxaMR4b;MAmN","0B2P","0B2P",""), //163
-	new Array(1,"NhqFjQbP48KP;lJN3v5BC86Pn;aQrlqMGkZPV1LMulpMq2rQbv6Q","sCmQ","sCmQ",""), //164
-	new Array(1,"NhqFjQbP48KP;lJN3v5BC86P8laNLyqLboqPXxaMR4b;MAmN","0B2P","sCmQ",""), //165
-	new Array(1,"NdqNjQbP48KPOkJNk23AqlqMHP6R:n5RdBLM1BXPI2qLcrmQ8FKP","0B2P","sCmQ",""), //166
-	new Array(1,"z37Rz36RNdqNjQbPZ5LMb4rP68KP9;nL;2qLcrmQ8FKP","sCmQ","sCmQ",""), //167
-	new Array(1,"NdqNjQbP48KP;lJNic6Ob1KMJQbPeSrQt63A;2qLcrmQ8FKP","sCmQ","sCmQ",""), //168
-	new Array(1,"NdqNjQbP48KP;lJNGu5Bl23AU8aOgpKMXPaQunpQq2rQbv6Q","sCmQ","sCmQ",""), //169
-	new Array(1,"NdqNjQbP48KP;lJN;v5BR4rPzpKMO9KNT33AX1bMR4b;MAmN","sCmQ","sCmQ",""), //170
-	new Array(1,"","0B2P","0B2P",""), //171
-	new Array(1,"NdqNjQbP48KPOkJNl23AN2rLfoKOA8qPT33AXxaMko2O8FKP","0B2P","sCmQ","UB2O"), //172
-	new Array(1,"NdqNjQbP48KPOkJNl23ANGrL1ALPUOaQevJAC17Pbv6Q","0B2P","sCmQ",""), //173
-	new Array(1,"NdqNjQbP48KP9lJNMkaPdpKML:rLjD7QT33AX1bMR4b;MAmN","sCmQ","sCmQ",""), //174
-	new Array(1,"NdqNjQbP48KP;lJNGu5Bl23A8laN6kKPxTrQmnZQq2rQbv6Q","sCmQ","sCmQ",""), //175
-	new Array(1,"NdqNjQbP48KP;lJNBv5BDHKRM4LNevJAq2rQbv6Q","sCmQ","sCmQ",""), //176
-	new Array(1,"NdqNjQbP48KP;lJNrvpAMSLROvpBq2rQbv6Q","sCmQ","sCmQ",""), //177
-	new Array(1,"NdqNjQbP48KP;lJNrvpANSLRmvZAqyqQbv6Q","sCmQ","0B2P",""), //178
-	new Array(1,"NdqNjQbP48KPQlJNbrqRD8KPV0KOsoKMevJAC17Pbv6Q","0B2P","sCmQ",""), //179
-	new Array(1,"NdqNjQbP48KPPlJNrhqM8xqPevJAq2rQbv6Q","sCmQ","sCmQ",""), //180
-	new Array(1,"NdqNjQbP48KP;lJNGu5Bl23AKfqRGP6RT33AXxaMko2O8FKP","0B2P","sCmQ","UB2O"), //181
-	new Array(1,"NdqNjQbP48KP;lJNHv5BX;6QR1LNsRLOevJACx6Pbv6Q","0B2P","0B2P",""), //182
-	new Array(1,"NdqNjQbP48KP;lJNGu5Bm23AU8aOLpKMrxqMEi6RevJACx6Pbv6Q","0B2P","0B2P",""), //183
-	new Array(1,"NdqNjQbP48KP;lJNEv5BdZKMr8KPwxaMR4b;MAmN","0B2P","0B2P",""), //184
-	new Array(1,"NdqNjQbP48KP;lJNGu5Bm23ARArPH0bPjk6O2k5P6xKPbv6Q","8BGP","0B2P",""), //185
-	new Array(1,"NdqNjQbP48KP;lJNCv5BT36Q:QqPLpKMP9qNT86OX1bMR4b;MAmN","sCmQ","sCmQ",""), //186
-	new Array(1,"NdqNjQbP48KP;lJNKv5BnvZAg5LMonqQ5d6NYCXQI2qLcrmQ8FKP","0B2P","sCmQ",""), //187
-	new Array(1,"NdqNjQbP48KP;lJNKv5BnvZAg5LMonqQ5d6NXCXQI2qLcrmQ8FKP","0B2P","sCmQ",""), //188
-	new Array(1,"NdqNjQbP48KP;lJNKv5BnvZAg5LMonqQ5d6NVCXQI2qLcrmQ8FKP","0B2P","sCmQ",""), //189
-	new Array(1,"NdqNjQbP48KP;lJNKv5BnvZAg5LMonqQ5d6NWCXQI2qLcrmQ8FKP","0B2P","sCmQ",""), //190
-	new Array(1,"NdqNjQbP48KP;lJNGu5Bm23AU8aOLpKMP9qNk96OevJAC17Pbv6Q","0B2P","sCmQ",""), //191
-	new Array(1,"NdqNjQbP48KP;lJNLv5BdYLOlTaQzvaQmnZQ807PR4b;MAmN","0B2P","sCmQ","UB2O"), //192
-	new Array(1,"NdqNjQbP48KP;lJNBv5BV5LMRoqP5T7RmlZMC17Pbv6Q","0B2P","sCmQ",""), //193
-	new Array(1,"NhqFjQbP48KP;lJNBv5BV5LMRoqP5T7RbCqLw1bMR4b;MAmN","sCmQ","0B2P",""), //194
-	new Array(1,"NhqFjQbP48KP;lJNXv5BQpKN17LRboqPZ1LEb4rPX1bMR4b;MAmN","sCmQ","sCmQ",""), //195
-	new Array(1,"NdqNjQbP48KP;lJN4v5BX5LMloqOAhqN;2qLcrmQ8FKP","sCmQ","sCmQ",""), //196
-	new Array(1,"NdqNjQbP48KPOkJNm23AB:rL1UKPF4aP2n5R807PR4b;MAmN","0B2P","sCmQ","UB2O"), //197
-	new Array(1,"NdqNjQbP48KP;lJNGu5Bm23AU8aOgpKMXPaQdCnQI2qLcrmQ8FKP","0B2P","sCmQ",""), //198
-	new Array(1,"NdqNjQbP48KP;lJNGu5Bm23ApPrQOMKP::rL1tKNrvKRX1bMR4b;MAmN","sCmQ","sCmQ",""), //199
-	new Array(1,"NdqNjQbP48KP;lJNGu5Bm23AehqMw0LOP8KPJ2qLcrmQ8FKP","8BGP","sCmQ",""), //200
-	new Array(1,"NdqNjQbP48KP;lJN:v5Bhn5QxUKO2n5RqyqQbv6Q","sCmQ","0B2P",""), //201
-	new Array(1,"NdqNjQbP48KP;lJNGv5BrpKNXxaMR4b;MAmN","0B2P","sCmQ",""), //202
-	new Array(1,"NdqNjQbP48KP;lJN:v5Bmn5QQpKN;2qLEo2P8FKP","sCmQ","0B2P",""), //203
-	new Array(1,"NdqNjQbP48KP;lJN:v5Bmn5QwoKO;2qLEo2P8FKP","sCmQ","0B2P",""), //204
-	new Array(1,"NdqNjQbP48KP;lJN;v5BwdKMOkpPCx6Pbv6Q","0B2P","0B2P",""), //205
-	new Array(1,"NdqNjQbP48KP;lJN:v5Bfn5QwdKMbQrPw1bMR4b;MAmN","sCmQ","0B2P",""), //206
-
+    new Array(1,"NhqFjQbP48KPRlJNJQaPpHbQL5LMX1bMR4b;MAmN","s:mI","s:mI",""), //0
+    new Array(1,"NhqFjQbP48KP;lJNHk6PoDrQhRLMT33AXtaMR4b;MAmN","s:mI","s:mI",""), //1
+    %for i in body:
+	new Array(1,"{{i['fname']}}","{{i['t1']}}","{{i['t2']}}","{{i['t3']}}"),
+	%end
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:41.
+// rebuild 2013-02-20 14:21:44.
 
 
 /* ../data/ja/Giant_male/Foot.js */
@@ -7724,11 +7521,13 @@ var sFootArray = new Array(
 	new Array(1,"NdqNjQbP48KP;lJNGu5Bm23AehqMw0LOP8KP97rLkz2A8FKP","9"), //112
 	new Array(1,"NdqNjQbP48KP;lJNGv5BrpKNc:nQR4b;MAmN","9"), //113
 	new Array(1,"NdqNjQbP48KP;lJN;v5BwdKM;kpPi23Abv6Q","0"), //114
+	new Array(1,"NhqFjQbP48KP;lJN:v5BXn5QXM6OfkpOiC3Abv6Q","1"), //115
+	new Array(1,"NdqNjQbP48KP;lJNLu5B3j6Ric6OvlJMiK3Abv6Q","9"), //116
 
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:41.
+// rebuild 2013-02-20 14:21:44.
 
 
 /* ../data/ja/Giant_male/Hand.js */
@@ -7804,7 +7603,7 @@ var sHandArray = new Array(
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:41.
+// rebuild 2013-02-20 14:21:44.
 
 
 /* ../data/ja/Giant_male/Head.js */
@@ -7995,11 +7794,13 @@ var sHeadArray = new Array(
 	new Array(1,"NdqNjQbP1rKRA7qLF2rL4kZPbcrPlB3OR4b;MAmN","0"), //183
 	new Array(1,"NdqNjQbP48KP;lJN;v5BwdKMEkpPi23Abv6Q","0"), //184
 	new Array(1,"NdqNjQbP1rKRA7qLNaqLbQLOLOrLUmJSi23Abv6Q","0"), //185
+	new Array(1,"NhqFjQbP48KP;lJN:v5BXn5QXM6OkkpOi23Abv6Q","0"), //186
+	new Array(1,"NdqNjQbP48KP;lJNLu5B3j6Ric6OUlJMi23Abv6Q","0"), //187
 
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:41.
+// rebuild 2013-02-20 14:21:44.
 
 
 /* ../data/ja/Giant_male/Robe.js */
@@ -8045,11 +7846,11 @@ var sRobeArray = new Array(
 	new Array(0) //Footer
 );
 
-// rebuild 2013-01-17 18:45:41.
+// rebuild 2013-02-20 14:21:44.
 
 
 
-// merge 2013-01-17 18:45:41.
+// merge 2013-02-20 14:21:44.
 
 /* ./lib/simplepicker.js */
 
@@ -8223,7 +8024,7 @@ function finishLoading()
 var oldSearchStr = "";
 function search_timer()
 {
-	if (controller.searchText.value != '検索したい装備名など→ 例)ばなれん' && oldSearchStr != controller.searchText.value) {
+	if (controller.searchText.value != 'search example) Vanalen' && oldSearchStr != controller.searchText.value) {
 		oldSearchStr = controller.searchText.value;
 		runSearch();
 	}
@@ -8232,7 +8033,7 @@ function search_timer()
 //-->
 </script>
 
-<script type="text/javascript">
+<script type='text/javascript'>
 var googletag = googletag || {};
 googletag.cmd = googletag.cmd || [];
 (function() {
@@ -8247,7 +8048,7 @@ node.parentNode.insertBefore(gads, node);
 })();
 </script>
 
-<script type="text/javascript">
+<script type='text/javascript'>
 googletag.cmd.push(function() {
 googletag.defineSlot('/3563141/MCS2_Control_Bottom2', [336, 280], 'div-gpt-ad-1333659646944-0').addService(googletag.pubads());
 googletag.defineSlot('/3563141/MCS2_Control_Top', [234, 60], 'div-gpt-ad-1333659646944-1').addService(googletag.pubads());
@@ -8256,19 +8057,19 @@ googletag.enableServices();
 });
 </script>
 
-</head><style type="text/css"></style>
+</head>
 
-<body onload="init();" onclick="mouseUp(this);" style="padding : 0px;margin : 0px;">
+<body onLoad="init();" onClick="mouseUp(this);" style="padding : 0px;margin : 0px;">
 	
-<table style="height : 47px;" border="0" width="100%" cellpadding="0" cellspacing="0">
-  <tbody>
-    <tr>
-      <td width="168"><a href="http://labo.erinn.biz/cs/" target="_blank"><img src="titlem.png" border="0"></a></td>
-      <td style="background-image : url(./img/bgm.png);background-repeat : repeat-x;">&nbsp;</td>
-      <td width="75" align="right"><a href="http://labo.erinn.biz/" target="_blank"><img src="powm.png" border="0"></a></td>
-    </tr>
-  </tbody>
-</table>
+<TABLE style="height : 47px;" border="0" width="100%" cellpadding="0" cellspacing="0">
+  <TBODY>
+    <TR>
+      <TD width="168"><a href="http://labo.erinn.biz/cs/" target="_blank"><img src="titlem.png" border="0"></a></TD>
+      <TD style="background-image : url(bgm.png);background-repeat : repeat-x;">&nbsp;</TD>
+      <TD width="75" align="right"><a href="http://labo.erinn.biz/" target="_blank"><img src="powm.png" border="0"></a></TD>
+    </TR>
+  </TBODY>
+</TABLE>
 	
 <table border="0" cellpadding="0" cellspacing="0">
 <tbody>
@@ -8278,8 +8079,8 @@ googletag.enableServices();
 	<center>
 	<div style="padding:5px;">
 				<!-- MCS2_Control_Top -->
-		<div id="div-gpt-ad-1333659646944-1" style="width:234px; height:60px;">
-		<script type="text/javascript">
+		<div id='div-gpt-ad-1333659646944-1' style='width:234px; height:60px;'>
+		<script type='text/javascript'>
 		googletag.cmd.push(function() { googletag.display('div-gpt-ad-1333659646944-1'); });
 		</script>
 		</div>
@@ -8289,7 +8090,7 @@ googletag.enableServices();
 <!-- form table -->
 <div id="form">
 
-<span id="loading" class="loadingBox" style="display: none;">
+<span id="loading" class="loadingBox">
 <span id="loadingInnerBox" class="loadingInnerBox">
 Now Loading
 </span>
@@ -8302,43 +8103,43 @@ Now Loading
 <tr id="configBlock">
 <td class="controllerBlock" style="padding:2px;">
 
-<table border="0" cellpadding="0" cellspacing="1" style="line-height: 100%;">
-  <tbody>
-    <tr>
-      <td class="menu_but" onclick="reloadURL();" style="cursor:pointer;" onmouseover="this.style.backgroundImage=&#39;url(img/pbg.png)&#39;;" onmouseout="this.style.backgroundImage=&#39;url(img/pbg2.png)&#39;;">ページ更新</td>
-      <td class="menu_but" onclick="shortURL();" style="cursor:pointer;" onmouseover="this.style.backgroundImage=&#39;url(img/pbg.png)&#39;;" onmouseout="this.style.backgroundImage=&#39;url(img/pbg2.png)&#39;;">短縮URL</td>
-      <td class="menu_but" onclick="captureSnapshot();" style="cursor:pointer;" onmouseover="this.style.backgroundImage=&#39;url(img/pbg.png)&#39;;" onmouseout="this.style.backgroundImage=&#39;url(img/pbg2.png)&#39;;">画像撮影</td>
-            <td class="menu_but" onclick="window.open(&#39;?q=/1,1,1,2,FFFFFF/2,3/3,0.4,0.9,0.6,0.6/4,9C5D42,9/5,424563/6,110,11/7,7B2C10/8,4,0/9,00687F,08619F,E9B454/10,16/11,000000,000000,000000/12,42,0/13,516E7B,1F4C56,656C79/15,1676e1,3cc8d5,4a76a1/16,16/17,183532,4E7070,2A4F61/18,82,0/19,4AD7D1,5F6068,13609B/20,12,1/21,808080,D2BC95,707070/23,1676e1,3cc8d5,4a76a1/25,1676e1,3cc8d5,4a76a1/27,1676e1,3cc8d5,4a76a1/28,107,11/29,29/30,0/31,1904/32,12398,0&#39;, &#39;_top&#39;);" style="cursor:pointer;" onmouseover="this.style.backgroundImage=&#39;url(img/pbg.png)&#39;;" onmouseout="this.style.backgroundImage=&#39;url(img/pbg2.png)&#39;;">全て戻す</td>
-            <td class="menu_but" onclick="openNewWindow();" style="cursor:pointer;" onmouseover="this.style.backgroundImage=&#39;url(img/pbg.png)&#39;;" onmouseout="this.style.backgroundImage=&#39;url(img/pbg2.png)&#39;;">新規ウィンドウ</td>
-    </tr>
-  </tbody>
-</table>
+<TABLE border="0" cellpadding="0" cellspacing="1" style="line-height: 100%;">
+  <TBODY>
+    <TR>
+      <TD class="menu_but" onclick="reloadURL();" style="cursor:pointer;" onMouseover="this.style.backgroundImage='url(pbg.png)';" onMouseout="this.style.backgroundImage='url(pbg2.png)';">Reload</TD>
+      <TD class="menu_but" onclick="shortURL();" style="cursor:pointer;" onMouseover="this.style.backgroundImage='url(pbg.png)';" onMouseout="this.style.backgroundImage='url(pbg2.png)';">Make<br>ShortURL</TD>
+      <TD class="menu_but" onclick="captureSnapshot();" style="cursor:pointer;" onMouseover="this.style.backgroundImage='url(pbg.png)';" onMouseout="this.style.backgroundImage='url(pbg2.png)';">Capture<br>Image</TD>
+            <TD class="menu_but" onclick="window.open('?q=/1,1,1,2,FFFFFF/2,3/3,0.4,0.9,0.6,0.6/4,9C5D42,9/5,424563/6,110,11/7,7B2C10/8,4,0/9,00687F,08619F,E9B454/10,16/11,000000,000000,000000/12,42,0/13,516E7B,1F4C56,656C79/15,1676e1,3cc8d5,4a76a1/16,16/17,183532,4E7070,2A4F61/18,82,0/19,4AD7D1,5F6068,13609B/20,12,1/21,808080,D2BC95,707070/23,1676e1,3cc8d5,4a76a1/25,1676e1,3cc8d5,4a76a1/27,1676e1,3cc8d5,4a76a1/28,107,11/29,29/30,0/31,1904/32,12398,0', '_top');" style="cursor:pointer;" onMouseover="this.style.backgroundImage='url(pbg.png)';" onMouseout="this.style.backgroundImage='url(pbg2.png)';">Restore</TD>
+            <TD class="menu_but" onclick="openNewWindow();" style="cursor:pointer;" onMouseover="this.style.backgroundImage='url(pbg.png)';" onMouseout="this.style.backgroundImage='url(pbg2.png)';">NewWindow</TD>
+    </TR>
+  </TBODY>
+</TABLE>
 
 
 		<table class="scriptEditorFrame" style="width:100%;" border="0" cellpadding="0" cellspacing="0">
 			<tbody>
 				<tr>
 					<td class="secondaryControllerHeader">
-						<a href="javascript:void(0);" onclick="toggleScriptEditor();" id="scriptEditorController" class="secondaryControllerHeader">+ キャラクターコードの編集</a>
+						<a href="javascript:void(0);" onClick="toggleScriptEditor();" id="scriptEditorController" class="secondaryControllerHeader">+ Edir Avatar Script</a>
 					</td>
 				</tr>
 				<tr id="scriptEditorBlock" style="display:none;">
 					<td class="secondaryControllerBlock">
 						<span style="padding-left:0px;margin-left:2px;margin-bottom:3px;">
-<textarea id="excute_cmd" style="width:400px;height:300px;font-family:monotype;"></textarea><br>
+<textarea id="excute_cmd" style="width:400px;height:300px;font-family:monotype;"></textarea><br />
 
 <!--
-<input type="button" onclick="execute( document.getElementById('excute_cmd').value );" value="MCODE/Scriptから描画" />
+<input type="button" onclick="execute( document.getElementById('excute_cmd').value );" value="Draw MCODE/Script" />
 -->
 
 
-<input type="button" onclick="execute_mcode( document.getElementById(&#39;excute_cmd&#39;).value );" value="MCODE/Scriptから描画">
-<input type="button" onclick="encode_mcode( document.getElementById(&#39;excute_cmd&#39;).value );" value="MCODE &lt;=&gt; Script変換">
+<input type="button" onclick="execute_mcode( document.getElementById('excute_cmd').value );" value="Draw MCODE/Script" />
+<input type="button" onclick="encode_mcode( document.getElementById('excute_cmd').value );" value="MCODE <=> Script Encode" />
 
 <!--
-<input type="button" onclick="clipboardData.setData('TEXT',document.getElementById('excute_cmd').value);" value="コピー" />
+<input type="button" onclick="clipboardData.setData('TEXT',document.getElementById('excute_cmd').value);" value="Copy" />
 -->
-<input type="checkbox" name="append_cmd" id="append_cmd" style="display:none;"><!--追記実行-->
+<input type="checkbox" name="append_cmd" id="append_cmd" style="display:none;" /><!--Append Execute-->
 						</span>
 					</td>
 				</tr>
@@ -8350,29 +8151,29 @@ Now Loading
 <tr id="configBlock3">
 <td class="controllerBlock" style="padding:2px;">
 
-<table border="0" cellpadding="0" cellspacing="1" style="line-height: 100%;">
-  <tbody>
-    <tr>
-      <td class="menu_but" onclick="entryMyList2();" style="cursor:pointer;" onmouseover="this.style.backgroundImage=&#39;url(img/pbg.png)&#39;;" onmouseout="this.style.backgroundImage=&#39;url(img/pbg2.png)&#39;;">マイリスト<br>追加</td>
-      <td class="menu_but" onclick="entryPublicList();" style="cursor:pointer;" onmouseover="this.style.backgroundImage=&#39;url(img/pbg.png)&#39;;" onmouseout="this.style.backgroundImage=&#39;url(img/pbg2.png)&#39;;">コーデ<br>登録</td>
-      <td class="menu_but" onclick="tweetURL();" style="cursor:pointer;" onmouseover="this.style.backgroundImage=&#39;url(img/pbg.png)&#39;;" onmouseout="this.style.backgroundImage=&#39;url(img/pbg2.png)&#39;;">ツイートする</td>
-      <td class="menu_but" onclick="captureBlogparts();" style="cursor:pointer;" onmouseover="this.style.backgroundImage=&#39;url(img/pbg.png)&#39;;" onmouseout="this.style.backgroundImage=&#39;url(img/pbg2.png)&#39;;">ブログパーツ</td>
-      <td class="menu_but" onclick="captureDressroom();" style="cursor:pointer;" onmouseover="this.style.backgroundImage=&#39;url(img/pbg.png)&#39;;" onmouseout="this.style.backgroundImage=&#39;url(img/pbg2.png)&#39;;">ドレスルーム<br>追加</td>
-    </tr>
-  </tbody>
-</table>
+<TABLE border="0" cellpadding="0" cellspacing="1" style="line-height: 100%;">
+  <TBODY>
+    <TR>
+      <TD class="menu_but" onclick="entryMyList2();" style="cursor:pointer;" onMouseover="this.style.backgroundImage='url(pbg.png)';" onMouseout="this.style.backgroundImage='url(pbg2.png)';">Add to<br>MyList</TD>
+      <TD class="menu_but" onclick="entryPublicList();" style="cursor:pointer;" onMouseover="this.style.backgroundImage='url(pbg.png)';" onMouseout="this.style.backgroundImage='url(pbg2.png)';">Add to<br>PublicList</TD>
+      <TD class="menu_but" onclick="tweetURL();" style="cursor:pointer;" onMouseover="this.style.backgroundImage='url(pbg.png)';" onMouseout="this.style.backgroundImage='url(pbg2.png)';">Tweet</TD>
+      <TD class="menu_but" onclick="captureBlogparts();" style="cursor:pointer;" onMouseover="this.style.backgroundImage='url(pbg.png)';" onMouseout="this.style.backgroundImage='url(pbg2.png)';">Make<br>Blogparts</TD>
+      <TD class="menu_but" onclick="captureDressroom();" style="cursor:pointer;" onMouseover="this.style.backgroundImage='url(pbg.png)';" onMouseout="this.style.backgroundImage='url(pbg2.png)';">Add to<br>Dressroom</TD>
+    </TR>
+  </TBODY>
+</TABLE>
 
 <div style="padding-bottom:3px;">
 		<table class="myList2Frame" style="width:100%;" border="0" cellpadding="0" cellspacing="0">
 			<tbody>
 				<tr>
 					<td class="secondaryControllerHeader">
-						<a href="javascript:void(0);" onclick="toggleMyList2();" id="myList2Controller" class="secondaryControllerHeader">+ kukuluIDマイリスト</a>
+						<a href="javascript:void(0);" onClick="toggleMyList2();" id="myList2Controller" class="secondaryControllerHeader">+ kukuluID MyList</a>
 					</td>
 				</tr>
 				<tr id="myList2Block" style="display:none;">
 					<td class="secondaryControllerBlock">
-					<iframe name="mylist2if" id="mylist2ifid" frameborder="0" scrolling="AUTO" src="about:blank" width="412" height="500"></iframe>
+					<IFRAME name="mylist2if" id="mylist2ifid" frameborder="0" scrolling="AUTO" src="about:blank" width="412" height="500"></IFRAME>
 					</td>
 				</tr>
 			</tbody>
@@ -8390,23 +8191,23 @@ Now Loading
 	<tbody>
 	<tr>
 	<td>
-		<span class="controllerHeader">性別／種族:</span><br>
-		<select name="csFramework" onchange="changeFramework()">
-		<option value="0" style="background-color : #fed8d9;">人間・エルフ／女の子</option>
-		<option value="1" style="background-color : #b5e3fd;">人間・エルフ／男の子</option>
+		<span class="controllerHeader">Sex/Race:</span><br>
+		<select name="csFramework" onChange="changeFramework()">
+		<option value="0" style="background-color : #fed8d9;">Human, Elf / Girl</option>
+		<option value="1" style="background-color : #b5e3fd;">Human, Elf / Boy</option>
 		
-		<option value="2" style="background-color : #fed8d9;">ジャイアント／女の子</option>
-		<option value="3" style="background-color : #b5e3fd;">ジャイアント／男の子</option>
+		<option value="2" style="background-color : #fed8d9;">Giant / Girl</option>
+		<option value="3" style="background-color : #b5e3fd;">Giant / Boy</option>
 		
-		<option value="4" style="background-color : #ffffff;">精霊・ワンド／女の子</option>
-		<option value="5" style="background-color : #ffffff;">精霊・剣／女の子</option>
-		<option value="6" style="background-color : #ffffff;">精霊・弓／女の子</option>
-		<option value="7" style="background-color : #ffffff;">精霊・鈍器／女の子</option>
+		<option value="4" style="background-color : #ffffff;">Ego, Wand / Girl</option>
+		<option value="5" style="background-color : #ffffff;">Ego, Sword / Girl</option>
+		<option value="6" style="background-color : #ffffff;">Ego, Bow / Girl</option>
+		<option value="7" style="background-color : #ffffff;">Ego, Blunt / Girl</option>
 		
-		<option value="8" style="background-color : #ffffff;">精霊・ワンド／男の子</option>
-		<option value="9" style="background-color : #ffffff;">精霊・剣／男の子</option>
-		<option value="10" style="background-color : #ffffff;">精霊・弓／男の子</option>
-		<option value="11" style="background-color : #ffffff;">精霊・鈍器／男の子</option>
+		<option value="8" style="background-color : #ffffff;">Ego, Wand / Boy</option>
+		<option value="9" style="background-color : #ffffff;">Ego, Sword / Boy</option>
+		<option value="10" style="background-color : #ffffff;">Ego, Bow / Boy</option>
+		<option value="11" style="background-color : #ffffff;">Ego, Blunt / Boy</option>
 			
 						<option value="100" style="background-color : #ffffff;">ナオ</option>
 								<option value="101" style="background-color : #ffffff;">ナオ (シェイクスピア服)</option>
@@ -8464,13 +8265,13 @@ Now Loading
 		<td width="1"></td>
 	
 	<td>
-				<span class="controllerHeader">アバターサイズ:</span><br>
-		<select name="csSize" onchange="updateCSConfig()">
-		<option value="0">小さい (0.5X)</option>
-		<option value="1">普通 (0.8X)</option>
-		<option value="2">大きい (1X)</option>
-		<option value="3">巨大 (1.2X)</option>
-		<option value="4">超巨大 (1.5X)</option>
+				<span class="controllerHeader">Avatar Size:</span><br>
+		<select name="csSize" onChange="updateCSConfig()">
+		<option value="0">Small (0.5X)</option>
+		<option value="1">Normal (0.8X)</option>
+		<option value="2">Big (1X)</option>
+		<option value="3">Very Big (1.2X)</option>
+		<option value="4">Ultra Big (1.5X)</option>
 		</select>
 			</td>
 	
@@ -8478,10 +8279,10 @@ Now Loading
 	
 	<td width="3"></td>
 	<td>
-		<span class="controllerHeader">背景色:</span><br>
-		<span class="colorPaletteMini" id="bgPalette" onclick="dyeColor(this);changeBgColorByPalette( );" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;" title="FFFFFF"><img src="sp.gif"></span>
+		<span class="controllerHeader">Background Color:</span><br>
+		<span class="colorPaletteMini" id="bgPalette" onClick="dyeColor(this);changeBgColorByPalette( );" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 		<input type="text" value="ffffff" size="6" name="bgColor">
-		<a class="controllerLink" href="javascript:void(0);" onclick="changeBgColorCustom(bgColor.value);">&nbsp;染色</a>
+		<a class="controllerLink" href="javascript:void(0);" onClick="changeBgColorCustom(bgColor.value);">&nbsp;Dye</a>
 	</td>
 	</tr>
 	</tbody>
@@ -8491,1149 +8292,1149 @@ Now Loading
 
 
 <tr>
-<td class="controllerTitle">
-<a href="javascript:void(0);" onclick="toggleCharacterController();" id="characterController" class="configLink">+ キャラ</a>
+<td class="controllerTitle" >
+<a href="javascript:void(0);" onClick="toggleCharacterController();" id="characterController" class="configLink">+ Character</a>
 </td>
 </tr>
-<tr id="animationBlock">
+<tr id="animationBlock" >
 <td class="controllerBlock">
 <table class="animationControllerFrame" border="0" cellpadding="0" cellspacing="0">
 <tbody>
 <tr>
 <td>
-	<span class="controllerHeader">モーション:</span><br>
+	<span class="controllerHeader">Motion:</span><br>
 
-<select name="animationMenu" onchange="changeAnimation(this.value)">
-<option value="127">male::natural::stand</option>
-<option value="681">1act3ch::romio::juliet::first::dancing(juliet)</option> 
-<option value="682">1act3ch::romio::juliet::first::dancing(romio)</option> 
-<option value="683">1act4ch::player::block</option> 
-<option value="684">1act4ch::player::block02</option> 
-<option value="685">1act4ch::player::blocking</option> 
-<option value="686">1act4ch::player::blocktostand</option> 
-<option value="687">1act5ch::player::talk01</option> 
-<option value="688">1act5ch::player::talk02</option> 
-<option value="689">3act2ch::player::talk01</option> 
-<option value="690">4act1ch::siren::pickup</option> 
-<option value="691">alchemists::stand::friendly</option> 
-<option value="692">alchemists::stand::idle01</option> 
-<option value="693">alchemy::readingbook</option> 
-<option value="694">attack::01</option> 
-<option value="695">attack::02</option> 
-<option value="696">attack::03</option> 
-<option value="697">avon::hamlet::sword::01::ani</option> 
-<option value="698">ax::axing</option> 
-<option value="699">bird::riding::01::blowaway::endure</option> 
-<option value="700">bird::riding::01::groggy</option> 
-<option value="701">bird::riding::01::natural::hita</option> 
-<option value="702">bird::riding::01::natural::hitb</option> 
-<option value="703">bird::riding::natural::01::fly::landing</option> 
-<option value="704">bird::riding::natural::01::fly::run</option> 
-<option value="705">bird::riding::natural::01::fly::stand::friendly</option> 
-<option value="706">bird::riding::natural::01::fly::takeoff</option> 
-<option value="707">bird::riding::natural::01::mount</option> 
-<option value="708">bird::riding::natural::01::run</option> 
-<option value="709">bird::riding::natural::01::stand::friendly</option> 
-<option value="710">bird::riding::natural::01::stand::offensive</option> 
-<option value="711">bird::riding::natural::01::walk</option> 
-<option value="712">blowaway</option> 
-<option value="713">blowaway::body</option> 
-<option value="714">blowaway::endure</option> 
-<option value="715">blowaway::ground</option> 
-<option value="716">blowaway::turn</option> 
-<option value="717">brionacsword</option> 
-<option value="718">brionacsword::ending</option> 
-<option value="719">broom::riding::natural::01::dismount</option> 
-<option value="720">broom::riding::natural::01::endure</option> 
-<option value="721">broom::riding::natural::01::fly::run</option> 
-<option value="722">broom::riding::natural::01::fly::stand::friendly</option> 
-<option value="723">broom::riding::natural::01::groggy</option> 
-<option value="724">broom::riding::natural::01::hita</option> 
-<option value="725">broom::riding::natural::01::hitb</option> 
-<option value="726">broom::riding::natural::01::mount</option> 
-<option value="730">carpet01::fly::dismount</option> 
-<option value="731">carpet01::fly::endure</option> 
-<option value="732">carpet01::fly::groggy</option> 
-<option value="733">carpet01::fly::hita</option> 
-<option value="734">carpet01::fly::hitb</option> 
-<option value="735">carpet01::fly::landing</option> 
-<option value="736">carpet01::fly::mount</option> 
-<option value="737">carpet01::fly::run</option> 
-<option value="738">carpet01::fly::standfriendly</option> 
-<option value="739">carpet01::fly::takeoff</option> 
-<option value="740">carpet01::fly::walk</option> 
-<option value="741">combat::counter</option> 
-<option value="742">combat::guard</option> 
-<option value="743">combat::smash::01</option> 
-<option value="744">combat::windmill::standing</option> 
-<option value="745">crystal::rudolf::fly::run</option> 
-<option value="746">crystal::rudolf::fly::stand::friendly</option> 
-<option value="747">crystal::rudolf::lading</option> 
-<option value="748">crystal::rudolf::take::off</option> 
-<option value="749">curtain::call01</option> 
-<option value="750">cutscene::loss</option> 
-<option value="751">cymbals</option> 
-<option value="752">cymbals::natural::stand::friendly</option> 
-<option value="753">cymbals::run</option> 
-<option value="754">cymbals::stand::friendly</option> 
-<option value="755">cymbals::walk</option> 
-<option value="756">dartgame::throw</option> 
-<option value="757">dartgame::wait</option> 
-<option value="758">dash::attack</option> 
-<option value="759">dash::run</option> 
-<option value="760">demigod::trans</option> 
-<option value="761">demi::lightspear::casting</option> 
-<option value="762">demi::lightspear::processing</option> 
-<option value="763">demi::lightstorm</option> 
-<option value="764">dice01</option> 
-<option value="765">dice02</option> 
-<option value="766">dice::box01</option> 
-<option value="767">dice::box02</option> 
-<option value="768">dice::box::loop</option> 
-<option value="769">dice::loop</option> 
-<option value="770">dogsled::run</option> 
-<option value="771">dogsled::stand</option> 
-<option value="772">downattack</option> 
-<option value="773">downb</option> 
-<option value="774">downb::hit</option> 
-<option value="775">downb::to::stand</option> 
-<option value="776">draw</option> 
-<option value="777">drum::low</option> 
-<option value="778">drum::low::stand::friendly</option> 
-<option value="779">drum::small</option> 
-<option value="780">drum::small::stand::friendly</option> 
-<option value="781">edo::skill::casting</option> 
-<option value="782">edo::skill::processing</option> 
-<option value="783">egosword::l</option> 
-<option value="784">egosword::r</option> 
-<option value="785">emotion::painful</option> 
-<option value="786">emotion::skill::fail::short</option> 
-<option value="787">emotion::skill::success</option> 
-<option value="788">evasion</option> 
-<option value="789">farm::indicate</option> 
-<option value="790">farm::paint::mix</option> 
-<option value="791">fashion::mistake</option> 
-<option value="792">fashion::walk</option> 
-<option value="793">alchemists::stand::friendly</option> 
-<option value="794">alchemists::stand::idle01</option> 
-<option value="795">alchemy::readingbook</option> 
-<option value="796">attack::01</option> 
-<option value="797">attack::02</option> 
-<option value="798">attack::03</option> 
-<option value="799">ax::axing</option> 
-<option value="800">balloon::boat::03::stand::friendly</option> 
-<option value="801">blowaway</option> 
-<option value="802">blowaway::body</option> 
-<option value="803">blowaway::endure</option> 
-<option value="804">blowaway::ground</option> 
-<option value="805">blowaway::turn</option> 
-<option value="806">brionacsword</option> 
-<option value="807">brionacsword::ending</option> 
-<option value="808">combat::counter</option> 
-<option value="809">combat::guard</option> 
-<option value="810">combat::smash::01</option> 
-<option value="811">curtain::call01</option> 
-<option value="812">curtain::call02</option> 
-<option value="813">cymbals</option> 
-<option value="814">cymbals::natural::stand::friendly</option> 
-<option value="815">cymbals::run</option> 
-<option value="816">cymbals::stand::friendly</option> 
-<option value="817">cymbals::walk</option> 
-<option value="818">dartgame::throw</option> 
-<option value="819">dartgame::wait</option> 
-<option value="820">dash::attack</option> 
-<option value="821">dash::run</option> 
-<option value="822">demigod::trans</option> 
-<option value="823">demi::lightspear::casting</option> 
-<option value="824">demi::lightspear::processing</option> 
-<option value="825">demi::lightstorm</option> 
-<option value="826">dice01</option> 
-<option value="827">dice02</option> 
-<option value="828">dice::box01</option> 
-<option value="829">dice::box02</option> 
-<option value="830">dice::box::loop</option> 
-<option value="831">dice::loop</option> 
-<option value="832">dogsled::run</option> 
-<option value="833">dogsled::stand</option> 
-<option value="834">downattack</option> 
-<option value="835">downb</option> 
-<option value="836">downb::hit</option> 
-<option value="837">downb::to::stand</option> 
-<option value="838">dragonhorn</option> 
-<option value="839">draw</option> 
-<option value="840">drum::low</option> 
-<option value="841">drum::low::stand::friendly</option> 
-<option value="842">drum::small</option> 
-<option value="843">drum::small::stand::friendly</option> 
-<option value="844">egosword::l</option> 
-<option value="845">egosword::r</option> 
-<option value="846">emotion::painful</option> 
-<option value="847">evasion</option> 
-<option value="848">fashion::mistake</option> 
-<option value="849">fashion::walk</option> 
-<option value="850">g2::ruairi::bendhisknees</option> 
-<option value="851">groggy</option> 
-<option value="852">gypsy::stand::friendly</option> 
-<option value="853">hammer::hammering</option> 
-<option value="854">hammer::wait</option> 
-<option value="855">handbell</option> 
-<option value="856">handbell::stand::friendly</option> 
-<option value="857">hand::d01::natural::walk</option> 
-<option value="858">hand::e01::natural::stand::01</option> 
-<option value="859">hand::h01::natural::walk</option> 
-<option value="860">hand::t01::natural::walk</option> 
-<option value="861">hita</option> 
-<option value="862">hitb</option> 
-<option value="863">icemine</option> 
-<option value="864">icemine::loop</option> 
-<option value="865">insect</option> 
-<option value="866">jousthorse::attack01::damage</option> 
-<option value="867">jousthorse::attack01::normal</option> 
-<option value="868">jousthorse::attack02::damage</option> 
-<option value="869">jousthorse::attack02::normal</option> 
-<option value="870">jousthorse::attack03::damage</option> 
-<option value="871">jousthorse::attack03::normal</option> 
-<option value="872">jousthorse::attack04::damage</option> 
-<option value="873">jousthorse::attack04::normal</option> 
-<option value="874">jousthorse::damage</option> 
-<option value="875">jousthorse::mount</option> 
-<option value="876">jousthorse::standfriendly</option> 
-<option value="877">jousthorse::turn</option> 
-<option value="878">jousthorse::win</option> 
-<option value="879">knight::stand::friendly</option> 
-<option value="880">levelup</option> 
-<option value="881">magic::casting::friendly</option> 
-<option value="882">magic::casting::offensive</option> 
-<option value="883">magic::healing::processing::tome</option> 
-<option value="884">magic::healing::processing::topc</option> 
-<option value="885">magic::processing::topc::offensive</option> 
-<option value="886">manure</option> 
-<option value="887">merchant::stand::friendly</option> 
-<option value="888">miniballoon::flying</option> 
-<option value="889">miniballoon::flying02</option> 
-<option value="890">natural::emotion::angry</option> 
-<option value="891">natural::emotion::assault(a01)</option> 
-<option value="892">natural::emotion::assault(t01)</option> 
-<option value="893">natural::emotion::assault</option> 
-<option value="894">natural::emotion::body</option> 
-<option value="895">natural::emotion::cheer</option> 
-<option value="896">natural::emotion::clothes</option> 
-<option value="897">natural::emotion::cry</option> 
-<option value="898">natural::emotion::curtsey</option> 
-<option value="899">natural::emotion::dance::typea</option> 
-<option value="900">natural::emotion::dance::typeb</option> 
-<option value="901">natural::emotion::dance::typec</option> 
-<option value="902">natural::emotion::dance::typed</option> 
-<option value="903">natural::emotion::discourage</option> 
-<option value="904">natural::emotion::followme</option> 
-<option value="905">natural::emotion::get01</option> 
-<option value="906">natural::emotion::get02</option> 
-<option value="907">natural::emotion::get03</option> 
-<option value="908">natural::emotion::greeting</option> 
-<option value="909">natural::emotion::handclap</option> 
-<option value="910">natural::emotion::hungry</option> 
-<option value="911">natural::emotion::laugh</option> 
-<option value="912">natural::emotion::me</option> 
-<option value="913">natural::emotion::music</option> 
-<option value="914">natural::emotion::musicend</option> 
-<option value="915">natural::emotion::musicstart</option> 
-<option value="916">natural::emotion::no</option> 
-<option value="917">natural::emotion::play</option> 
-<option value="918">natural::emotion::please</option> 
-<option value="919">natural::emotion::question</option> 
-<option value="920">natural::emotion::rude</option> 
-<option value="921">natural::emotion::rude01</option> 
-<option value="922">natural::emotion::salute</option> 
-<option value="923">natural::emotion::skill::fail::short</option> 
-<option value="924">natural::emotion::skill::success</option> 
-<option value="925">natural::emotion::smell</option> 
-<option value="926">natural::emotion::surprise</option> 
-<option value="927">natural::emotion::toy</option> 
-<option value="928">natural::emotion::yes!</option> 
-<option value="929">natural::emotion::yes</option> 
-<option value="930">natural::emotion::yes::for::cutscene</option> 
-<option value="931">natural::gathering::eggs</option> 
-<option value="932">natural::gathering::water::fromstream</option> 
-<option value="933">natural::gathering::water::fromwell</option> 
-<option value="934">natural::gathering::water::tree</option> 
-<option value="935">natural::handycraft</option> 
-<option value="936">natural::l::sit::rowing</option> 
-<option value="937">natural::magic::processing::topc::offensive::sprite</option> 
-<option value="938">natural::magic::shield</option> 
-<option value="939">natural::preparing::market</option> 
-<option value="940">natural::r::sit::rowing</option> 
-<option value="941">natural::sit::01</option> 
-<option value="942">natural::sit::01::a01</option> 
-<option value="943">natural::sit::01::d01</option> 
-<option value="944">natural::sit::01::h01</option> 
-<option value="945">natural::sit::01::t</option> 
-<option value="946">natural::sit::01::to::widestraight</option> 
-<option value="947">natural::sit::01::to::widestraight::a01</option> 
-<option value="948">natural::sit::01::to::widestraight::d01</option> 
-<option value="949">natural::sit::01::to::widestraight::e01</option> 
-<option value="950">natural::sit::01::to::widestraight::h01</option> 
-<option value="951">natural::sit::01::to::widestraight::t</option> 
-<option value="952">natural::sit::02</option> 
-<option value="953">natural::sit::02::a01</option> 
-<option value="954">natural::sit::02::t</option> 
-<option value="955">natural::sit::02::to::widestraight</option> 
-<option value="956">natural::sit::02::to::widestraight::02::e01</option> 
-<option value="957">natural::sit::02::to::widestraight::02::h01</option> 
-<option value="958">natural::sit::02::to::widestraight::a01</option> 
-<option value="959">natural::sit::02::to::widestraight::d01</option> 
-<option value="960">natural::sit::02::to::widestraight::t</option> 
-<option value="961">natural::sit::03</option> 
-<option value="962">natural::sit::03::to::widestraight</option> 
-<option value="963">natural::sit::05</option> 
-<option value="964">natural::sit::05::to::widestraight</option> 
-<option value="965">natural::sit::chair::01::g</option> 
-<option value="966">natural::sit::chair::01::to::widestraight::g</option> 
-<option value="967">natural::sit::chair::02</option> 
-<option value="968">natural::sit::chair::02::to::widestraight</option> 
-<option value="969">natural::sit::chair::03</option> 
-<option value="970">natural::sit::chair::03::to::widestraight</option> 
-<option value="971">natural::sit::moon</option> 
-<option value="972">natural::stand::01</option> 
-<option value="973">natural::stand::02</option> 
-<option value="974">natural::stand::03</option> 
-<option value="975">natural::stand::04</option> 
-<option value="976">natural::widestraight::to::sit::01</option> 
-<option value="977">natural::widestraight::to::sit::01::a01</option> 
-<option value="978">natural::widestraight::to::sit::01::d01</option> 
-<option value="979">natural::widestraight::to::sit::01::e01</option> 
-<option value="980">natural::widestraight::to::sit::01::h01</option> 
-<option value="981">natural::widestraight::to::sit::01::t</option> 
-<option value="982">natural::widestraight::to::sit::02</option> 
-<option value="983">natural::widestraight::to::sit::02::a01</option> 
-<option value="984">natural::widestraight::to::sit::02::e01</option> 
-<option value="985">natural::widestraight::to::sit::02::h01</option> 
-<option value="986">natural::widestraight::to::sit::02::t</option> 
-<option value="987">natural::widestraight::to::sit::03</option> 
-<option value="988">natural::widestraight::to::sit::05</option> 
-<option value="989">natural::widestraight::to::sit::chair::01::g</option> 
-<option value="990">natural::widestraight::to::sit::chair::02</option> 
-<option value="991">natural::widestraight::to::sit::chair::03</option> 
-<option value="992">natural::windmill::standing</option> 
-<option value="993">npc::weddingdressrent</option> 
-<option value="994">npc::weddingdressrent::talk</option> 
-<option value="995">paperairplane</option> 
-<option value="996">plane</option> 
-<option value="997">puppet::onehand::greeting</option> 
-<option value="998">puppet::onehand::horse::riding::natural::01::stand::friendly</option> 
-<option value="999">puppet::onehand::horse::riding::natural::02::stand::friendly</option> 
-<option value="1000">puppet::onehand::laugh</option> 
-<option value="1001">puppet::onehand::sit</option> 
-<option value="1002">puppet::onehand::sit::to::widestraight</option> 
-<option value="1003">puppet::onehand::stand::friendly</option> 
-<option value="1004">puppet::onehand::widestraight::to::sit</option> 
-<option value="1005">puppet::twohand::greeting</option> 
-<option value="1006">puppet::twohand::horse::riding::natural::01::stand::friendly</option> 
-<option value="1007">puppet::twohand::horse::riding::natural::02::stand::friendly</option> 
-<option value="1008">puppet::twohand::laugh</option> 
-<option value="1009">puppet::twohand::sit</option> 
-<option value="1010">puppet::twohand::sit::to::widestraight</option> 
-<option value="1011">puppet::twohand::stand::friendly</option> 
-<option value="1012">puppet::twohand::widestraight::to::sit</option> 
-<option value="1013">rowing</option> 
-<option value="1014">royalalchemist::stand::friendly</option> 
-<option value="1015">run::12</option> 
-<option value="1016">run::offensive</option> 
-<option value="1017">seesaw::end</option> 
-<option value="1018">seesaw::end::fist</option> 
-<option value="1019">seesaw::jumploop</option> 
-<option value="1020">seesaw::jumploop::fist</option> 
-<option value="1021">seesaw::prepare</option> 
-<option value="1022">seesaw::prepare::fist</option> 
-<option value="1023">sit::chair::01</option> 
-<option value="1024">sit::chair::01::to::widestraight</option> 
-<option value="1025">sit::eat</option> 
-<option value="1026">stand::friendly::01</option> 
-<option value="1027">stand::friendly::02</option> 
-<option value="1028">stand::friendly::l::sit::rowing</option> 
-<option value="1029">stand::friendly::rowing</option> 
-<option value="1030">stand::friendly::r::sit::rowing</option> 
-<option value="1031">stand::offensive</option> 
-<option value="1032">stomp::action</option> 
-<option value="1033">stomp::ready</option> 
-<option value="1034">taunt</option> 
-<option value="1035">throw::cast</option> 
-<option value="1036">throw::pick</option> 
-<option value="1037">throw::waiting</option> 
-<option value="1038">tool::ballista::01::aim</option> 
-<option value="1039">tool::ballista::01::charge</option> 
-<option value="1040">tool::ballista::01::shoot</option> 
-<option value="1041">tool::ballista::01::stand::friendly</option> 
-<option value="1042">tool::bhand::e01::attack::02::sprite</option> 
-<option value="1043">tool::bhand::e01::fishing::catching</option> 
-<option value="1044">tool::bhand::e01::fishing::catching::failure</option> 
-<option value="1045">tool::bhand::e01::fishing::throwing::float</option> 
-<option value="1046">tool::bhand::e01::fishing::waiting::01</option> 
-<option value="1047">tool::bhand::e01::fishing::waiting::02::female</option> 
-<option value="1048">tool::bhand::m02::playing::ppilili</option> 
-<option value="1049">tool::bhand::m02::playing::ppilili::walk</option> 
-<option value="1050">tool::bhand::m02::stand::friendly</option> 
-<option value="1051">tool::bhand::m08::playing::sousaphone</option> 
-<option value="1052">tool::bhand::m08::stand::friendly</option> 
-<option value="1053">tool::bhand::st::draw::backl</option> 
-<option value="1054">tool::bhand::st::magic::healing::processing::tome</option> 
-<option value="1055">tool::bhand::st::magic::healing::processing::topc</option> 
-<option value="1056">tool::bhand::st::stand::friendly</option> 
-<option value="1057">tool::bhand::z01::run::friendly</option> 
-<option value="1058">tool::bhand::z01::run::offensive</option> 
-<option value="1059">tool::bhand::z01::stand::friendly</option> 
-<option value="1060">tool::bhand::z01::stand::offensive</option> 
-<option value="1061">tool::bhand::z01::walk::friendly</option> 
-<option value="1062">tool::bhand::z01::walk::offensive</option> 
-<option value="1063">tool::bhand::z02::run::friendly</option> 
-<option value="1064">tool::bhand::z02::stand::friendly</option> 
-<option value="1065">tool::bhand::z02::walk::friendly</option> 
-<option value="1066">tool::bhand::z03::sit::chair::01::raisehand</option> 
-<option value="1067">tool::bhand::z03::sit::raisehand</option> 
-<option value="1068">tool::bhand::z03::stand::raisehand</option> 
-<option value="1069">tool::bhand::z04::run::friendly</option> 
-<option value="1070">tool::bhand::z04::stand::friendly</option> 
-<option value="1071">tool::bhand::z04::stand::offensive</option> 
-<option value="1072">tool::bhand::z04::using::lrod</option> 
-<option value="1073">tool::bhand::z04::walk::friendly</option> 
-<option value="1074">tool::bhand::z05::run::friendly</option> 
-<option value="1075">tool::bhand::z05::stand::friendly</option> 
-<option value="1076">tool::bhand::z05::walk::friendly</option> 
-<option value="1077">tool::cuttinggrape</option> 
-<option value="1078">tool::hand::a01::attack::01</option> 
-<option value="1079">tool::hand::a01::attack::02</option> 
-<option value="1080">tool::hand::a01::attack::03</option> 
-<option value="1081">tool::hand::a01::combat::counter</option> 
-<option value="1082">tool::hand::a01::combat::smash</option> 
-<option value="1083">tool::hand::a01::combat::windmill::standing</option> 
-<option value="1084">tool::hand::a01::draw</option> 
-<option value="1085">tool::hand::a01::magic::casting::friendly</option> 
-<option value="1086">tool::hand::a01::magic::casting::offensive</option> 
-<option value="1087">tool::hand::a01::magic::healing::processing::tome</option> 
-<option value="1088">tool::hand::a01::magic::healing::processing::topc</option> 
-<option value="1089">tool::hand::a01::magic::processing::topc::offensive</option> 
-<option value="1090">tool::hand::a01::natural::run</option> 
-<option value="1091">tool::hand::a01::natural::walk</option> 
-<option value="1092">tool::hand::a01::offensive::run</option> 
-<option value="1093">tool::hand::a01::offensive::walk</option> 
-<option value="1094">tool::hand::a01::stand::offensive</option> 
-<option value="1095">tool::hand::a01::taunt</option> 
-<option value="1104">tool::hand::a03::magic::casting::friendly</option> 
-<option value="1105">tool::hand::a03::magic::casting::offensive</option> 
-<option value="1106">tool::hand::a03::magic::fireball::casting::friendly</option> 
-<option value="1107">tool::hand::a03::magic::fireball::casting::offensive</option> 
-<option value="1108">tool::hand::a03::magic::fireball::processing::topc::offensive</option> 
-<option value="1109">tool::hand::a03::magic::healing::processing::tome</option> 
-<option value="1110">tool::hand::a03::magic::healing::processing::topc</option> 
-<option value="1111">tool::hand::a03::magic::icespear::casting::friendly</option> 
-<option value="1112">tool::hand::a03::magic::icespear::casting::offensive</option> 
-<option value="1113">tool::hand::a03::magic::icespear::processing::topc::offensive</option> 
-<option value="1114">tool::hand::a03::magic::processing::topc::offensive</option> 
-<option value="1115">tool::hand::a03::magic::thunder::casting::friendly</option> 
-<option value="1116">tool::hand::a03::magic::thunder::casting::offensive</option> 
-<option value="1117">tool::hand::a03::magic::thunder::processing::topc::offensive</option> 
-<option value="1118">tool::hand::a05::magic::casting::friendly</option> 
-<option value="1119">tool::hand::a05::magic::casting::offensive</option> 
-<option value="1120">tool::hand::a05::magic::healing::processing::tome</option> 
-<option value="1121">tool::hand::a05::magic::healing::processing::topc</option> 
-<option value="1122">tool::hand::a05::magic::processing::topc::offensive</option> 
-<option value="1123">tool::hand::c01::attack::01</option> 
-<option value="1124">tool::hand::c01::attack::02</option> 
-<option value="1125">tool::hand::c01::attack::03</option> 
-<option value="1126">tool::hand::c01::combat::counter</option> 
-<option value="1127">tool::hand::c01::combat::smash</option> 
-<option value="1128">tool::hand::c01::draw</option> 
-<option value="1129">tool::hand::c01::stand::offensive</option> 
-<option value="1130">tool::hand::c02::attack::01</option> 
-<option value="1131">tool::hand::c02::attack::02</option> 
-<option value="1132">tool::hand::c02::attack::03</option> 
-<option value="1133">tool::hand::c02::combat::counter</option> 
-<option value="1134">tool::hand::c02::combat::smash</option> 
-<option value="1135">tool::hand::c02::draw</option> 
-<option value="1136">tool::hand::c02::stand::offensive</option> 
-<option value="1137">tool::hand::c21::attack::01</option> 
-<option value="1138">tool::hand::c21::attack::02</option> 
-<option value="1139">tool::hand::c21::attack::03</option> 
-<option value="1140">tool::hand::c21::combat::counter</option> 
-<option value="1141">tool::hand::c21::combat::smash</option> 
-<option value="1142">tool::hand::c21::stand::offensive</option> 
-<option value="1143">tool::hand::c22::attack::01</option> 
-<option value="1144">tool::hand::c22::attack::02</option> 
-<option value="1145">tool::hand::c22::attack::03</option> 
-<option value="1146">tool::hand::c22::combat::counter</option> 
-<option value="1147">tool::hand::c22::combat::smash</option> 
-<option value="1148">tool::hand::c22::stand::offensive</option> 
-<option value="1149">tool::hand::d01::attack01</option> 
-<option value="1150">tool::hand::d01::attack02</option> 
-<option value="1151">tool::hand::d01::attack03</option> 
-<option value="1152">tool::hand::d01::combat::counter</option> 
-<option value="1153">tool::hand::d01::combat::smash</option> 
-<option value="1154">tool::hand::d01::combat::windmill::standing</option> 
-<option value="1155">tool::hand::d01::draw</option> 
-<option value="1156">tool::hand::d01::natural::run</option> 
-<option value="1157">tool::hand::d01::offensive::run</option> 
-<option value="1158">tool::hand::d01::offensive::walk</option> 
-<option value="1159">tool::hand::d01::stand::offensive</option> 
-<option value="1160">tool::hand::d01::taunt</option> 
-<option value="1161">tool::hand::f01::attack::01</option> 
-<option value="1162">tool::hand::f01::attack::02</option> 
-<option value="1163">tool::hand::f01::attack::03</option> 
-<option value="1164">tool::hand::f01::combat::counter</option> 
-<option value="1165">tool::hand::f01::combat::smash</option> 
-<option value="1166">tool::hand::f01::draw</option> 
-<option value="1167">tool::hand::f01::stand::offensive</option> 
-<option value="1168">tool::hand::f02::attack::01</option> 
-<option value="1169">tool::hand::f02::attack::02</option> 
-<option value="1170">tool::hand::f02::attack::03</option> 
-<option value="1171">tool::hand::f02::combat::counter</option> 
-<option value="1172">tool::hand::f02::combat::smash</option> 
-<option value="1173">tool::hand::f02::stand::offensive</option> 
-<option value="1174">tool::hand::gold::mining</option> 
-<option value="1175">tool::hand::h01::attack01</option> 
-<option value="1176">tool::hand::h01::attack03</option> 
-<option value="1177">tool::hand::h01::combat::counter</option> 
-<option value="1178">tool::hand::h01::combat::smash</option> 
-<option value="1179">tool::hand::h01::combat::windmill::standing</option> 
-<option value="1180">tool::hand::h01::draw</option> 
-<option value="1181">tool::hand::h01::magic::casting::friendly</option> 
-<option value="1182">tool::hand::h01::magic::casting::offensive</option> 
-<option value="1183">tool::hand::h01::magic::healing::processing::tome</option> 
-<option value="1184">tool::hand::h01::magic::healing::processing::topc</option> 
-<option value="1185">tool::hand::h01::magic::processing::topc::offensive</option> 
-<option value="1186">tool::hand::h01::natural::run</option> 
-<option value="1187">tool::hand::h01::natural::stand::01</option> 
-<option value="1188">tool::hand::h01::offensive::run</option> 
-<option value="1189">tool::hand::h01::offensive::walk</option> 
-<option value="1190">tool::hand::h01::stand::offensive</option> 
-<option value="1191">tool::hand::h01::taunt</option> 
-<option value="1192">tool::hand::n01::attack01</option> 
-<option value="1193">tool::hand::n01::attack02</option> 
-<option value="1194">tool::hand::n01::attack03</option> 
-<option value="1195">tool::hand::n01::combat::counter</option> 
-<option value="1196">tool::hand::n01::combat::smash</option> 
-<option value="1197">tool::hand::s01::attack01</option> 
-<option value="1198">tool::hand::s01::magic::casting::friendly</option> 
-<option value="1199">tool::hand::s01::magic::casting::offensive</option> 
-<option value="1200">tool::hand::s01::magic::healing::processing::tome</option> 
-<option value="1201">tool::hand::s01::magic::healing::processing::topc</option> 
-<option value="1202">tool::hand::s01::magic::processing::topc::offensive</option> 
-<option value="1203">tool::hand::s01::natural::run</option> 
-<option value="1204">tool::hand::s01::natural::stand::01</option> 
-<option value="1205">tool::hand::s01::natural::walk</option> 
-<option value="1206">tool::hand::s01::offensive::walk</option> 
-<option value="1207">tool::hand::s01::shooting::range::01</option> 
-<option value="1208">tool::hand::s01::stand::offensive</option> 
-<option value="1209">tool::hand::t01::attack01</option> 
-<option value="1210">tool::hand::t01::attack03</option> 
-<option value="1211">tool::hand::t01::combat::counter</option> 
-<option value="1212">tool::hand::t01::combat::smash</option> 
-<option value="1213">tool::hand::t01::combat::windmill::standing</option> 
-<option value="1214">tool::hand::t01::draw</option> 
-<option value="1215">tool::hand::t01::magic::casting::friendly</option> 
-<option value="1216">tool::hand::t01::magic::casting::offensive</option> 
-<option value="1217">tool::hand::t01::magic::healing::processing::tome</option> 
-<option value="1218">tool::hand::t01::magic::healing::processing::topc</option> 
-<option value="1219">tool::hand::t01::magic::processing::topc::offensive</option> 
-<option value="1220">tool::hand::t01::natural::run</option> 
-<option value="1221">tool::hand::t01::natural::stand::01</option> 
-<option value="1222">tool::hand::t01::offensive::walk</option> 
-<option value="1223">tool::hand::t01::stand::offensive</option> 
-<option value="1224">tool::hand::t01::taunt</option>
-<option value="1244">tool::lhand::b02::attack::01</option> 
-<option value="1245">tool::lhand::b02::attack::02</option> 
-<option value="1246">tool::lhand::b02::attack::03</option> 
-<option value="1247">tool::lhand::b02::combat::counter</option> 
-<option value="1248">tool::lhand::b02::combat::smash</option> 
-<option value="1249">tool::lhand::b02::dash::attack</option> 
-<option value="1250">tool::lhand::b02::dash::run</option> 
-<option value="1251">tool::lhand::b02::guard</option> 
-<option value="1252">tool::lhand::b02::hit::a</option> 
-<option value="1253">tool::lhand::b02::hit::b</option> 
-<option value="1254">tool::lhand::b02::run::friendly</option> 
-<option value="1255">tool::lhand::b02::run::offensive</option> 
-<option value="1256">tool::lhand::b02::stand::friendly</option> 
-<option value="1257">tool::lhand::b02::stand::offensive</option> 
-<option value="1258">tool::lhand::b02::taunt</option> 
-<option value="1259">tool::lhand::b02::walk::friendly</option> 
-<option value="1260">tool::lhand::b02::walk::offensive</option> 
-<option value="1261">tool::lhand::b02::windbreaker::prepare</option> 
-<option value="1262">tool::lhand::b02::windbreaker::wait</option> 
-<option value="1263">tool::lhand::draw::back</option> 
-<option value="1281">tool::rhand::a03::bolt::combine::friendly::one::hand::casting</option> 
-<option value="1282">tool::rhand::a03::bolt::combine::offensive::one::hand::casting</option> 
-<option value="1283">tool::rhand::a03::bolt::combine::two::hand::casting</option> 
-<option value="1284">tool::rhand::a03::slash::casting</option> 
-<option value="1285">tool::rhand::a03::slash::processing</option> 
-<option value="1286">tool::tequip::c01::cooking::01</option> 
-<option value="1287">tool::tequip::c01::cooking::02</option> 
-<option value="1288">tool::tequip::c01::cooking::03</option> 
-<option value="1289">tool::tequip::c01::cooking::04</option> 
-<option value="1290">tool::tequip::c01::magic::casting::friendly</option> 
-<option value="1291">tool::tequip::c01::magic::casting::offensive</option> 
-<option value="1292">tool::tequip::c01::magic::healing::processing::tome</option> 
-<option value="1293">tool::tequip::c01::magic::healing::processing::topc</option> 
-<option value="1294">tool::tequip::c01::magic::processing::topc::offensive</option> 
-<option value="1295">tool::tequip::c99::magic::casting::friendly</option> 
-<option value="1296">tool::tequip::c99::magic::casting::offensive</option> 
-<option value="1297">tool::tequip::c99::magic::healing::processing::tome</option> 
-<option value="1298">tool::tequip::c99::magic::healing::processing::topc</option> 
-<option value="1299">tool::tequip::c99::magic::processing::topc::offensive</option> 
-<option value="1300">tool::tequip::draw::fab01</option> 
-<option value="1301">tool::turret::draw</option> 
-<option value="1302">tool::turret::explosion</option> 
-<option value="1303">tool::turret::friendly</option> 
-<option value="1304">tool::turret::hita</option> 
-<option value="1305">tool::turret::install</option> 
-<option value="1306">tool::turret::install02</option> 
-<option value="1307">tool::turret::offensive</option> 
-<option value="1308">tool::turret::shoot</option> 
-<option value="1309">tool::turret::shoot::ready</option> 
-<option value="1310">tool::turret::uninstall</option> 
-<option value="1311">topiary</option> 
-<option value="1312">walk::12</option> 
-<option value="1313">walk::offensive</option> 
-<option value="1314">wateringpot</option> 
-<option value="1315">watermelon</option> 
-<option value="1316">wedding::flower::walk</option> 
-<option value="1317">wedding::mutual::bowing</option> 
-<option value="1318">wedding::walk</option> 
-<option value="1319">widestraight::to::sit::chair::01</option> 
-<option value="1320">wizard::stand::friendly</option> 
-<option value="1321">handbell</option> 
-<option value="1322">handbell::stand::friendly</option> 
-<option value="1323">hita</option> 
-<option value="1324">hitb</option> 
-<option value="1325">hug01</option> 
-<option value="1326">icemine</option> 
-<option value="1327">icemine::loop</option> 
-<option value="1328">insect</option> 
-<option value="1329">knight::changejobs01</option> 
-<option value="1330">knight::stand::friendly</option> 
-<option value="1331">knight::stand::idle01</option> 
-<option value="1332">levelup</option> 
-<option value="1333">magic::casting::friendly</option> 
-<option value="1334">magic::casting::offensive</option> 
-<option value="1335">magic::healing::processing::tome</option> 
-<option value="1336">magic::healing::processing::topc</option> 
-<option value="1337">magic::processing::topc::offensive</option> 
-<option value="1338">balloon::boat::03::stand::friendly</option> 
-<option value="1339">curtain::call01</option> 
-<option value="1340">curtain::call02</option> 
-<option value="1341">natural::emotion::angry</option> 
-<option value="1342">natural::emotion::assault(a01)</option> 
-<option value="1343">natural::emotion::assault(t01)</option> 
-<option value="1344">natural::emotion::assault</option> 
-<option value="1345">natural::emotion::cheer</option> 
-<option value="1346">natural::emotion::clothes</option> 
-<option value="1347">natural::emotion::cry</option> 
-<option value="1348">natural::emotion::discourage</option> 
-<option value="1349">natural::emotion::flex</option> 
-<option value="1350">natural::emotion::followme</option> 
-<option value="1354">natural::emotion::greeting</option> 
-<option value="1355">natural::emotion::handclap</option> 
-<option value="1356">natural::emotion::hungry</option> 
-<option value="1357">natural::emotion::laugh</option> 
-<option value="1358">natural::emotion::me</option> 
-<option value="1359">natural::emotion::music</option> 
-<option value="1360">natural::emotion::no</option> 
-<option value="1361">natural::emotion::play</option> 
-<option value="1362">natural::emotion::please</option> 
-<option value="1363">natural::emotion::question</option> 
-<option value="1364">natural::emotion::rude</option> 
-<option value="1365">natural::emotion::smell</option> 
-<option value="1366">natural::emotion::surprise</option> 
-<option value="1367">natural::emotion::toy</option> 
-<option value="1368">natural::emotion::yes!</option> 
-<option value="1369">natural::emotion::yes</option> 
-<option value="1370">skill::magicbubble::drop</option> 
-<option value="1371">skill::magicbubble::landing</option> 
-<option value="1372">skill::magicbubble::stay</option> 
-<option value="1377">wedding::mutual::bowing</option> 
-<option value="1378">manure</option> 
-<option value="1379">merchant::stand::friendly</option> 
-<option value="1380">merchant::stand::idle01</option> 
-<option value="1381">miniballoon::flying</option> 
-<option value="1382">miniballoon::flying02</option> 
-<option value="1407">natural::emotion::curtsey</option> 
-<option value="1409">natural::emotion::dance::typea</option> 
-<option value="1410">natural::emotion::dance::typeb</option> 
-<option value="1411">natural::emotion::dance::typec</option> 
-<option value="1412">natural::emotion::dance::typed</option> 
-<option value="1444">natural::gathering::eggs</option> 
-<option value="1445">natural::gathering::herb</option> 
-<option value="1446">natural::gathering::water::fromstream</option> 
-<option value="1447">natural::gathering::water::fromwell</option> 
-<option value="1448">natural::gathering::water::tree</option> 
-<option value="1451">natural::handycraft</option> 
-<option value="1487">natural::sit::moon</option> 
-<option value="1488">natural::stand::01</option> 
-<option value="1489">natural::stand::02</option> 
-<option value="1490">natural::stand::03</option> 
-<option value="1491">natural::stand::04</option> 
-<option value="1515">ninja::alterego::casting</option> 
-<option value="1516">ninja::alterego::processing</option> 
-<option value="1517">paperairplane</option> 
-<option value="1518">plane</option> 
-<option value="1519">player::sword::get01</option> 
-<option value="1520">player::sword::get02</option> 
-<option value="1521">play::king::talk01</option> 
-<option value="1522">play::king::talk02</option> 
-<option value="1523">play::king::talk03</option> 
-<option value="1524">preparing::market</option> 
-<option value="1525">puppet::onehand::greeting</option> 
-<option value="1528">puppet::onehand::laugh</option> 
-<option value="1529">puppet::onehand::sit</option> 
-<option value="1530">puppet::onehand::sit::to::widestraight</option> 
-<option value="1531">puppet::onehand::stand::friendly</option> 
-<option value="1532">puppet::onehand::widestraight::to::sit</option> 
-<option value="1533">puppet::twohand::greeting</option> 
-<option value="1536">puppet::twohand::laugh</option> 
-<option value="1537">puppet::twohand::sit</option> 
-<option value="1538">puppet::twohand::sit::to::widestraight</option> 
-<option value="1539">puppet::twohand::stand::friendly</option> 
-<option value="1540">puppet::twohand::widestraight::to::sit</option> 
-<option value="1541">royalalchemist::stand::friendly</option> 
-<option value="1542">run::12</option> 
-<option value="1543">run::offensive</option> 
-<option value="1544">sit::01</option> 
-<option value="1571">stand::friendly::l::sit::rowing</option> 
-<option value="1572">stand::friendly::rowing</option> 
-<option value="1573">stand::friendly::r::sit::rowing</option> 
-<option value="1574">stand::offensive</option> 
-<option value="1575">stealthily::walk01</option> 
-<option value="1576">stomp::action</option> 
-<option value="1577">stomp::ready</option> 
-<option value="1578">taunt</option> 
-<option value="1581">throw::cast</option> 
-<option value="1582">throw::pick</option> 
-<option value="1583">throw::waiting</option> 
-<option value="1718">tool::hand::a01::attack01</option> 
-<option value="1719">tool::hand::a01::attack02</option> 
-<option value="1720">tool::hand::a01::attack03</option> 
-<option value="1721">tool::hand::a01::combat::counter</option> 
-<option value="1722">tool::hand::a01::combat::smash</option> 
-<option value="1723">tool::hand::a01::combat::windmill::standing</option> 
-<option value="1724">tool::hand::a01::draw</option> 
-<option value="1725">tool::hand::a01::magic::casting::friendly</option> 
-<option value="1726">tool::hand::a01::magic::casting::offensive</option> 
-<option value="1727">tool::hand::a01::magic::healing::processing::tome</option> 
-<option value="1728">tool::hand::a01::magic::healing::processing::topc</option> 
-<option value="1729">tool::hand::a01::magic::processing::topc::offensive</option> 
-<option value="1730">tool::hand::a01::natural::run</option> 
-<option value="1731">tool::hand::a01::natural::walk</option> 
-<option value="1732">tool::hand::a01::offensive::run</option> 
-<option value="1733">tool::hand::a01::offensive::walk</option> 
-<option value="1734">tool::hand::a01::stand::offensive</option> 
-<option value="1735">tool::hand::a01::taunt</option> 
-<option value="1736">tool::hand::a02::attack01</option> 
-<option value="1737">tool::hand::a02::attack02</option> 
-<option value="1738">tool::hand::a02::attack03</option> 
-<option value="1739">tool::hand::a02::combat::counter</option> 
-<option value="1740">tool::hand::a02::combat::smash</option> 
-<option value="1741">tool::hand::a02::draw</option> 
-<option value="1742">tool::hand::a02::stand::offensive</option> 
-<option value="1743">tool::hand::a02::taunt</option> 
-<option value="1744">tool::hand::a03::magic::casting::friendly</option> 
-<option value="1745">tool::hand::a03::magic::casting::offensive</option> 
-<option value="1746">tool::hand::a03::magic::fireball::casting::friendly</option> 
-<option value="1747">tool::hand::a03::magic::fireball::casting::offensive</option> 
-<option value="1748">tool::hand::a03::magic::fireball::processing::topc::offensiv</option> 
-<option value="1749">tool::hand::a03::magic::healing::processing::tome</option> 
-<option value="1750">tool::hand::a03::magic::healing::processing::topc</option> 
-<option value="1751">tool::hand::a03::magic::icespear::casting::friendly</option> 
-<option value="1752">tool::hand::a03::magic::icespear::casting::offensive</option> 
-<option value="1753">tool::hand::a03::magic::icespear::processing::topc::offensive</option> 
-<option value="1754">tool::hand::a03::magic::processing::topc::offensive</option> 
-<option value="1755">tool::hand::a03::magic::thunder::casting::friendly</option> 
-<option value="1756">tool::hand::a03::magic::thunder::casting::offensive</option> 
-<option value="1757">tool::hand::a03::magic::thunder::processing::topc::offensive</option> 
-<option value="1758">tool::hand::a05::magic::casting::friendly</option> 
-<option value="1759">tool::hand::a05::magic::casting::offensive</option> 
-<option value="1760">tool::hand::a05::magic::healing::processing::tome</option> 
-<option value="1761">tool::hand::a05::magic::healing::processing::topc</option> 
-<option value="1762">tool::hand::a05::magic::processing::topc::offensive</option> 
-<option value="1771">tool::hand::c01::attack01</option> 
-<option value="1772">tool::hand::c01::attack02</option> 
-<option value="1773">tool::hand::c01::attack03</option> 
-<option value="1774">tool::hand::c01::combat::counter</option> 
-<option value="1775">tool::hand::c01::combat::smash</option> 
-<option value="1776">tool::hand::c01::draw</option> 
-<option value="1777">tool::hand::c01::stand::offensive</option> 
-<option value="1778">tool::hand::c02::attack01</option> 
-<option value="1779">tool::hand::c02::attack02</option> 
-<option value="1780">tool::hand::c02::attack03</option> 
-<option value="1781">tool::hand::c02::combat::counter</option> 
-<option value="1782">tool::hand::c02::combat::smash</option> 
-<option value="1783">tool::hand::c02::draw</option> 
-<option value="1784">tool::hand::c02::stand::offensive</option> 
-<option value="1785">tool::hand::c21::attack01</option> 
-<option value="1786">tool::hand::c21::attack02</option> 
-<option value="1787">tool::hand::c21::attack03</option> 
-<option value="1788">tool::hand::c21::combat::counter</option> 
-<option value="1789">tool::hand::c21::combat::smash</option> 
-<option value="1790">tool::hand::c21::stand::offensive</option> 
-<option value="1791">tool::hand::c22::attack01</option> 
-<option value="1792">tool::hand::c22::attack02</option> 
-<option value="1793">tool::hand::c22::attack03</option> 
-<option value="1794">tool::hand::c22::combat::counter</option> 
-<option value="1795">tool::hand::c22::combat::smash</option> 
-<option value="1796">tool::hand::c22::stand::offensive</option> 
-<option value="1797">tool::hand::d01::attack01</option> 
-<option value="1798">tool::hand::d01::attack02</option> 
-<option value="1799">tool::hand::d01::attack03</option> 
-<option value="1800">tool::hand::d01::combat::counter</option> 
-<option value="1801">tool::hand::d01::combat::smash</option> 
-<option value="1802">tool::hand::d01::combat::windmill::standing</option> 
-<option value="1803">tool::hand::d01::draw</option> 
-<option value="1804">tool::hand::d01::natural::run</option> 
-<option value="1805">tool::hand::d01::natural::walk</option> 
-<option value="1806">tool::hand::d01::offensive::run</option> 
-<option value="1807">tool::hand::d01::offensive::walk</option> 
-<option value="1808">tool::hand::d01::stand::offensive</option> 
-<option value="1809">tool::hand::d01::taunt</option> 
-<option value="1842">tool::hand::gold::mining</option> 
-<option value="1843">tool::hand::h01::attack01</option> 
-<option value="1844">tool::hand::h01::attack02</option> 
-<option value="1845">tool::hand::h01::attack03</option> 
-<option value="1846">tool::hand::h01::combat::counter</option> 
-<option value="1847">tool::hand::h01::combat::smash</option> 
-<option value="1848">tool::hand::h01::combat::windmill::standing</option> 
-<option value="1849">tool::hand::h01::draw</option> 
-<option value="1850">tool::hand::h01::magic::casting::friendly</option> 
-<option value="1851">tool::hand::h01::magic::casting::offensive</option> 
-<option value="1852">tool::hand::h01::magic::healing::processing::tome</option> 
-<option value="1853">tool::hand::h01::magic::healing::processing::topc</option> 
-<option value="1854">tool::hand::h01::magic::processing::topc::offensive</option> 
-<option value="1860">tool::hand::h01::offensive::run</option> 
-<option value="1861">tool::hand::h01::offensive::walk</option> 
-<option value="1862">tool::hand::h01::stand::offensive</option> 
-<option value="1863">tool::hand::h01::taunt</option> 
-<option value="1873">tool::hand::s01::attack01</option> 
-<option value="1874">tool::hand::s01::magic::casting::friendly</option> 
-<option value="1875">tool::hand::s01::magic::casting::offensive</option> 
-<option value="1876">tool::hand::s01::magic::healing::processing::tome</option> 
-<option value="1877">tool::hand::s01::magic::healing::processing::topc</option> 
-<option value="1878">tool::hand::s01::magic::processing::topc::offensive</option> 
-<option value="1879">tool::hand::s01::natural::run</option> 
-<option value="1880">tool::hand::s01::natural::stand::01</option> 
-<option value="1881">tool::hand::s01::natural::walk</option> 
-<option value="1882">tool::hand::s01::offensive::run</option> 
-<option value="1883">tool::hand::s01::offensive::walk</option> 
-<option value="1884">tool::hand::s01::shooting::range::01</option> 
-<option value="1885">tool::hand::s01::stand::offensive</option> 
-<option value="1886">tool::hand::t01::attack01</option> 
-<option value="1887">tool::hand::t01::attack03</option> 
-<option value="1888">tool::hand::t01::combat::counter</option> 
-<option value="1889">tool::hand::t01::combat::smash</option> 
-<option value="1890">tool::hand::t01::combat::windmill::standing</option> 
-<option value="1891">tool::hand::t01::draw</option> 
-<option value="1892">tool::hand::t01::magic::casting::friendly</option> 
-<option value="1893">tool::hand::t01::magic::casting::offensive</option> 
-<option value="1894">tool::hand::t01::magic::healing::processing::tome</option> 
-<option value="1895">tool::hand::t01::magic::healing::processing::topc</option> 
-<option value="1896">tool::hand::t01::magic::processing::topc::offensive</option> 
-<option value="1897">tool::hand::t01::natural::run</option> 
-<option value="1898">tool::hand::t01::natural::run::01</option> 
-<option value="1899">tool::hand::t01::natural::stand::01</option> 
-<option value="1900">tool::hand::t01::natural::walk</option> 
-<option value="1901">tool::hand::t01::natural::walk::01</option> 
-<option value="1902">tool::hand::t01::offensive::run</option> 
-<option value="1903">tool::hand::t01::offesive::walk</option> 
-<option value="1904">tool::hand::t01::stand::offensive</option> 
-<option value="1905">tool::hand::t01::taunt</option> 
-<option value="1906">tool::lance::assault::slash::casting</option> 
-<option value="1907">tool::lance::assault::slash::processing</option> 
-<option value="1908">tool::lance::attack01</option> 
-<option value="1909">tool::lance::attack02</option> 
-<option value="1910">tool::lance::attack03</option> 
-<option value="1911">tool::lance::b02::stance::attack</option> 
-<option value="1912">tool::lance::b02::stance::finish</option> 
-<option value="1913">tool::lance::b02::stance::prepare</option> 
-<option value="1914">tool::lance::blowaway</option> 
-<option value="1915">tool::lance::blowaway::body</option> 
-<option value="1916">tool::lance::blowaway::endure</option> 
-<option value="1917">tool::lance::blowaway::ground</option> 
-<option value="1918">tool::lance::blowaway::turn</option> 
-<option value="1919">tool::lance::combat::smash</option> 
-<option value="1920">tool::lance::combat::smash::b02</option> 
-<option value="1921">tool::lance::combat::windmill::standing</option> 
-<option value="1922">tool::lance::combat::windmill::standing::b02</option> 
-<option value="1923">tool::lance::dash::attack01</option> 
-<option value="1924">tool::lance::dash::attack01::b02</option> 
-<option value="1925">tool::lance::dash::attack02</option> 
-<option value="1926">tool::lance::dash::run</option> 
-<option value="1927">tool::lance::dash::run::b02</option> 
-<option value="1928">tool::lance::downb</option> 
-<option value="1929">tool::lance::draw::back</option> 
-<option value="1930">tool::lance::friendly::run</option> 
-<option value="1931">tool::lance::friendly::walk</option> 
-<option value="1932">tool::lance::groggy</option> 
-<option value="1933">tool::lance::hita</option> 
-<option value="1934">tool::lance::hitb</option> 
-<option value="1935">tool::lance::magic::casting::friendly</option> 
-<option value="1936">tool::lance::magic::casting::offensive</option> 
-<option value="1937">tool::lance::magic::healing::processing::tome</option> 
-<option value="1938">tool::lance::magic::healing::processing::topc</option> 
-<option value="1939">tool::lance::magic::processing::topc::offensive01</option> 
-<option value="1940">tool::lance::offensive::run</option> 
-<option value="1941">tool::lance::offensive::run::b02</option> 
-<option value="1942">tool::lance::offensive::walk</option> 
-<option value="1943">tool::lance::offensive::walk::b02</option> 
-<option value="1944">tool::lance::skill::windbreaker::prepare</option> 
-<option value="1945">tool::lance::skill::windbreaker::wait</option> 
-<option value="1946">tool::lance::stance::attack</option> 
-<option value="1947">tool::lance::stance::attack01</option> 
-<option value="1948">tool::lance::stance::attack02</option> 
-<option value="1949">tool::lance::stance::finish</option> 
-<option value="1950">tool::lance::stance::finish01</option> 
-<option value="1951">tool::lance::stance::finish02</option> 
-<option value="1952">tool::lance::stance::offensive01</option> 
-<option value="1953">tool::lance::stance::offensive02</option> 
-<option value="1954">tool::lance::stance::prepare</option> 
-<option value="1955">tool::lance::stance::prepare01</option> 
-<option value="1956">tool::lance::stance::prepare02</option> 
-<option value="1957">tool::lance::stand::friendly</option> 
-<option value="1958">tool::lance::stand::offensive</option> 
-<option value="1959">tool::lance::taunt</option> 
-<option value="1960">tool::lhand::b01::attack::01</option> 
-<option value="1961">tool::lhand::b01::attack::02</option> 
-<option value="1962">tool::lhand::b01::attack::03</option> 
-<option value="1963">tool::lhand::b01::combat::counter</option> 
-<option value="1964">tool::lhand::b01::combat::smash</option> 
-<option value="1965">tool::lhand::b01::dash::attack</option> 
-<option value="1966">tool::lhand::b01::dash::run</option> 
-<option value="1967">tool::lhand::b01::guard</option> 
-<option value="1968">tool::lhand::b01::hit::a</option> 
-<option value="1969">tool::lhand::b01::hit::b</option> 
-<option value="1975">tool::lhand::b01::run::friendly</option> 
-<option value="1976">tool::lhand::b01::run::offensive</option> 
-<option value="1977">tool::lhand::b01::stand::friendly</option> 
-<option value="1978">tool::lhand::b01::stand::offensive</option> 
-<option value="1979">tool::lhand::b01::taunt</option> 
-<option value="1980">tool::lhand::b01::walk::friendly</option> 
-<option value="1981">tool::lhand::b01::walk::offensive</option> 
-<option value="1982">tool::lhand::b01::windbreaker::prepare</option> 
-<option value="1983">tool::lhand::b01::windbreaker::wait</option> 
-<option value="1984">tool::lhand::b02::attack::01</option> 
-<option value="1985">tool::lhand::b02::attack::02</option> 
-<option value="1986">tool::lhand::b02::attack::03</option> 
-<option value="1987">tool::lhand::b02::combat::counter</option> 
-<option value="1988">tool::lhand::b02::combat::smash</option> 
-<option value="1989">tool::lhand::b02::dash::attack</option> 
-<option value="1990">tool::lhand::b02::dash::run</option> 
-<option value="1991">tool::lhand::b02::guard</option> 
-<option value="1992">tool::lhand::b02::hit::a</option> 
-<option value="1993">tool::lhand::b02::hit::b</option> 
-<option value="1994">tool::lhand::b02::run::friendly</option> 
-<option value="1995">tool::lhand::b02::run::offensive</option> 
-<option value="1996">tool::lhand::b02::stand::friendly</option> 
-<option value="1997">tool::lhand::b02::stand::offensive</option> 
-<option value="1998">tool::lhand::b02::taunt</option> 
-<option value="1999">tool::lhand::b02::walk::friendly</option> 
-<option value="2000">tool::lhand::b02::walk::offensive</option> 
-<option value="2001">tool::lhand::b02::windbreaker::prepare</option> 
-<option value="2002">tool::lhand::b02::windbreaker::wait</option> 
-<option value="2003">tool::lhand::draw::back</option> 
-<option value="2004">tool::rfarm::fa01::alchemy::critical::explosion</option> 
-<option value="2005">tool::rfarm::fa01::alchemy::draw</option> 
-<option value="2006">tool::rfarm::fa01::alchemy::explosion</option> 
-<option value="2007">tool::rfarm::fa01::alchemy::skill::casting</option> 
-<option value="2008">tool::rfarm::fa01::alchemy::skill::processing</option> 
-<option value="2009">tool::rfarm::fa01::alchemy::skill::processing02</option> 
-<option value="2010">tool::rfarm::fa01::alchemy::skill::processing03</option> 
-<option value="2011">tool::rfarm::fa01::alchemy::skill::processing04</option> 
-<option value="2012">tool::rfarm::fa01::b02::alchemy::skill::casting</option> 
-<option value="2086">tool::staff::blizzardstrike::casting</option> 
-<option value="2087">tool::staff::blizzardstrike::charging</option> 
-<option value="2088">tool::staff::blizzardstrike::processing01</option> 
-<option value="2089">tool::staff::blizzardstrike::processing02</option> 
-<option value="2090">tool::staff::counter</option> 
-<option value="2091">tool::staff::smash</option> 
-<option value="2182">tool::turret::draw</option> 
-<option value="2183">tool::turret::explosion</option> 
-<option value="2184">tool::turret::friendly</option> 
-<option value="2185">tool::turret::hita</option> 
-<option value="2186">tool::turret::install</option> 
-<option value="2188">tool::turret::offensive</option> 
-<option value="2189">tool::turret::shoot</option> 
-<option value="2190">tool::turret::shoot::ready</option> 
-<option value="2191">tool::turret::uninstall</option> 
-<option value="2192">topiary</option> 
-<option value="2193">walk::12</option> 
-<option value="2194">walk::offensive</option> 
-<option value="2195">wateringpot</option> 
-<option value="2196">watermelon</option> 
-<option value="2197">wedding::walk</option> 
+<select name="animationMenu" onChange = "changeAnimation(this.value)">
+<OPTION value="127">male::natural::stand</OPTION>
+<OPTION value='681'>1act3ch::romio::juliet::first::dancing(juliet)</OPTION> 
+<OPTION value='682'>1act3ch::romio::juliet::first::dancing(romio)</OPTION> 
+<OPTION value='683'>1act4ch::player::block</OPTION> 
+<OPTION value='684'>1act4ch::player::block02</OPTION> 
+<OPTION value='685'>1act4ch::player::blocking</OPTION> 
+<OPTION value='686'>1act4ch::player::blocktostand</OPTION> 
+<OPTION value='687'>1act5ch::player::talk01</OPTION> 
+<OPTION value='688'>1act5ch::player::talk02</OPTION> 
+<OPTION value='689'>3act2ch::player::talk01</OPTION> 
+<OPTION value='690'>4act1ch::siren::pickup</OPTION> 
+<OPTION value='691'>alchemists::stand::friendly</OPTION> 
+<OPTION value='692'>alchemists::stand::idle01</OPTION> 
+<OPTION value='693'>alchemy::readingbook</OPTION> 
+<OPTION value='694'>attack::01</OPTION> 
+<OPTION value='695'>attack::02</OPTION> 
+<OPTION value='696'>attack::03</OPTION> 
+<OPTION value='697'>avon::hamlet::sword::01::ani</OPTION> 
+<OPTION value='698'>ax::axing</OPTION> 
+<OPTION value='699'>bird::riding::01::blowaway::endure</OPTION> 
+<OPTION value='700'>bird::riding::01::groggy</OPTION> 
+<OPTION value='701'>bird::riding::01::natural::hita</OPTION> 
+<OPTION value='702'>bird::riding::01::natural::hitb</OPTION> 
+<OPTION value='703'>bird::riding::natural::01::fly::landing</OPTION> 
+<OPTION value='704'>bird::riding::natural::01::fly::run</OPTION> 
+<OPTION value='705'>bird::riding::natural::01::fly::stand::friendly</OPTION> 
+<OPTION value='706'>bird::riding::natural::01::fly::takeoff</OPTION> 
+<OPTION value='707'>bird::riding::natural::01::mount</OPTION> 
+<OPTION value='708'>bird::riding::natural::01::run</OPTION> 
+<OPTION value='709'>bird::riding::natural::01::stand::friendly</OPTION> 
+<OPTION value='710'>bird::riding::natural::01::stand::offensive</OPTION> 
+<OPTION value='711'>bird::riding::natural::01::walk</OPTION> 
+<OPTION value='712'>blowaway</OPTION> 
+<OPTION value='713'>blowaway::body</OPTION> 
+<OPTION value='714'>blowaway::endure</OPTION> 
+<OPTION value='715'>blowaway::ground</OPTION> 
+<OPTION value='716'>blowaway::turn</OPTION> 
+<OPTION value='717'>brionacsword</OPTION> 
+<OPTION value='718'>brionacsword::ending</OPTION> 
+<OPTION value='719'>broom::riding::natural::01::dismount</OPTION> 
+<OPTION value='720'>broom::riding::natural::01::endure</OPTION> 
+<OPTION value='721'>broom::riding::natural::01::fly::run</OPTION> 
+<OPTION value='722'>broom::riding::natural::01::fly::stand::friendly</OPTION> 
+<OPTION value='723'>broom::riding::natural::01::groggy</OPTION> 
+<OPTION value='724'>broom::riding::natural::01::hita</OPTION> 
+<OPTION value='725'>broom::riding::natural::01::hitb</OPTION> 
+<OPTION value='726'>broom::riding::natural::01::mount</OPTION> 
+<OPTION value='730'>carpet01::fly::dismount</OPTION> 
+<OPTION value='731'>carpet01::fly::endure</OPTION> 
+<OPTION value='732'>carpet01::fly::groggy</OPTION> 
+<OPTION value='733'>carpet01::fly::hita</OPTION> 
+<OPTION value='734'>carpet01::fly::hitb</OPTION> 
+<OPTION value='735'>carpet01::fly::landing</OPTION> 
+<OPTION value='736'>carpet01::fly::mount</OPTION> 
+<OPTION value='737'>carpet01::fly::run</OPTION> 
+<OPTION value='738'>carpet01::fly::standfriendly</OPTION> 
+<OPTION value='739'>carpet01::fly::takeoff</OPTION> 
+<OPTION value='740'>carpet01::fly::walk</OPTION> 
+<OPTION value='741'>combat::counter</OPTION> 
+<OPTION value='742'>combat::guard</OPTION> 
+<OPTION value='743'>combat::smash::01</OPTION> 
+<OPTION value='744'>combat::windmill::standing</OPTION> 
+<OPTION value='745'>crystal::rudolf::fly::run</OPTION> 
+<OPTION value='746'>crystal::rudolf::fly::stand::friendly</OPTION> 
+<OPTION value='747'>crystal::rudolf::lading</OPTION> 
+<OPTION value='748'>crystal::rudolf::take::off</OPTION> 
+<OPTION value='749'>curtain::call01</OPTION> 
+<OPTION value='750'>cutscene::loss</OPTION> 
+<OPTION value='751'>cymbals</OPTION> 
+<OPTION value='752'>cymbals::natural::stand::friendly</OPTION> 
+<OPTION value='753'>cymbals::run</OPTION> 
+<OPTION value='754'>cymbals::stand::friendly</OPTION> 
+<OPTION value='755'>cymbals::walk</OPTION> 
+<OPTION value='756'>dartgame::throw</OPTION> 
+<OPTION value='757'>dartgame::wait</OPTION> 
+<OPTION value='758'>dash::attack</OPTION> 
+<OPTION value='759'>dash::run</OPTION> 
+<OPTION value='760'>demigod::trans</OPTION> 
+<OPTION value='761'>demi::lightspear::casting</OPTION> 
+<OPTION value='762'>demi::lightspear::processing</OPTION> 
+<OPTION value='763'>demi::lightstorm</OPTION> 
+<OPTION value='764'>dice01</OPTION> 
+<OPTION value='765'>dice02</OPTION> 
+<OPTION value='766'>dice::box01</OPTION> 
+<OPTION value='767'>dice::box02</OPTION> 
+<OPTION value='768'>dice::box::loop</OPTION> 
+<OPTION value='769'>dice::loop</OPTION> 
+<OPTION value='770'>dogsled::run</OPTION> 
+<OPTION value='771'>dogsled::stand</OPTION> 
+<OPTION value='772'>downattack</OPTION> 
+<OPTION value='773'>downb</OPTION> 
+<OPTION value='774'>downb::hit</OPTION> 
+<OPTION value='775'>downb::to::stand</OPTION> 
+<OPTION value='776'>draw</OPTION> 
+<OPTION value='777'>drum::low</OPTION> 
+<OPTION value='778'>drum::low::stand::friendly</OPTION> 
+<OPTION value='779'>drum::small</OPTION> 
+<OPTION value='780'>drum::small::stand::friendly</OPTION> 
+<OPTION value='781'>edo::skill::casting</OPTION> 
+<OPTION value='782'>edo::skill::processing</OPTION> 
+<OPTION value='783'>egosword::l</OPTION> 
+<OPTION value='784'>egosword::r</OPTION> 
+<OPTION value='785'>emotion::painful</OPTION> 
+<OPTION value='786'>emotion::skill::fail::short</OPTION> 
+<OPTION value='787'>emotion::skill::success</OPTION> 
+<OPTION value='788'>evasion</OPTION> 
+<OPTION value='789'>farm::indicate</OPTION> 
+<OPTION value='790'>farm::paint::mix</OPTION> 
+<OPTION value='791'>fashion::mistake</OPTION> 
+<OPTION value='792'>fashion::walk</OPTION> 
+<OPTION value='793'>alchemists::stand::friendly</OPTION> 
+<OPTION value='794'>alchemists::stand::idle01</OPTION> 
+<OPTION value='795'>alchemy::readingbook</OPTION> 
+<OPTION value='796'>attack::01</OPTION> 
+<OPTION value='797'>attack::02</OPTION> 
+<OPTION value='798'>attack::03</OPTION> 
+<OPTION value='799'>ax::axing</OPTION> 
+<OPTION value='800'>balloon::boat::03::stand::friendly</OPTION> 
+<OPTION value='801'>blowaway</OPTION> 
+<OPTION value='802'>blowaway::body</OPTION> 
+<OPTION value='803'>blowaway::endure</OPTION> 
+<OPTION value='804'>blowaway::ground</OPTION> 
+<OPTION value='805'>blowaway::turn</OPTION> 
+<OPTION value='806'>brionacsword</OPTION> 
+<OPTION value='807'>brionacsword::ending</OPTION> 
+<OPTION value='808'>combat::counter</OPTION> 
+<OPTION value='809'>combat::guard</OPTION> 
+<OPTION value='810'>combat::smash::01</OPTION> 
+<OPTION value='811'>curtain::call01</OPTION> 
+<OPTION value='812'>curtain::call02</OPTION> 
+<OPTION value='813'>cymbals</OPTION> 
+<OPTION value='814'>cymbals::natural::stand::friendly</OPTION> 
+<OPTION value='815'>cymbals::run</OPTION> 
+<OPTION value='816'>cymbals::stand::friendly</OPTION> 
+<OPTION value='817'>cymbals::walk</OPTION> 
+<OPTION value='818'>dartgame::throw</OPTION> 
+<OPTION value='819'>dartgame::wait</OPTION> 
+<OPTION value='820'>dash::attack</OPTION> 
+<OPTION value='821'>dash::run</OPTION> 
+<OPTION value='822'>demigod::trans</OPTION> 
+<OPTION value='823'>demi::lightspear::casting</OPTION> 
+<OPTION value='824'>demi::lightspear::processing</OPTION> 
+<OPTION value='825'>demi::lightstorm</OPTION> 
+<OPTION value='826'>dice01</OPTION> 
+<OPTION value='827'>dice02</OPTION> 
+<OPTION value='828'>dice::box01</OPTION> 
+<OPTION value='829'>dice::box02</OPTION> 
+<OPTION value='830'>dice::box::loop</OPTION> 
+<OPTION value='831'>dice::loop</OPTION> 
+<OPTION value='832'>dogsled::run</OPTION> 
+<OPTION value='833'>dogsled::stand</OPTION> 
+<OPTION value='834'>downattack</OPTION> 
+<OPTION value='835'>downb</OPTION> 
+<OPTION value='836'>downb::hit</OPTION> 
+<OPTION value='837'>downb::to::stand</OPTION> 
+<OPTION value='838'>dragonhorn</OPTION> 
+<OPTION value='839'>draw</OPTION> 
+<OPTION value='840'>drum::low</OPTION> 
+<OPTION value='841'>drum::low::stand::friendly</OPTION> 
+<OPTION value='842'>drum::small</OPTION> 
+<OPTION value='843'>drum::small::stand::friendly</OPTION> 
+<OPTION value='844'>egosword::l</OPTION> 
+<OPTION value='845'>egosword::r</OPTION> 
+<OPTION value='846'>emotion::painful</OPTION> 
+<OPTION value='847'>evasion</OPTION> 
+<OPTION value='848'>fashion::mistake</OPTION> 
+<OPTION value='849'>fashion::walk</OPTION> 
+<OPTION value='850'>g2::ruairi::bendhisknees</OPTION> 
+<OPTION value='851'>groggy</OPTION> 
+<OPTION value='852'>gypsy::stand::friendly</OPTION> 
+<OPTION value='853'>hammer::hammering</OPTION> 
+<OPTION value='854'>hammer::wait</OPTION> 
+<OPTION value='855'>handbell</OPTION> 
+<OPTION value='856'>handbell::stand::friendly</OPTION> 
+<OPTION value='857'>hand::d01::natural::walk</OPTION> 
+<OPTION value='858'>hand::e01::natural::stand::01</OPTION> 
+<OPTION value='859'>hand::h01::natural::walk</OPTION> 
+<OPTION value='860'>hand::t01::natural::walk</OPTION> 
+<OPTION value='861'>hita</OPTION> 
+<OPTION value='862'>hitb</OPTION> 
+<OPTION value='863'>icemine</OPTION> 
+<OPTION value='864'>icemine::loop</OPTION> 
+<OPTION value='865'>insect</OPTION> 
+<OPTION value='866'>jousthorse::attack01::damage</OPTION> 
+<OPTION value='867'>jousthorse::attack01::normal</OPTION> 
+<OPTION value='868'>jousthorse::attack02::damage</OPTION> 
+<OPTION value='869'>jousthorse::attack02::normal</OPTION> 
+<OPTION value='870'>jousthorse::attack03::damage</OPTION> 
+<OPTION value='871'>jousthorse::attack03::normal</OPTION> 
+<OPTION value='872'>jousthorse::attack04::damage</OPTION> 
+<OPTION value='873'>jousthorse::attack04::normal</OPTION> 
+<OPTION value='874'>jousthorse::damage</OPTION> 
+<OPTION value='875'>jousthorse::mount</OPTION> 
+<OPTION value='876'>jousthorse::standfriendly</OPTION> 
+<OPTION value='877'>jousthorse::turn</OPTION> 
+<OPTION value='878'>jousthorse::win</OPTION> 
+<OPTION value='879'>knight::stand::friendly</OPTION> 
+<OPTION value='880'>levelup</OPTION> 
+<OPTION value='881'>magic::casting::friendly</OPTION> 
+<OPTION value='882'>magic::casting::offensive</OPTION> 
+<OPTION value='883'>magic::healing::processing::tome</OPTION> 
+<OPTION value='884'>magic::healing::processing::topc</OPTION> 
+<OPTION value='885'>magic::processing::topc::offensive</OPTION> 
+<OPTION value='886'>manure</OPTION> 
+<OPTION value='887'>merchant::stand::friendly</OPTION> 
+<OPTION value='888'>miniballoon::flying</OPTION> 
+<OPTION value='889'>miniballoon::flying02</OPTION> 
+<OPTION value='890'>natural::emotion::angry</OPTION> 
+<OPTION value='891'>natural::emotion::assault(a01)</OPTION> 
+<OPTION value='892'>natural::emotion::assault(t01)</OPTION> 
+<OPTION value='893'>natural::emotion::assault</OPTION> 
+<OPTION value='894'>natural::emotion::body</OPTION> 
+<OPTION value='895'>natural::emotion::cheer</OPTION> 
+<OPTION value='896'>natural::emotion::clothes</OPTION> 
+<OPTION value='897'>natural::emotion::cry</OPTION> 
+<OPTION value='898'>natural::emotion::curtsey</OPTION> 
+<OPTION value='899'>natural::emotion::dance::typea</OPTION> 
+<OPTION value='900'>natural::emotion::dance::typeb</OPTION> 
+<OPTION value='901'>natural::emotion::dance::typec</OPTION> 
+<OPTION value='902'>natural::emotion::dance::typed</OPTION> 
+<OPTION value='903'>natural::emotion::discourage</OPTION> 
+<OPTION value='904'>natural::emotion::followme</OPTION> 
+<OPTION value='905'>natural::emotion::get01</OPTION> 
+<OPTION value='906'>natural::emotion::get02</OPTION> 
+<OPTION value='907'>natural::emotion::get03</OPTION> 
+<OPTION value='908'>natural::emotion::greeting</OPTION> 
+<OPTION value='909'>natural::emotion::handclap</OPTION> 
+<OPTION value='910'>natural::emotion::hungry</OPTION> 
+<OPTION value='911'>natural::emotion::laugh</OPTION> 
+<OPTION value='912'>natural::emotion::me</OPTION> 
+<OPTION value='913'>natural::emotion::music</OPTION> 
+<OPTION value='914'>natural::emotion::musicend</OPTION> 
+<OPTION value='915'>natural::emotion::musicstart</OPTION> 
+<OPTION value='916'>natural::emotion::no</OPTION> 
+<OPTION value='917'>natural::emotion::play</OPTION> 
+<OPTION value='918'>natural::emotion::please</OPTION> 
+<OPTION value='919'>natural::emotion::question</OPTION> 
+<OPTION value='920'>natural::emotion::rude</OPTION> 
+<OPTION value='921'>natural::emotion::rude01</OPTION> 
+<OPTION value='922'>natural::emotion::salute</OPTION> 
+<OPTION value='923'>natural::emotion::skill::fail::short</OPTION> 
+<OPTION value='924'>natural::emotion::skill::success</OPTION> 
+<OPTION value='925'>natural::emotion::smell</OPTION> 
+<OPTION value='926'>natural::emotion::surprise</OPTION> 
+<OPTION value='927'>natural::emotion::toy</OPTION> 
+<OPTION value='928'>natural::emotion::yes!</OPTION> 
+<OPTION value='929'>natural::emotion::yes</OPTION> 
+<OPTION value='930'>natural::emotion::yes::for::cutscene</OPTION> 
+<OPTION value='931'>natural::gathering::eggs</OPTION> 
+<OPTION value='932'>natural::gathering::water::fromstream</OPTION> 
+<OPTION value='933'>natural::gathering::water::fromwell</OPTION> 
+<OPTION value='934'>natural::gathering::water::tree</OPTION> 
+<OPTION value='935'>natural::handycraft</OPTION> 
+<OPTION value='936'>natural::l::sit::rowing</OPTION> 
+<OPTION value='937'>natural::magic::processing::topc::offensive::sprite</OPTION> 
+<OPTION value='938'>natural::magic::shield</OPTION> 
+<OPTION value='939'>natural::preparing::market</OPTION> 
+<OPTION value='940'>natural::r::sit::rowing</OPTION> 
+<OPTION value='941'>natural::sit::01</OPTION> 
+<OPTION value='942'>natural::sit::01::a01</OPTION> 
+<OPTION value='943'>natural::sit::01::d01</OPTION> 
+<OPTION value='944'>natural::sit::01::h01</OPTION> 
+<OPTION value='945'>natural::sit::01::t</OPTION> 
+<OPTION value='946'>natural::sit::01::to::widestraight</OPTION> 
+<OPTION value='947'>natural::sit::01::to::widestraight::a01</OPTION> 
+<OPTION value='948'>natural::sit::01::to::widestraight::d01</OPTION> 
+<OPTION value='949'>natural::sit::01::to::widestraight::e01</OPTION> 
+<OPTION value='950'>natural::sit::01::to::widestraight::h01</OPTION> 
+<OPTION value='951'>natural::sit::01::to::widestraight::t</OPTION> 
+<OPTION value='952'>natural::sit::02</OPTION> 
+<OPTION value='953'>natural::sit::02::a01</OPTION> 
+<OPTION value='954'>natural::sit::02::t</OPTION> 
+<OPTION value='955'>natural::sit::02::to::widestraight</OPTION> 
+<OPTION value='956'>natural::sit::02::to::widestraight::02::e01</OPTION> 
+<OPTION value='957'>natural::sit::02::to::widestraight::02::h01</OPTION> 
+<OPTION value='958'>natural::sit::02::to::widestraight::a01</OPTION> 
+<OPTION value='959'>natural::sit::02::to::widestraight::d01</OPTION> 
+<OPTION value='960'>natural::sit::02::to::widestraight::t</OPTION> 
+<OPTION value='961'>natural::sit::03</OPTION> 
+<OPTION value='962'>natural::sit::03::to::widestraight</OPTION> 
+<OPTION value='963'>natural::sit::05</OPTION> 
+<OPTION value='964'>natural::sit::05::to::widestraight</OPTION> 
+<OPTION value='965'>natural::sit::chair::01::g</OPTION> 
+<OPTION value='966'>natural::sit::chair::01::to::widestraight::g</OPTION> 
+<OPTION value='967'>natural::sit::chair::02</OPTION> 
+<OPTION value='968'>natural::sit::chair::02::to::widestraight</OPTION> 
+<OPTION value='969'>natural::sit::chair::03</OPTION> 
+<OPTION value='970'>natural::sit::chair::03::to::widestraight</OPTION> 
+<OPTION value='971'>natural::sit::moon</OPTION> 
+<OPTION value='972'>natural::stand::01</OPTION> 
+<OPTION value='973'>natural::stand::02</OPTION> 
+<OPTION value='974'>natural::stand::03</OPTION> 
+<OPTION value='975'>natural::stand::04</OPTION> 
+<OPTION value='976'>natural::widestraight::to::sit::01</OPTION> 
+<OPTION value='977'>natural::widestraight::to::sit::01::a01</OPTION> 
+<OPTION value='978'>natural::widestraight::to::sit::01::d01</OPTION> 
+<OPTION value='979'>natural::widestraight::to::sit::01::e01</OPTION> 
+<OPTION value='980'>natural::widestraight::to::sit::01::h01</OPTION> 
+<OPTION value='981'>natural::widestraight::to::sit::01::t</OPTION> 
+<OPTION value='982'>natural::widestraight::to::sit::02</OPTION> 
+<OPTION value='983'>natural::widestraight::to::sit::02::a01</OPTION> 
+<OPTION value='984'>natural::widestraight::to::sit::02::e01</OPTION> 
+<OPTION value='985'>natural::widestraight::to::sit::02::h01</OPTION> 
+<OPTION value='986'>natural::widestraight::to::sit::02::t</OPTION> 
+<OPTION value='987'>natural::widestraight::to::sit::03</OPTION> 
+<OPTION value='988'>natural::widestraight::to::sit::05</OPTION> 
+<OPTION value='989'>natural::widestraight::to::sit::chair::01::g</OPTION> 
+<OPTION value='990'>natural::widestraight::to::sit::chair::02</OPTION> 
+<OPTION value='991'>natural::widestraight::to::sit::chair::03</OPTION> 
+<OPTION value='992'>natural::windmill::standing</OPTION> 
+<OPTION value='993'>npc::weddingdressrent</OPTION> 
+<OPTION value='994'>npc::weddingdressrent::talk</OPTION> 
+<OPTION value='995'>paperairplane</OPTION> 
+<OPTION value='996'>plane</OPTION> 
+<OPTION value='997'>puppet::onehand::greeting</OPTION> 
+<OPTION value='998'>puppet::onehand::horse::riding::natural::01::stand::friendly</OPTION> 
+<OPTION value='999'>puppet::onehand::horse::riding::natural::02::stand::friendly</OPTION> 
+<OPTION value='1000'>puppet::onehand::laugh</OPTION> 
+<OPTION value='1001'>puppet::onehand::sit</OPTION> 
+<OPTION value='1002'>puppet::onehand::sit::to::widestraight</OPTION> 
+<OPTION value='1003'>puppet::onehand::stand::friendly</OPTION> 
+<OPTION value='1004'>puppet::onehand::widestraight::to::sit</OPTION> 
+<OPTION value='1005'>puppet::twohand::greeting</OPTION> 
+<OPTION value='1006'>puppet::twohand::horse::riding::natural::01::stand::friendly</OPTION> 
+<OPTION value='1007'>puppet::twohand::horse::riding::natural::02::stand::friendly</OPTION> 
+<OPTION value='1008'>puppet::twohand::laugh</OPTION> 
+<OPTION value='1009'>puppet::twohand::sit</OPTION> 
+<OPTION value='1010'>puppet::twohand::sit::to::widestraight</OPTION> 
+<OPTION value='1011'>puppet::twohand::stand::friendly</OPTION> 
+<OPTION value='1012'>puppet::twohand::widestraight::to::sit</OPTION> 
+<OPTION value='1013'>rowing</OPTION> 
+<OPTION value='1014'>royalalchemist::stand::friendly</OPTION> 
+<OPTION value='1015'>run::12</OPTION> 
+<OPTION value='1016'>run::offensive</OPTION> 
+<OPTION value='1017'>seesaw::end</OPTION> 
+<OPTION value='1018'>seesaw::end::fist</OPTION> 
+<OPTION value='1019'>seesaw::jumploop</OPTION> 
+<OPTION value='1020'>seesaw::jumploop::fist</OPTION> 
+<OPTION value='1021'>seesaw::prepare</OPTION> 
+<OPTION value='1022'>seesaw::prepare::fist</OPTION> 
+<OPTION value='1023'>sit::chair::01</OPTION> 
+<OPTION value='1024'>sit::chair::01::to::widestraight</OPTION> 
+<OPTION value='1025'>sit::eat</OPTION> 
+<OPTION value='1026'>stand::friendly::01</OPTION> 
+<OPTION value='1027'>stand::friendly::02</OPTION> 
+<OPTION value='1028'>stand::friendly::l::sit::rowing</OPTION> 
+<OPTION value='1029'>stand::friendly::rowing</OPTION> 
+<OPTION value='1030'>stand::friendly::r::sit::rowing</OPTION> 
+<OPTION value='1031'>stand::offensive</OPTION> 
+<OPTION value='1032'>stomp::action</OPTION> 
+<OPTION value='1033'>stomp::ready</OPTION> 
+<OPTION value='1034'>taunt</OPTION> 
+<OPTION value='1035'>throw::cast</OPTION> 
+<OPTION value='1036'>throw::pick</OPTION> 
+<OPTION value='1037'>throw::waiting</OPTION> 
+<OPTION value='1038'>tool::ballista::01::aim</OPTION> 
+<OPTION value='1039'>tool::ballista::01::charge</OPTION> 
+<OPTION value='1040'>tool::ballista::01::shoot</OPTION> 
+<OPTION value='1041'>tool::ballista::01::stand::friendly</OPTION> 
+<OPTION value='1042'>tool::bhand::e01::attack::02::sprite</OPTION> 
+<OPTION value='1043'>tool::bhand::e01::fishing::catching</OPTION> 
+<OPTION value='1044'>tool::bhand::e01::fishing::catching::failure</OPTION> 
+<OPTION value='1045'>tool::bhand::e01::fishing::throwing::float</OPTION> 
+<OPTION value='1046'>tool::bhand::e01::fishing::waiting::01</OPTION> 
+<OPTION value='1047'>tool::bhand::e01::fishing::waiting::02::female</OPTION> 
+<OPTION value='1048'>tool::bhand::m02::playing::ppilili</OPTION> 
+<OPTION value='1049'>tool::bhand::m02::playing::ppilili::walk</OPTION> 
+<OPTION value='1050'>tool::bhand::m02::stand::friendly</OPTION> 
+<OPTION value='1051'>tool::bhand::m08::playing::sousaphone</OPTION> 
+<OPTION value='1052'>tool::bhand::m08::stand::friendly</OPTION> 
+<OPTION value='1053'>tool::bhand::st::draw::backl</OPTION> 
+<OPTION value='1054'>tool::bhand::st::magic::healing::processing::tome</OPTION> 
+<OPTION value='1055'>tool::bhand::st::magic::healing::processing::topc</OPTION> 
+<OPTION value='1056'>tool::bhand::st::stand::friendly</OPTION> 
+<OPTION value='1057'>tool::bhand::z01::run::friendly</OPTION> 
+<OPTION value='1058'>tool::bhand::z01::run::offensive</OPTION> 
+<OPTION value='1059'>tool::bhand::z01::stand::friendly</OPTION> 
+<OPTION value='1060'>tool::bhand::z01::stand::offensive</OPTION> 
+<OPTION value='1061'>tool::bhand::z01::walk::friendly</OPTION> 
+<OPTION value='1062'>tool::bhand::z01::walk::offensive</OPTION> 
+<OPTION value='1063'>tool::bhand::z02::run::friendly</OPTION> 
+<OPTION value='1064'>tool::bhand::z02::stand::friendly</OPTION> 
+<OPTION value='1065'>tool::bhand::z02::walk::friendly</OPTION> 
+<OPTION value='1066'>tool::bhand::z03::sit::chair::01::raisehand</OPTION> 
+<OPTION value='1067'>tool::bhand::z03::sit::raisehand</OPTION> 
+<OPTION value='1068'>tool::bhand::z03::stand::raisehand</OPTION> 
+<OPTION value='1069'>tool::bhand::z04::run::friendly</OPTION> 
+<OPTION value='1070'>tool::bhand::z04::stand::friendly</OPTION> 
+<OPTION value='1071'>tool::bhand::z04::stand::offensive</OPTION> 
+<OPTION value='1072'>tool::bhand::z04::using::lrod</OPTION> 
+<OPTION value='1073'>tool::bhand::z04::walk::friendly</OPTION> 
+<OPTION value='1074'>tool::bhand::z05::run::friendly</OPTION> 
+<OPTION value='1075'>tool::bhand::z05::stand::friendly</OPTION> 
+<OPTION value='1076'>tool::bhand::z05::walk::friendly</OPTION> 
+<OPTION value='1077'>tool::cuttinggrape</OPTION> 
+<OPTION value='1078'>tool::hand::a01::attack::01</OPTION> 
+<OPTION value='1079'>tool::hand::a01::attack::02</OPTION> 
+<OPTION value='1080'>tool::hand::a01::attack::03</OPTION> 
+<OPTION value='1081'>tool::hand::a01::combat::counter</OPTION> 
+<OPTION value='1082'>tool::hand::a01::combat::smash</OPTION> 
+<OPTION value='1083'>tool::hand::a01::combat::windmill::standing</OPTION> 
+<OPTION value='1084'>tool::hand::a01::draw</OPTION> 
+<OPTION value='1085'>tool::hand::a01::magic::casting::friendly</OPTION> 
+<OPTION value='1086'>tool::hand::a01::magic::casting::offensive</OPTION> 
+<OPTION value='1087'>tool::hand::a01::magic::healing::processing::tome</OPTION> 
+<OPTION value='1088'>tool::hand::a01::magic::healing::processing::topc</OPTION> 
+<OPTION value='1089'>tool::hand::a01::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1090'>tool::hand::a01::natural::run</OPTION> 
+<OPTION value='1091'>tool::hand::a01::natural::walk</OPTION> 
+<OPTION value='1092'>tool::hand::a01::offensive::run</OPTION> 
+<OPTION value='1093'>tool::hand::a01::offensive::walk</OPTION> 
+<OPTION value='1094'>tool::hand::a01::stand::offensive</OPTION> 
+<OPTION value='1095'>tool::hand::a01::taunt</OPTION> 
+<OPTION value='1104'>tool::hand::a03::magic::casting::friendly</OPTION> 
+<OPTION value='1105'>tool::hand::a03::magic::casting::offensive</OPTION> 
+<OPTION value='1106'>tool::hand::a03::magic::fireball::casting::friendly</OPTION> 
+<OPTION value='1107'>tool::hand::a03::magic::fireball::casting::offensive</OPTION> 
+<OPTION value='1108'>tool::hand::a03::magic::fireball::processing::topc::offensive</OPTION> 
+<OPTION value='1109'>tool::hand::a03::magic::healing::processing::tome</OPTION> 
+<OPTION value='1110'>tool::hand::a03::magic::healing::processing::topc</OPTION> 
+<OPTION value='1111'>tool::hand::a03::magic::icespear::casting::friendly</OPTION> 
+<OPTION value='1112'>tool::hand::a03::magic::icespear::casting::offensive</OPTION> 
+<OPTION value='1113'>tool::hand::a03::magic::icespear::processing::topc::offensive</OPTION> 
+<OPTION value='1114'>tool::hand::a03::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1115'>tool::hand::a03::magic::thunder::casting::friendly</OPTION> 
+<OPTION value='1116'>tool::hand::a03::magic::thunder::casting::offensive</OPTION> 
+<OPTION value='1117'>tool::hand::a03::magic::thunder::processing::topc::offensive</OPTION> 
+<OPTION value='1118'>tool::hand::a05::magic::casting::friendly</OPTION> 
+<OPTION value='1119'>tool::hand::a05::magic::casting::offensive</OPTION> 
+<OPTION value='1120'>tool::hand::a05::magic::healing::processing::tome</OPTION> 
+<OPTION value='1121'>tool::hand::a05::magic::healing::processing::topc</OPTION> 
+<OPTION value='1122'>tool::hand::a05::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1123'>tool::hand::c01::attack::01</OPTION> 
+<OPTION value='1124'>tool::hand::c01::attack::02</OPTION> 
+<OPTION value='1125'>tool::hand::c01::attack::03</OPTION> 
+<OPTION value='1126'>tool::hand::c01::combat::counter</OPTION> 
+<OPTION value='1127'>tool::hand::c01::combat::smash</OPTION> 
+<OPTION value='1128'>tool::hand::c01::draw</OPTION> 
+<OPTION value='1129'>tool::hand::c01::stand::offensive</OPTION> 
+<OPTION value='1130'>tool::hand::c02::attack::01</OPTION> 
+<OPTION value='1131'>tool::hand::c02::attack::02</OPTION> 
+<OPTION value='1132'>tool::hand::c02::attack::03</OPTION> 
+<OPTION value='1133'>tool::hand::c02::combat::counter</OPTION> 
+<OPTION value='1134'>tool::hand::c02::combat::smash</OPTION> 
+<OPTION value='1135'>tool::hand::c02::draw</OPTION> 
+<OPTION value='1136'>tool::hand::c02::stand::offensive</OPTION> 
+<OPTION value='1137'>tool::hand::c21::attack::01</OPTION> 
+<OPTION value='1138'>tool::hand::c21::attack::02</OPTION> 
+<OPTION value='1139'>tool::hand::c21::attack::03</OPTION> 
+<OPTION value='1140'>tool::hand::c21::combat::counter</OPTION> 
+<OPTION value='1141'>tool::hand::c21::combat::smash</OPTION> 
+<OPTION value='1142'>tool::hand::c21::stand::offensive</OPTION> 
+<OPTION value='1143'>tool::hand::c22::attack::01</OPTION> 
+<OPTION value='1144'>tool::hand::c22::attack::02</OPTION> 
+<OPTION value='1145'>tool::hand::c22::attack::03</OPTION> 
+<OPTION value='1146'>tool::hand::c22::combat::counter</OPTION> 
+<OPTION value='1147'>tool::hand::c22::combat::smash</OPTION> 
+<OPTION value='1148'>tool::hand::c22::stand::offensive</OPTION> 
+<OPTION value='1149'>tool::hand::d01::attack01</OPTION> 
+<OPTION value='1150'>tool::hand::d01::attack02</OPTION> 
+<OPTION value='1151'>tool::hand::d01::attack03</OPTION> 
+<OPTION value='1152'>tool::hand::d01::combat::counter</OPTION> 
+<OPTION value='1153'>tool::hand::d01::combat::smash</OPTION> 
+<OPTION value='1154'>tool::hand::d01::combat::windmill::standing</OPTION> 
+<OPTION value='1155'>tool::hand::d01::draw</OPTION> 
+<OPTION value='1156'>tool::hand::d01::natural::run</OPTION> 
+<OPTION value='1157'>tool::hand::d01::offensive::run</OPTION> 
+<OPTION value='1158'>tool::hand::d01::offensive::walk</OPTION> 
+<OPTION value='1159'>tool::hand::d01::stand::offensive</OPTION> 
+<OPTION value='1160'>tool::hand::d01::taunt</OPTION> 
+<OPTION value='1161'>tool::hand::f01::attack::01</OPTION> 
+<OPTION value='1162'>tool::hand::f01::attack::02</OPTION> 
+<OPTION value='1163'>tool::hand::f01::attack::03</OPTION> 
+<OPTION value='1164'>tool::hand::f01::combat::counter</OPTION> 
+<OPTION value='1165'>tool::hand::f01::combat::smash</OPTION> 
+<OPTION value='1166'>tool::hand::f01::draw</OPTION> 
+<OPTION value='1167'>tool::hand::f01::stand::offensive</OPTION> 
+<OPTION value='1168'>tool::hand::f02::attack::01</OPTION> 
+<OPTION value='1169'>tool::hand::f02::attack::02</OPTION> 
+<OPTION value='1170'>tool::hand::f02::attack::03</OPTION> 
+<OPTION value='1171'>tool::hand::f02::combat::counter</OPTION> 
+<OPTION value='1172'>tool::hand::f02::combat::smash</OPTION> 
+<OPTION value='1173'>tool::hand::f02::stand::offensive</OPTION> 
+<OPTION value='1174'>tool::hand::gold::mining</OPTION> 
+<OPTION value='1175'>tool::hand::h01::attack01</OPTION> 
+<OPTION value='1176'>tool::hand::h01::attack03</OPTION> 
+<OPTION value='1177'>tool::hand::h01::combat::counter</OPTION> 
+<OPTION value='1178'>tool::hand::h01::combat::smash</OPTION> 
+<OPTION value='1179'>tool::hand::h01::combat::windmill::standing</OPTION> 
+<OPTION value='1180'>tool::hand::h01::draw</OPTION> 
+<OPTION value='1181'>tool::hand::h01::magic::casting::friendly</OPTION> 
+<OPTION value='1182'>tool::hand::h01::magic::casting::offensive</OPTION> 
+<OPTION value='1183'>tool::hand::h01::magic::healing::processing::tome</OPTION> 
+<OPTION value='1184'>tool::hand::h01::magic::healing::processing::topc</OPTION> 
+<OPTION value='1185'>tool::hand::h01::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1186'>tool::hand::h01::natural::run</OPTION> 
+<OPTION value='1187'>tool::hand::h01::natural::stand::01</OPTION> 
+<OPTION value='1188'>tool::hand::h01::offensive::run</OPTION> 
+<OPTION value='1189'>tool::hand::h01::offensive::walk</OPTION> 
+<OPTION value='1190'>tool::hand::h01::stand::offensive</OPTION> 
+<OPTION value='1191'>tool::hand::h01::taunt</OPTION> 
+<OPTION value='1192'>tool::hand::n01::attack01</OPTION> 
+<OPTION value='1193'>tool::hand::n01::attack02</OPTION> 
+<OPTION value='1194'>tool::hand::n01::attack03</OPTION> 
+<OPTION value='1195'>tool::hand::n01::combat::counter</OPTION> 
+<OPTION value='1196'>tool::hand::n01::combat::smash</OPTION> 
+<OPTION value='1197'>tool::hand::s01::attack01</OPTION> 
+<OPTION value='1198'>tool::hand::s01::magic::casting::friendly</OPTION> 
+<OPTION value='1199'>tool::hand::s01::magic::casting::offensive</OPTION> 
+<OPTION value='1200'>tool::hand::s01::magic::healing::processing::tome</OPTION> 
+<OPTION value='1201'>tool::hand::s01::magic::healing::processing::topc</OPTION> 
+<OPTION value='1202'>tool::hand::s01::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1203'>tool::hand::s01::natural::run</OPTION> 
+<OPTION value='1204'>tool::hand::s01::natural::stand::01</OPTION> 
+<OPTION value='1205'>tool::hand::s01::natural::walk</OPTION> 
+<OPTION value='1206'>tool::hand::s01::offensive::walk</OPTION> 
+<OPTION value='1207'>tool::hand::s01::shooting::range::01</OPTION> 
+<OPTION value='1208'>tool::hand::s01::stand::offensive</OPTION> 
+<OPTION value='1209'>tool::hand::t01::attack01</OPTION> 
+<OPTION value='1210'>tool::hand::t01::attack03</OPTION> 
+<OPTION value='1211'>tool::hand::t01::combat::counter</OPTION> 
+<OPTION value='1212'>tool::hand::t01::combat::smash</OPTION> 
+<OPTION value='1213'>tool::hand::t01::combat::windmill::standing</OPTION> 
+<OPTION value='1214'>tool::hand::t01::draw</OPTION> 
+<OPTION value='1215'>tool::hand::t01::magic::casting::friendly</OPTION> 
+<OPTION value='1216'>tool::hand::t01::magic::casting::offensive</OPTION> 
+<OPTION value='1217'>tool::hand::t01::magic::healing::processing::tome</OPTION> 
+<OPTION value='1218'>tool::hand::t01::magic::healing::processing::topc</OPTION> 
+<OPTION value='1219'>tool::hand::t01::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1220'>tool::hand::t01::natural::run</OPTION> 
+<OPTION value='1221'>tool::hand::t01::natural::stand::01</OPTION> 
+<OPTION value='1222'>tool::hand::t01::offensive::walk</OPTION> 
+<OPTION value='1223'>tool::hand::t01::stand::offensive</OPTION> 
+<OPTION value='1224'>tool::hand::t01::taunt</OPTION>
+<OPTION value='1244'>tool::lhand::b02::attack::01</OPTION> 
+<OPTION value='1245'>tool::lhand::b02::attack::02</OPTION> 
+<OPTION value='1246'>tool::lhand::b02::attack::03</OPTION> 
+<OPTION value='1247'>tool::lhand::b02::combat::counter</OPTION> 
+<OPTION value='1248'>tool::lhand::b02::combat::smash</OPTION> 
+<OPTION value='1249'>tool::lhand::b02::dash::attack</OPTION> 
+<OPTION value='1250'>tool::lhand::b02::dash::run</OPTION> 
+<OPTION value='1251'>tool::lhand::b02::guard</OPTION> 
+<OPTION value='1252'>tool::lhand::b02::hit::a</OPTION> 
+<OPTION value='1253'>tool::lhand::b02::hit::b</OPTION> 
+<OPTION value='1254'>tool::lhand::b02::run::friendly</OPTION> 
+<OPTION value='1255'>tool::lhand::b02::run::offensive</OPTION> 
+<OPTION value='1256'>tool::lhand::b02::stand::friendly</OPTION> 
+<OPTION value='1257'>tool::lhand::b02::stand::offensive</OPTION> 
+<OPTION value='1258'>tool::lhand::b02::taunt</OPTION> 
+<OPTION value='1259'>tool::lhand::b02::walk::friendly</OPTION> 
+<OPTION value='1260'>tool::lhand::b02::walk::offensive</OPTION> 
+<OPTION value='1261'>tool::lhand::b02::windbreaker::prepare</OPTION> 
+<OPTION value='1262'>tool::lhand::b02::windbreaker::wait</OPTION> 
+<OPTION value='1263'>tool::lhand::draw::back</OPTION> 
+<OPTION value='1281'>tool::rhand::a03::bolt::combine::friendly::one::hand::casting</OPTION> 
+<OPTION value='1282'>tool::rhand::a03::bolt::combine::offensive::one::hand::casting</OPTION> 
+<OPTION value='1283'>tool::rhand::a03::bolt::combine::two::hand::casting</OPTION> 
+<OPTION value='1284'>tool::rhand::a03::slash::casting</OPTION> 
+<OPTION value='1285'>tool::rhand::a03::slash::processing</OPTION> 
+<OPTION value='1286'>tool::tequip::c01::cooking::01</OPTION> 
+<OPTION value='1287'>tool::tequip::c01::cooking::02</OPTION> 
+<OPTION value='1288'>tool::tequip::c01::cooking::03</OPTION> 
+<OPTION value='1289'>tool::tequip::c01::cooking::04</OPTION> 
+<OPTION value='1290'>tool::tequip::c01::magic::casting::friendly</OPTION> 
+<OPTION value='1291'>tool::tequip::c01::magic::casting::offensive</OPTION> 
+<OPTION value='1292'>tool::tequip::c01::magic::healing::processing::tome</OPTION> 
+<OPTION value='1293'>tool::tequip::c01::magic::healing::processing::topc</OPTION> 
+<OPTION value='1294'>tool::tequip::c01::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1295'>tool::tequip::c99::magic::casting::friendly</OPTION> 
+<OPTION value='1296'>tool::tequip::c99::magic::casting::offensive</OPTION> 
+<OPTION value='1297'>tool::tequip::c99::magic::healing::processing::tome</OPTION> 
+<OPTION value='1298'>tool::tequip::c99::magic::healing::processing::topc</OPTION> 
+<OPTION value='1299'>tool::tequip::c99::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1300'>tool::tequip::draw::fab01</OPTION> 
+<OPTION value='1301'>tool::turret::draw</OPTION> 
+<OPTION value='1302'>tool::turret::explosion</OPTION> 
+<OPTION value='1303'>tool::turret::friendly</OPTION> 
+<OPTION value='1304'>tool::turret::hita</OPTION> 
+<OPTION value='1305'>tool::turret::install</OPTION> 
+<OPTION value='1306'>tool::turret::install02</OPTION> 
+<OPTION value='1307'>tool::turret::offensive</OPTION> 
+<OPTION value='1308'>tool::turret::shoot</OPTION> 
+<OPTION value='1309'>tool::turret::shoot::ready</OPTION> 
+<OPTION value='1310'>tool::turret::uninstall</OPTION> 
+<OPTION value='1311'>topiary</OPTION> 
+<OPTION value='1312'>walk::12</OPTION> 
+<OPTION value='1313'>walk::offensive</OPTION> 
+<OPTION value='1314'>wateringpot</OPTION> 
+<OPTION value='1315'>watermelon</OPTION> 
+<OPTION value='1316'>wedding::flower::walk</OPTION> 
+<OPTION value='1317'>wedding::mutual::bowing</OPTION> 
+<OPTION value='1318'>wedding::walk</OPTION> 
+<OPTION value='1319'>widestraight::to::sit::chair::01</OPTION> 
+<OPTION value='1320'>wizard::stand::friendly</OPTION> 
+<OPTION value='1321'>handbell</OPTION> 
+<OPTION value='1322'>handbell::stand::friendly</OPTION> 
+<OPTION value='1323'>hita</OPTION> 
+<OPTION value='1324'>hitb</OPTION> 
+<OPTION value='1325'>hug01</OPTION> 
+<OPTION value='1326'>icemine</OPTION> 
+<OPTION value='1327'>icemine::loop</OPTION> 
+<OPTION value='1328'>insect</OPTION> 
+<OPTION value='1329'>knight::changejobs01</OPTION> 
+<OPTION value='1330'>knight::stand::friendly</OPTION> 
+<OPTION value='1331'>knight::stand::idle01</OPTION> 
+<OPTION value='1332'>levelup</OPTION> 
+<OPTION value='1333'>magic::casting::friendly</OPTION> 
+<OPTION value='1334'>magic::casting::offensive</OPTION> 
+<OPTION value='1335'>magic::healing::processing::tome</OPTION> 
+<OPTION value='1336'>magic::healing::processing::topc</OPTION> 
+<OPTION value='1337'>magic::processing::topc::offensive</OPTION> 
+<OPTION value='1338'>balloon::boat::03::stand::friendly</OPTION> 
+<OPTION value='1339'>curtain::call01</OPTION> 
+<OPTION value='1340'>curtain::call02</OPTION> 
+<OPTION value='1341'>natural::emotion::angry</OPTION> 
+<OPTION value='1342'>natural::emotion::assault(a01)</OPTION> 
+<OPTION value='1343'>natural::emotion::assault(t01)</OPTION> 
+<OPTION value='1344'>natural::emotion::assault</OPTION> 
+<OPTION value='1345'>natural::emotion::cheer</OPTION> 
+<OPTION value='1346'>natural::emotion::clothes</OPTION> 
+<OPTION value='1347'>natural::emotion::cry</OPTION> 
+<OPTION value='1348'>natural::emotion::discourage</OPTION> 
+<OPTION value='1349'>natural::emotion::flex</OPTION> 
+<OPTION value='1350'>natural::emotion::followme</OPTION> 
+<OPTION value='1354'>natural::emotion::greeting</OPTION> 
+<OPTION value='1355'>natural::emotion::handclap</OPTION> 
+<OPTION value='1356'>natural::emotion::hungry</OPTION> 
+<OPTION value='1357'>natural::emotion::laugh</OPTION> 
+<OPTION value='1358'>natural::emotion::me</OPTION> 
+<OPTION value='1359'>natural::emotion::music</OPTION> 
+<OPTION value='1360'>natural::emotion::no</OPTION> 
+<OPTION value='1361'>natural::emotion::play</OPTION> 
+<OPTION value='1362'>natural::emotion::please</OPTION> 
+<OPTION value='1363'>natural::emotion::question</OPTION> 
+<OPTION value='1364'>natural::emotion::rude</OPTION> 
+<OPTION value='1365'>natural::emotion::smell</OPTION> 
+<OPTION value='1366'>natural::emotion::surprise</OPTION> 
+<OPTION value='1367'>natural::emotion::toy</OPTION> 
+<OPTION value='1368'>natural::emotion::yes!</OPTION> 
+<OPTION value='1369'>natural::emotion::yes</OPTION> 
+<OPTION value='1370'>skill::magicbubble::drop</OPTION> 
+<OPTION value='1371'>skill::magicbubble::landing</OPTION> 
+<OPTION value='1372'>skill::magicbubble::stay</OPTION> 
+<OPTION value='1377'>wedding::mutual::bowing</OPTION> 
+<OPTION value='1378'>manure</OPTION> 
+<OPTION value='1379'>merchant::stand::friendly</OPTION> 
+<OPTION value='1380'>merchant::stand::idle01</OPTION> 
+<OPTION value='1381'>miniballoon::flying</OPTION> 
+<OPTION value='1382'>miniballoon::flying02</OPTION> 
+<OPTION value='1407'>natural::emotion::curtsey</OPTION> 
+<OPTION value='1409'>natural::emotion::dance::typea</OPTION> 
+<OPTION value='1410'>natural::emotion::dance::typeb</OPTION> 
+<OPTION value='1411'>natural::emotion::dance::typec</OPTION> 
+<OPTION value='1412'>natural::emotion::dance::typed</OPTION> 
+<OPTION value='1444'>natural::gathering::eggs</OPTION> 
+<OPTION value='1445'>natural::gathering::herb</OPTION> 
+<OPTION value='1446'>natural::gathering::water::fromstream</OPTION> 
+<OPTION value='1447'>natural::gathering::water::fromwell</OPTION> 
+<OPTION value='1448'>natural::gathering::water::tree</OPTION> 
+<OPTION value='1451'>natural::handycraft</OPTION> 
+<OPTION value='1487'>natural::sit::moon</OPTION> 
+<OPTION value='1488'>natural::stand::01</OPTION> 
+<OPTION value='1489'>natural::stand::02</OPTION> 
+<OPTION value='1490'>natural::stand::03</OPTION> 
+<OPTION value='1491'>natural::stand::04</OPTION> 
+<OPTION value='1515'>ninja::alterego::casting</OPTION> 
+<OPTION value='1516'>ninja::alterego::processing</OPTION> 
+<OPTION value='1517'>paperairplane</OPTION> 
+<OPTION value='1518'>plane</OPTION> 
+<OPTION value='1519'>player::sword::get01</OPTION> 
+<OPTION value='1520'>player::sword::get02</OPTION> 
+<OPTION value='1521'>play::king::talk01</OPTION> 
+<OPTION value='1522'>play::king::talk02</OPTION> 
+<OPTION value='1523'>play::king::talk03</OPTION> 
+<OPTION value='1524'>preparing::market</OPTION> 
+<OPTION value='1525'>puppet::onehand::greeting</OPTION> 
+<OPTION value='1528'>puppet::onehand::laugh</OPTION> 
+<OPTION value='1529'>puppet::onehand::sit</OPTION> 
+<OPTION value='1530'>puppet::onehand::sit::to::widestraight</OPTION> 
+<OPTION value='1531'>puppet::onehand::stand::friendly</OPTION> 
+<OPTION value='1532'>puppet::onehand::widestraight::to::sit</OPTION> 
+<OPTION value='1533'>puppet::twohand::greeting</OPTION> 
+<OPTION value='1536'>puppet::twohand::laugh</OPTION> 
+<OPTION value='1537'>puppet::twohand::sit</OPTION> 
+<OPTION value='1538'>puppet::twohand::sit::to::widestraight</OPTION> 
+<OPTION value='1539'>puppet::twohand::stand::friendly</OPTION> 
+<OPTION value='1540'>puppet::twohand::widestraight::to::sit</OPTION> 
+<OPTION value='1541'>royalalchemist::stand::friendly</OPTION> 
+<OPTION value='1542'>run::12</OPTION> 
+<OPTION value='1543'>run::offensive</OPTION> 
+<OPTION value='1544'>sit::01</OPTION> 
+<OPTION value='1571'>stand::friendly::l::sit::rowing</OPTION> 
+<OPTION value='1572'>stand::friendly::rowing</OPTION> 
+<OPTION value='1573'>stand::friendly::r::sit::rowing</OPTION> 
+<OPTION value='1574'>stand::offensive</OPTION> 
+<OPTION value='1575'>stealthily::walk01</OPTION> 
+<OPTION value='1576'>stomp::action</OPTION> 
+<OPTION value='1577'>stomp::ready</OPTION> 
+<OPTION value='1578'>taunt</OPTION> 
+<OPTION value='1581'>throw::cast</OPTION> 
+<OPTION value='1582'>throw::pick</OPTION> 
+<OPTION value='1583'>throw::waiting</OPTION> 
+<OPTION value='1718'>tool::hand::a01::attack01</OPTION> 
+<OPTION value='1719'>tool::hand::a01::attack02</OPTION> 
+<OPTION value='1720'>tool::hand::a01::attack03</OPTION> 
+<OPTION value='1721'>tool::hand::a01::combat::counter</OPTION> 
+<OPTION value='1722'>tool::hand::a01::combat::smash</OPTION> 
+<OPTION value='1723'>tool::hand::a01::combat::windmill::standing</OPTION> 
+<OPTION value='1724'>tool::hand::a01::draw</OPTION> 
+<OPTION value='1725'>tool::hand::a01::magic::casting::friendly</OPTION> 
+<OPTION value='1726'>tool::hand::a01::magic::casting::offensive</OPTION> 
+<OPTION value='1727'>tool::hand::a01::magic::healing::processing::tome</OPTION> 
+<OPTION value='1728'>tool::hand::a01::magic::healing::processing::topc</OPTION> 
+<OPTION value='1729'>tool::hand::a01::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1730'>tool::hand::a01::natural::run</OPTION> 
+<OPTION value='1731'>tool::hand::a01::natural::walk</OPTION> 
+<OPTION value='1732'>tool::hand::a01::offensive::run</OPTION> 
+<OPTION value='1733'>tool::hand::a01::offensive::walk</OPTION> 
+<OPTION value='1734'>tool::hand::a01::stand::offensive</OPTION> 
+<OPTION value='1735'>tool::hand::a01::taunt</OPTION> 
+<OPTION value='1736'>tool::hand::a02::attack01</OPTION> 
+<OPTION value='1737'>tool::hand::a02::attack02</OPTION> 
+<OPTION value='1738'>tool::hand::a02::attack03</OPTION> 
+<OPTION value='1739'>tool::hand::a02::combat::counter</OPTION> 
+<OPTION value='1740'>tool::hand::a02::combat::smash</OPTION> 
+<OPTION value='1741'>tool::hand::a02::draw</OPTION> 
+<OPTION value='1742'>tool::hand::a02::stand::offensive</OPTION> 
+<OPTION value='1743'>tool::hand::a02::taunt</OPTION> 
+<OPTION value='1744'>tool::hand::a03::magic::casting::friendly</OPTION> 
+<OPTION value='1745'>tool::hand::a03::magic::casting::offensive</OPTION> 
+<OPTION value='1746'>tool::hand::a03::magic::fireball::casting::friendly</OPTION> 
+<OPTION value='1747'>tool::hand::a03::magic::fireball::casting::offensive</OPTION> 
+<OPTION value='1748'>tool::hand::a03::magic::fireball::processing::topc::offensiv</OPTION> 
+<OPTION value='1749'>tool::hand::a03::magic::healing::processing::tome</OPTION> 
+<OPTION value='1750'>tool::hand::a03::magic::healing::processing::topc</OPTION> 
+<OPTION value='1751'>tool::hand::a03::magic::icespear::casting::friendly</OPTION> 
+<OPTION value='1752'>tool::hand::a03::magic::icespear::casting::offensive</OPTION> 
+<OPTION value='1753'>tool::hand::a03::magic::icespear::processing::topc::offensive</OPTION> 
+<OPTION value='1754'>tool::hand::a03::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1755'>tool::hand::a03::magic::thunder::casting::friendly</OPTION> 
+<OPTION value='1756'>tool::hand::a03::magic::thunder::casting::offensive</OPTION> 
+<OPTION value='1757'>tool::hand::a03::magic::thunder::processing::topc::offensive</OPTION> 
+<OPTION value='1758'>tool::hand::a05::magic::casting::friendly</OPTION> 
+<OPTION value='1759'>tool::hand::a05::magic::casting::offensive</OPTION> 
+<OPTION value='1760'>tool::hand::a05::magic::healing::processing::tome</OPTION> 
+<OPTION value='1761'>tool::hand::a05::magic::healing::processing::topc</OPTION> 
+<OPTION value='1762'>tool::hand::a05::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1771'>tool::hand::c01::attack01</OPTION> 
+<OPTION value='1772'>tool::hand::c01::attack02</OPTION> 
+<OPTION value='1773'>tool::hand::c01::attack03</OPTION> 
+<OPTION value='1774'>tool::hand::c01::combat::counter</OPTION> 
+<OPTION value='1775'>tool::hand::c01::combat::smash</OPTION> 
+<OPTION value='1776'>tool::hand::c01::draw</OPTION> 
+<OPTION value='1777'>tool::hand::c01::stand::offensive</OPTION> 
+<OPTION value='1778'>tool::hand::c02::attack01</OPTION> 
+<OPTION value='1779'>tool::hand::c02::attack02</OPTION> 
+<OPTION value='1780'>tool::hand::c02::attack03</OPTION> 
+<OPTION value='1781'>tool::hand::c02::combat::counter</OPTION> 
+<OPTION value='1782'>tool::hand::c02::combat::smash</OPTION> 
+<OPTION value='1783'>tool::hand::c02::draw</OPTION> 
+<OPTION value='1784'>tool::hand::c02::stand::offensive</OPTION> 
+<OPTION value='1785'>tool::hand::c21::attack01</OPTION> 
+<OPTION value='1786'>tool::hand::c21::attack02</OPTION> 
+<OPTION value='1787'>tool::hand::c21::attack03</OPTION> 
+<OPTION value='1788'>tool::hand::c21::combat::counter</OPTION> 
+<OPTION value='1789'>tool::hand::c21::combat::smash</OPTION> 
+<OPTION value='1790'>tool::hand::c21::stand::offensive</OPTION> 
+<OPTION value='1791'>tool::hand::c22::attack01</OPTION> 
+<OPTION value='1792'>tool::hand::c22::attack02</OPTION> 
+<OPTION value='1793'>tool::hand::c22::attack03</OPTION> 
+<OPTION value='1794'>tool::hand::c22::combat::counter</OPTION> 
+<OPTION value='1795'>tool::hand::c22::combat::smash</OPTION> 
+<OPTION value='1796'>tool::hand::c22::stand::offensive</OPTION> 
+<OPTION value='1797'>tool::hand::d01::attack01</OPTION> 
+<OPTION value='1798'>tool::hand::d01::attack02</OPTION> 
+<OPTION value='1799'>tool::hand::d01::attack03</OPTION> 
+<OPTION value='1800'>tool::hand::d01::combat::counter</OPTION> 
+<OPTION value='1801'>tool::hand::d01::combat::smash</OPTION> 
+<OPTION value='1802'>tool::hand::d01::combat::windmill::standing</OPTION> 
+<OPTION value='1803'>tool::hand::d01::draw</OPTION> 
+<OPTION value='1804'>tool::hand::d01::natural::run</OPTION> 
+<OPTION value='1805'>tool::hand::d01::natural::walk</OPTION> 
+<OPTION value='1806'>tool::hand::d01::offensive::run</OPTION> 
+<OPTION value='1807'>tool::hand::d01::offensive::walk</OPTION> 
+<OPTION value='1808'>tool::hand::d01::stand::offensive</OPTION> 
+<OPTION value='1809'>tool::hand::d01::taunt</OPTION> 
+<OPTION value='1842'>tool::hand::gold::mining</OPTION> 
+<OPTION value='1843'>tool::hand::h01::attack01</OPTION> 
+<OPTION value='1844'>tool::hand::h01::attack02</OPTION> 
+<OPTION value='1845'>tool::hand::h01::attack03</OPTION> 
+<OPTION value='1846'>tool::hand::h01::combat::counter</OPTION> 
+<OPTION value='1847'>tool::hand::h01::combat::smash</OPTION> 
+<OPTION value='1848'>tool::hand::h01::combat::windmill::standing</OPTION> 
+<OPTION value='1849'>tool::hand::h01::draw</OPTION> 
+<OPTION value='1850'>tool::hand::h01::magic::casting::friendly</OPTION> 
+<OPTION value='1851'>tool::hand::h01::magic::casting::offensive</OPTION> 
+<OPTION value='1852'>tool::hand::h01::magic::healing::processing::tome</OPTION> 
+<OPTION value='1853'>tool::hand::h01::magic::healing::processing::topc</OPTION> 
+<OPTION value='1854'>tool::hand::h01::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1860'>tool::hand::h01::offensive::run</OPTION> 
+<OPTION value='1861'>tool::hand::h01::offensive::walk</OPTION> 
+<OPTION value='1862'>tool::hand::h01::stand::offensive</OPTION> 
+<OPTION value='1863'>tool::hand::h01::taunt</OPTION> 
+<OPTION value='1873'>tool::hand::s01::attack01</OPTION> 
+<OPTION value='1874'>tool::hand::s01::magic::casting::friendly</OPTION> 
+<OPTION value='1875'>tool::hand::s01::magic::casting::offensive</OPTION> 
+<OPTION value='1876'>tool::hand::s01::magic::healing::processing::tome</OPTION> 
+<OPTION value='1877'>tool::hand::s01::magic::healing::processing::topc</OPTION> 
+<OPTION value='1878'>tool::hand::s01::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1879'>tool::hand::s01::natural::run</OPTION> 
+<OPTION value='1880'>tool::hand::s01::natural::stand::01</OPTION> 
+<OPTION value='1881'>tool::hand::s01::natural::walk</OPTION> 
+<OPTION value='1882'>tool::hand::s01::offensive::run</OPTION> 
+<OPTION value='1883'>tool::hand::s01::offensive::walk</OPTION> 
+<OPTION value='1884'>tool::hand::s01::shooting::range::01</OPTION> 
+<OPTION value='1885'>tool::hand::s01::stand::offensive</OPTION> 
+<OPTION value='1886'>tool::hand::t01::attack01</OPTION> 
+<OPTION value='1887'>tool::hand::t01::attack03</OPTION> 
+<OPTION value='1888'>tool::hand::t01::combat::counter</OPTION> 
+<OPTION value='1889'>tool::hand::t01::combat::smash</OPTION> 
+<OPTION value='1890'>tool::hand::t01::combat::windmill::standing</OPTION> 
+<OPTION value='1891'>tool::hand::t01::draw</OPTION> 
+<OPTION value='1892'>tool::hand::t01::magic::casting::friendly</OPTION> 
+<OPTION value='1893'>tool::hand::t01::magic::casting::offensive</OPTION> 
+<OPTION value='1894'>tool::hand::t01::magic::healing::processing::tome</OPTION> 
+<OPTION value='1895'>tool::hand::t01::magic::healing::processing::topc</OPTION> 
+<OPTION value='1896'>tool::hand::t01::magic::processing::topc::offensive</OPTION> 
+<OPTION value='1897'>tool::hand::t01::natural::run</OPTION> 
+<OPTION value='1898'>tool::hand::t01::natural::run::01</OPTION> 
+<OPTION value='1899'>tool::hand::t01::natural::stand::01</OPTION> 
+<OPTION value='1900'>tool::hand::t01::natural::walk</OPTION> 
+<OPTION value='1901'>tool::hand::t01::natural::walk::01</OPTION> 
+<OPTION value='1902'>tool::hand::t01::offensive::run</OPTION> 
+<OPTION value='1903'>tool::hand::t01::offesive::walk</OPTION> 
+<OPTION value='1904'>tool::hand::t01::stand::offensive</OPTION> 
+<OPTION value='1905'>tool::hand::t01::taunt</OPTION> 
+<OPTION value='1906'>tool::lance::assault::slash::casting</OPTION> 
+<OPTION value='1907'>tool::lance::assault::slash::processing</OPTION> 
+<OPTION value='1908'>tool::lance::attack01</OPTION> 
+<OPTION value='1909'>tool::lance::attack02</OPTION> 
+<OPTION value='1910'>tool::lance::attack03</OPTION> 
+<OPTION value='1911'>tool::lance::b02::stance::attack</OPTION> 
+<OPTION value='1912'>tool::lance::b02::stance::finish</OPTION> 
+<OPTION value='1913'>tool::lance::b02::stance::prepare</OPTION> 
+<OPTION value='1914'>tool::lance::blowaway</OPTION> 
+<OPTION value='1915'>tool::lance::blowaway::body</OPTION> 
+<OPTION value='1916'>tool::lance::blowaway::endure</OPTION> 
+<OPTION value='1917'>tool::lance::blowaway::ground</OPTION> 
+<OPTION value='1918'>tool::lance::blowaway::turn</OPTION> 
+<OPTION value='1919'>tool::lance::combat::smash</OPTION> 
+<OPTION value='1920'>tool::lance::combat::smash::b02</OPTION> 
+<OPTION value='1921'>tool::lance::combat::windmill::standing</OPTION> 
+<OPTION value='1922'>tool::lance::combat::windmill::standing::b02</OPTION> 
+<OPTION value='1923'>tool::lance::dash::attack01</OPTION> 
+<OPTION value='1924'>tool::lance::dash::attack01::b02</OPTION> 
+<OPTION value='1925'>tool::lance::dash::attack02</OPTION> 
+<OPTION value='1926'>tool::lance::dash::run</OPTION> 
+<OPTION value='1927'>tool::lance::dash::run::b02</OPTION> 
+<OPTION value='1928'>tool::lance::downb</OPTION> 
+<OPTION value='1929'>tool::lance::draw::back</OPTION> 
+<OPTION value='1930'>tool::lance::friendly::run</OPTION> 
+<OPTION value='1931'>tool::lance::friendly::walk</OPTION> 
+<OPTION value='1932'>tool::lance::groggy</OPTION> 
+<OPTION value='1933'>tool::lance::hita</OPTION> 
+<OPTION value='1934'>tool::lance::hitb</OPTION> 
+<OPTION value='1935'>tool::lance::magic::casting::friendly</OPTION> 
+<OPTION value='1936'>tool::lance::magic::casting::offensive</OPTION> 
+<OPTION value='1937'>tool::lance::magic::healing::processing::tome</OPTION> 
+<OPTION value='1938'>tool::lance::magic::healing::processing::topc</OPTION> 
+<OPTION value='1939'>tool::lance::magic::processing::topc::offensive01</OPTION> 
+<OPTION value='1940'>tool::lance::offensive::run</OPTION> 
+<OPTION value='1941'>tool::lance::offensive::run::b02</OPTION> 
+<OPTION value='1942'>tool::lance::offensive::walk</OPTION> 
+<OPTION value='1943'>tool::lance::offensive::walk::b02</OPTION> 
+<OPTION value='1944'>tool::lance::skill::windbreaker::prepare</OPTION> 
+<OPTION value='1945'>tool::lance::skill::windbreaker::wait</OPTION> 
+<OPTION value='1946'>tool::lance::stance::attack</OPTION> 
+<OPTION value='1947'>tool::lance::stance::attack01</OPTION> 
+<OPTION value='1948'>tool::lance::stance::attack02</OPTION> 
+<OPTION value='1949'>tool::lance::stance::finish</OPTION> 
+<OPTION value='1950'>tool::lance::stance::finish01</OPTION> 
+<OPTION value='1951'>tool::lance::stance::finish02</OPTION> 
+<OPTION value='1952'>tool::lance::stance::offensive01</OPTION> 
+<OPTION value='1953'>tool::lance::stance::offensive02</OPTION> 
+<OPTION value='1954'>tool::lance::stance::prepare</OPTION> 
+<OPTION value='1955'>tool::lance::stance::prepare01</OPTION> 
+<OPTION value='1956'>tool::lance::stance::prepare02</OPTION> 
+<OPTION value='1957'>tool::lance::stand::friendly</OPTION> 
+<OPTION value='1958'>tool::lance::stand::offensive</OPTION> 
+<OPTION value='1959'>tool::lance::taunt</OPTION> 
+<OPTION value='1960'>tool::lhand::b01::attack::01</OPTION> 
+<OPTION value='1961'>tool::lhand::b01::attack::02</OPTION> 
+<OPTION value='1962'>tool::lhand::b01::attack::03</OPTION> 
+<OPTION value='1963'>tool::lhand::b01::combat::counter</OPTION> 
+<OPTION value='1964'>tool::lhand::b01::combat::smash</OPTION> 
+<OPTION value='1965'>tool::lhand::b01::dash::attack</OPTION> 
+<OPTION value='1966'>tool::lhand::b01::dash::run</OPTION> 
+<OPTION value='1967'>tool::lhand::b01::guard</OPTION> 
+<OPTION value='1968'>tool::lhand::b01::hit::a</OPTION> 
+<OPTION value='1969'>tool::lhand::b01::hit::b</OPTION> 
+<OPTION value='1975'>tool::lhand::b01::run::friendly</OPTION> 
+<OPTION value='1976'>tool::lhand::b01::run::offensive</OPTION> 
+<OPTION value='1977'>tool::lhand::b01::stand::friendly</OPTION> 
+<OPTION value='1978'>tool::lhand::b01::stand::offensive</OPTION> 
+<OPTION value='1979'>tool::lhand::b01::taunt</OPTION> 
+<OPTION value='1980'>tool::lhand::b01::walk::friendly</OPTION> 
+<OPTION value='1981'>tool::lhand::b01::walk::offensive</OPTION> 
+<OPTION value='1982'>tool::lhand::b01::windbreaker::prepare</OPTION> 
+<OPTION value='1983'>tool::lhand::b01::windbreaker::wait</OPTION> 
+<OPTION value='1984'>tool::lhand::b02::attack::01</OPTION> 
+<OPTION value='1985'>tool::lhand::b02::attack::02</OPTION> 
+<OPTION value='1986'>tool::lhand::b02::attack::03</OPTION> 
+<OPTION value='1987'>tool::lhand::b02::combat::counter</OPTION> 
+<OPTION value='1988'>tool::lhand::b02::combat::smash</OPTION> 
+<OPTION value='1989'>tool::lhand::b02::dash::attack</OPTION> 
+<OPTION value='1990'>tool::lhand::b02::dash::run</OPTION> 
+<OPTION value='1991'>tool::lhand::b02::guard</OPTION> 
+<OPTION value='1992'>tool::lhand::b02::hit::a</OPTION> 
+<OPTION value='1993'>tool::lhand::b02::hit::b</OPTION> 
+<OPTION value='1994'>tool::lhand::b02::run::friendly</OPTION> 
+<OPTION value='1995'>tool::lhand::b02::run::offensive</OPTION> 
+<OPTION value='1996'>tool::lhand::b02::stand::friendly</OPTION> 
+<OPTION value='1997'>tool::lhand::b02::stand::offensive</OPTION> 
+<OPTION value='1998'>tool::lhand::b02::taunt</OPTION> 
+<OPTION value='1999'>tool::lhand::b02::walk::friendly</OPTION> 
+<OPTION value='2000'>tool::lhand::b02::walk::offensive</OPTION> 
+<OPTION value='2001'>tool::lhand::b02::windbreaker::prepare</OPTION> 
+<OPTION value='2002'>tool::lhand::b02::windbreaker::wait</OPTION> 
+<OPTION value='2003'>tool::lhand::draw::back</OPTION> 
+<OPTION value='2004'>tool::rfarm::fa01::alchemy::critical::explosion</OPTION> 
+<OPTION value='2005'>tool::rfarm::fa01::alchemy::draw</OPTION> 
+<OPTION value='2006'>tool::rfarm::fa01::alchemy::explosion</OPTION> 
+<OPTION value='2007'>tool::rfarm::fa01::alchemy::skill::casting</OPTION> 
+<OPTION value='2008'>tool::rfarm::fa01::alchemy::skill::processing</OPTION> 
+<OPTION value='2009'>tool::rfarm::fa01::alchemy::skill::processing02</OPTION> 
+<OPTION value='2010'>tool::rfarm::fa01::alchemy::skill::processing03</OPTION> 
+<OPTION value='2011'>tool::rfarm::fa01::alchemy::skill::processing04</OPTION> 
+<OPTION value='2012'>tool::rfarm::fa01::b02::alchemy::skill::casting</OPTION> 
+<OPTION value='2086'>tool::staff::blizzardstrike::casting</OPTION> 
+<OPTION value='2087'>tool::staff::blizzardstrike::charging</OPTION> 
+<OPTION value='2088'>tool::staff::blizzardstrike::processing01</OPTION> 
+<OPTION value='2089'>tool::staff::blizzardstrike::processing02</OPTION> 
+<OPTION value='2090'>tool::staff::counter</OPTION> 
+<OPTION value='2091'>tool::staff::smash</OPTION> 
+<OPTION value='2182'>tool::turret::draw</OPTION> 
+<OPTION value='2183'>tool::turret::explosion</OPTION> 
+<OPTION value='2184'>tool::turret::friendly</OPTION> 
+<OPTION value='2185'>tool::turret::hita</OPTION> 
+<OPTION value='2186'>tool::turret::install</OPTION> 
+<OPTION value='2188'>tool::turret::offensive</OPTION> 
+<OPTION value='2189'>tool::turret::shoot</OPTION> 
+<OPTION value='2190'>tool::turret::shoot::ready</OPTION> 
+<OPTION value='2191'>tool::turret::uninstall</OPTION> 
+<OPTION value='2192'>topiary</OPTION> 
+<OPTION value='2193'>walk::12</OPTION> 
+<OPTION value='2194'>walk::offensive</OPTION> 
+<OPTION value='2195'>wateringpot</OPTION> 
+<OPTION value='2196'>watermelon</OPTION> 
+<OPTION value='2197'>wedding::walk</OPTION> 
 
-<option value="2206">widestraight::to::sit::chair::01</option> 
+<OPTION value='2206'>widestraight::to::sit::chair::01</OPTION> 
 
-<option value="2213">npc::taunes</option> 
-<option value="2215">npc::taunes::talk</option> 
+<OPTION value='2213'>npc::taunes</OPTION> 
+<OPTION value='2215'>npc::taunes::talk</OPTION> 
 
-<option value="2218">npc::wedding</option> 
-<option value="2219">npc::wedding::talk</option> 
-<option value="2223">npc::zeder</option> 
-<option value="2224">npc::zeder::talk</option> 
+<OPTION value='2218'>npc::wedding</OPTION> 
+<OPTION value='2219'>npc::wedding::talk</OPTION> 
+<OPTION value='2223'>npc::zeder</OPTION> 
+<OPTION value='2224'>npc::zeder::talk</OPTION> 
 
-<option value="2233">umbrella::run::friendly01</option> 
-<option value="2234">umbrella::run::friendly02</option> 
-<option value="2235">umbrella::run::friendly03</option> 
-<option value="2236">umbrella::sit</option> 
-<option value="2237">umbrella::sit::to::widestraight</option> 
-<option value="2238">umbrella::stand::friendly</option> 
-<option value="2239">umbrella::walk</option> 
-<option value="2240">umbrella::widestraight::to::sit</option> 
+<OPTION value='2233'>umbrella::run::friendly01</OPTION> 
+<OPTION value='2234'>umbrella::run::friendly02</OPTION> 
+<OPTION value='2235'>umbrella::run::friendly03</OPTION> 
+<OPTION value='2236'>umbrella::sit</OPTION> 
+<OPTION value='2237'>umbrella::sit::to::widestraight</OPTION> 
+<OPTION value='2238'>umbrella::stand::friendly</OPTION> 
+<OPTION value='2239'>umbrella::walk</OPTION> 
+<OPTION value='2240'>umbrella::widestraight::to::sit</OPTION> 
 
-<option value="2241">anohana::poppo::stand</option> 
+<OPTION value='2241'>anohana::poppo::stand</OPTION> 
 
-<option value="2254">pillow::attack01</option>
-<option value="2255">pillow::attack02</option>
-<option value="2256">pillow::attack03</option>
-<option value="2257">pillow::blowaway::body</option>
-<option value="2258">pillow::blowaway::ground</option>
-<option value="2259">pillow::blowaway::head::up</option>
-<option value="2260">pillow::blowaway::spin</option>
-<option value="2261">pillow::counter</option>
-<option value="2262">pillow::defence</option>
-<option value="2263">pillow::downb-to-stand</option>
-<option value="2264">pillow::downb</option>
-<option value="2265">pillow::friendly::run</option>
-<option value="2266">pillow::friendly::walk</option>
-<option value="2267">pillow::groggy</option>
-<option value="2268">pillow::hita</option>
-<option value="2269">pillow::hitb</option>
-<option value="2270">pillow::offensive</option>
-<option value="2271">pillow::offensive::run</option>
-<option value="2272">pillow::offensive::walk</option>
-<option value="2273">pillow::sit-to-stand</option>
-<option value="2274">pillow::sit</option>
-<option value="2275">pillow::smash</option>
-<option value="2276">pillow::stand-to-sit</option>
-<option value="2277">pillow::stand::friendly</option>
+<OPTION value='2254'>pillow::attack01</OPTION>
+<OPTION value='2255'>pillow::attack02</OPTION>
+<OPTION value='2256'>pillow::attack03</OPTION>
+<OPTION value='2257'>pillow::blowaway::body</OPTION>
+<OPTION value='2258'>pillow::blowaway::ground</OPTION>
+<OPTION value='2259'>pillow::blowaway::head::up</OPTION>
+<OPTION value='2260'>pillow::blowaway::spin</OPTION>
+<OPTION value='2261'>pillow::counter</OPTION>
+<OPTION value='2262'>pillow::defence</OPTION>
+<OPTION value='2263'>pillow::downb-to-stand</OPTION>
+<OPTION value='2264'>pillow::downb</OPTION>
+<OPTION value='2265'>pillow::friendly::run</OPTION>
+<OPTION value='2266'>pillow::friendly::walk</OPTION>
+<OPTION value='2267'>pillow::groggy</OPTION>
+<OPTION value='2268'>pillow::hita</OPTION>
+<OPTION value='2269'>pillow::hitb</OPTION>
+<OPTION value='2270'>pillow::offensive</OPTION>
+<OPTION value='2271'>pillow::offensive::run</OPTION>
+<OPTION value='2272'>pillow::offensive::walk</OPTION>
+<OPTION value='2273'>pillow::sit-to-stand</OPTION>
+<OPTION value='2274'>pillow::sit</OPTION>
+<OPTION value='2275'>pillow::smash</OPTION>
+<OPTION value='2276'>pillow::stand-to-sit</OPTION>
+<OPTION value='2277'>pillow::stand::friendly</OPTION>
 
 
-<option value="2278">marionette::natural::sit::03</option>
-<option value="2279">marionette::natural::sit::03::to::widestraight</option>
-<option value="2280">marionette::natural::widestraight::to::sit::03</option>
-<option value="2281">marionette::run::friendly</option>
-<option value="2282">marionette::stand::friendly</option>
-<option value="2283">marionette::walk::friendly</option>
-<option value="2284">marionette::attack01</option>
-<option value="2285">marionette::attack02</option>
-<option value="2286">marionette::attack03</option>
-<option value="2287">marionette::a::attack01</option>
-<option value="2288">marionette::a::attack02</option>
-<option value="2289">marionette::a::attack03</option>
-<option value="2290">marionette::a::catastrophe::casting</option>
-<option value="2291">marionette::a::catastrophe::processing</option>
-<option value="2292">marionette::a::dash::casting</option>
-<option value="2293">marionette::a::dash::processing</option>
-<option value="2294">marionette::a::hita</option>
-<option value="2295">marionette::a::hitb</option>
-<option value="2296">marionette::a::operation</option>
-<option value="2297">marionette::a::separation</option>
-<option value="2298">marionette::a::smash</option>
-<option value="2299">marionette::a::spiral::casting</option>
-<option value="2300">marionette::a::spiral::processing</option>
-<option value="2301">marionette::a::stand::offensive</option>
-<option value="2302">marionette::a::windmill</option>
-<option value="2303">marionette::b::attack01</option>
-<option value="2304">marionette::b::attack02</option>
-<option value="2305">marionette::b::attack03</option>
-<option value="2306">marionette::b::catastrophe::casting</option>
-<option value="2307">marionette::b::catastrophe::processing</option>
-<option value="2308">marionette::b::dash::casting</option>
-<option value="2309">marionette::b::dash::processing</option>
-<option value="2310">marionette::b::hita</option>
-<option value="2311">marionette::b::hitb</option>
-<option value="2312">marionette::b::operation</option>
-<option value="2313">marionette::b::repair</option>
-<option value="2314">marionette::b::separation</option>
-<option value="2315">marionette::b::smash</option>
-<option value="2316">marionette::b::spiral::casting</option>
-<option value="2317">marionette::b::spiral::processing</option>
-<option value="2318">marionette::b::stand::offensive</option>
-<option value="2319">marionette::b::windmill</option>
-<option value="2320">marionette::defence</option>
-<option value="2321">marionette::draw</option>
-<option value="2322">marionette::run</option>
-<option value="2323">marionette::run::friendly</option>
-<option value="2324">marionette::sit::01</option>
-<option value="2325">marionette::sit::01::to::widestraight</option>
-<option value="2326">marionette::smash</option>
-<option value="2327">marionette::stand::friendly</option>
-<option value="2328">marionette::walk</option>
-<option value="2329">marionette::walk::friendly</option>
-<option value="2330">marionette::widestraight::to::sit::01</option>
-<option value="2331">marionette::wirebinding</option>
-<option value="2332">marionette::wirepulling</option>
-<option value="2333">marionette::gypsy::stand::friendly</option>
+<OPTION value='2278'>marionette::natural::sit::03</OPTION>
+<OPTION value='2279'>marionette::natural::sit::03::to::widestraight</OPTION>
+<OPTION value='2280'>marionette::natural::widestraight::to::sit::03</OPTION>
+<OPTION value='2281'>marionette::run::friendly</OPTION>
+<OPTION value='2282'>marionette::stand::friendly</OPTION>
+<OPTION value='2283'>marionette::walk::friendly</OPTION>
+<OPTION value='2284'>marionette::attack01</OPTION>
+<OPTION value='2285'>marionette::attack02</OPTION>
+<OPTION value='2286'>marionette::attack03</OPTION>
+<OPTION value='2287'>marionette::a::attack01</OPTION>
+<OPTION value='2288'>marionette::a::attack02</OPTION>
+<OPTION value='2289'>marionette::a::attack03</OPTION>
+<OPTION value='2290'>marionette::a::catastrophe::casting</OPTION>
+<OPTION value='2291'>marionette::a::catastrophe::processing</OPTION>
+<OPTION value='2292'>marionette::a::dash::casting</OPTION>
+<OPTION value='2293'>marionette::a::dash::processing</OPTION>
+<OPTION value='2294'>marionette::a::hita</OPTION>
+<OPTION value='2295'>marionette::a::hitb</OPTION>
+<OPTION value='2296'>marionette::a::operation</OPTION>
+<OPTION value='2297'>marionette::a::separation</OPTION>
+<OPTION value='2298'>marionette::a::smash</OPTION>
+<OPTION value='2299'>marionette::a::spiral::casting</OPTION>
+<OPTION value='2300'>marionette::a::spiral::processing</OPTION>
+<OPTION value='2301'>marionette::a::stand::offensive</OPTION>
+<OPTION value='2302'>marionette::a::windmill</OPTION>
+<OPTION value='2303'>marionette::b::attack01</OPTION>
+<OPTION value='2304'>marionette::b::attack02</OPTION>
+<OPTION value='2305'>marionette::b::attack03</OPTION>
+<OPTION value='2306'>marionette::b::catastrophe::casting</OPTION>
+<OPTION value='2307'>marionette::b::catastrophe::processing</OPTION>
+<OPTION value='2308'>marionette::b::dash::casting</OPTION>
+<OPTION value='2309'>marionette::b::dash::processing</OPTION>
+<OPTION value='2310'>marionette::b::hita</OPTION>
+<OPTION value='2311'>marionette::b::hitb</OPTION>
+<OPTION value='2312'>marionette::b::operation</OPTION>
+<OPTION value='2313'>marionette::b::repair</OPTION>
+<OPTION value='2314'>marionette::b::separation</OPTION>
+<OPTION value='2315'>marionette::b::smash</OPTION>
+<OPTION value='2316'>marionette::b::spiral::casting</OPTION>
+<OPTION value='2317'>marionette::b::spiral::processing</OPTION>
+<OPTION value='2318'>marionette::b::stand::offensive</OPTION>
+<OPTION value='2319'>marionette::b::windmill</OPTION>
+<OPTION value='2320'>marionette::defence</OPTION>
+<OPTION value='2321'>marionette::draw</OPTION>
+<OPTION value='2322'>marionette::run</OPTION>
+<OPTION value='2323'>marionette::run::friendly</OPTION>
+<OPTION value='2324'>marionette::sit::01</OPTION>
+<OPTION value='2325'>marionette::sit::01::to::widestraight</OPTION>
+<OPTION value='2326'>marionette::smash</OPTION>
+<OPTION value='2327'>marionette::stand::friendly</OPTION>
+<OPTION value='2328'>marionette::walk</OPTION>
+<OPTION value='2329'>marionette::walk::friendly</OPTION>
+<OPTION value='2330'>marionette::widestraight::to::sit::01</OPTION>
+<OPTION value='2331'>marionette::wirebinding</OPTION>
+<OPTION value='2332'>marionette::wirepulling</OPTION>
+<OPTION value='2333'>marionette::gypsy::stand::friendly</OPTION>
 
-<option value="2334">npc::fallon</option>
-<option value="2338">npc::hagel::stand::friendly</option>
-<option value="2339">npc::trefor</option>
-<option value="2241">anohana::poppo::stand</option>
+<OPTION value='2334'>npc::fallon</OPTION>
+<OPTION value='2338'>npc::hagel::stand::friendly</OPTION>
+<OPTION value='2339'>npc::trefor</OPTION>
+<OPTION value='2241'>anohana::poppo::stand</OPTION>
 
-<option value="2340">Emotion::pumkinbat::event</option>
-<option value="2341">Emotion::cloth::fix::stand::friendly</option>
-<option value="2342">Emotion::cold02</option>
-<option value="2343">Emotion::cutie</option>
-<option value="2357">Emotion::folder::arm</option>
-<option value="2358">Emotion::foxmonster::tail</option>
-<option value="2359">Emotion::gaze::around</option>
-<option value="2360">Emotion::head::shake</option>
-<option value="2361">Emotion::jump</option>
-<option value="2362">Emotion::mambo::dance</option>
-<option value="2363">Emotion::offer</option>
-<option value="2364">Emotion::politely::greeting</option>
-<option value="2365">Emotion::revolution02</option>
-<option value="2366">Emotion::shaman</option>
-<option value="2367">Emotion::side::die</option>
-<option value="2368">Emotion::stand::friendly01</option>
-<option value="2369">Emotion::surprise02</option>
-<option value="2370">Emotion::tarzan</option>
-<option value="2371">Emotion::trip</option>
+<OPTION value='2340'>Emotion::pumkinbat::event</OPTION>
+<OPTION value='2341'>Emotion::cloth::fix::stand::friendly</OPTION>
+<OPTION value='2342'>Emotion::cold02</OPTION>
+<OPTION value='2343'>Emotion::cutie</OPTION>
+<OPTION value='2357'>Emotion::folder::arm</OPTION>
+<OPTION value='2358'>Emotion::foxmonster::tail</OPTION>
+<OPTION value='2359'>Emotion::gaze::around</OPTION>
+<OPTION value='2360'>Emotion::head::shake</OPTION>
+<OPTION value='2361'>Emotion::jump</OPTION>
+<OPTION value='2362'>Emotion::mambo::dance</OPTION>
+<OPTION value='2363'>Emotion::offer</OPTION>
+<OPTION value='2364'>Emotion::politely::greeting</OPTION>
+<OPTION value='2365'>Emotion::revolution02</OPTION>
+<OPTION value='2366'>Emotion::shaman</OPTION>
+<OPTION value='2367'>Emotion::side::die</OPTION>
+<OPTION value='2368'>Emotion::stand::friendly01</OPTION>
+<OPTION value='2369'>Emotion::surprise02</OPTION>
+<OPTION value='2370'>Emotion::tarzan</OPTION>
+<OPTION value='2371'>Emotion::trip</OPTION>
 
-<option value="2372">Vocaloid::Kaito</option>
-<option value="2375">Vocaloid::Ren</option>
-<option value="2376">Vocaloid::EGuitar::playing::walk</option>
-<option value="2377">Vocaloid::EGuitar::playing</option>
-<option value="2378">Vocaloid::EGuitar::run::friendly</option>
-<option value="2379">Vocaloid::EGuitar::stand::friendly</option>
-<option value="2380">Vocaloid::EGuitar::walk::friendly</option>
+<OPTION value='2372'>Vocaloid::Kaito</OPTION>
+<OPTION value='2375'>Vocaloid::Ren</OPTION>
+<OPTION value='2376'>Vocaloid::EGuitar::playing::walk</OPTION>
+<OPTION value='2377'>Vocaloid::EGuitar::playing</OPTION>
+<OPTION value='2378'>Vocaloid::EGuitar::run::friendly</OPTION>
+<OPTION value='2379'>Vocaloid::EGuitar::stand::friendly</OPTION>
+<OPTION value='2380'>Vocaloid::EGuitar::walk::friendly</OPTION>
 </select> 
 
 
 			</td>
 		</tr>
-		<tr id="animationControllerBlock">
+		<tr id="animationControllerBlock" >
 			<td>
 				<table class="animationControllerFrame" border="0" cellpadding="0" cellspacing="0">
 					<tbody>
 						<tr>
 							<td class="secondaryControllerHeader">
-								<a href="javascript:void(0);" onclick="toggleMotionController();" id="motionControllerController" class="secondaryControllerHeader">+ モーションの制御</a>
+								<a href="javascript:void(0);" onClick="toggleMotionController();" id="motionControllerController" class="secondaryControllerHeader">+ Motion Controller</a>
 							</td>
 						</tr>
 						<tr id="motionControllerBlock" style="display:none;">
 							<td class="secondaryControllerBlock">
 								<span style="padding-left:0px;margin-left:2px;margin-bottom:3px;">
-								<img id="playButton" alt="play/pause/stop" src="play.png" width="16" height="16" onclick="toggleAnimate();">
-								<img id="resetFrameButton" alt="go to first frame" src="resetframe.png" width="16" height="16" onclick="resetFrame();">
-								<img id="scanBackwardButton" alt="scan backward" src="scanbackward.png" width="16" height="16" onclick="scanBackward();"><!--
-								--><img id="slowmotionBackwardButton" alt="backward slowmotion" src="slowmotionbackward.png" width="16" height="16" onclick="slowmotionBackward();"><!--
-								--><img id="stepbackButton" alt="previous frame" src="stepbackward.png" width="16" height="16" onclick="stepBackward();"><!--
-								--><img id="stepforwardButton" alt="next frane" src="stepforward.png" width="16" height="16" onclick="stepForward();"><!--
-								--><img id="slowmotionForwardButton" alt="forward slowmotion" src="slowmotionforward.png" width="16" height="16" onclick="slowmotionForward();"><!--
-								--><img id="scanForwardButton" alt="scan forward" src="scanforward.png" width="16" height="16" onclick="scanForward();">
+								<img id="playButton" alt="play/pause/stop" src=" stop.png" width="16" height="16" onClick="toggleAnimate();">
+								<img id="resetFrameButton" alt="go to first frame" src=" resetframe.png" width="16" height="16" onClick="resetFrame();">
+								<img id="scanBackwardButton" alt="scan backward" src=" scanbackward.png" width="16" height="16" onClick="scanBackward();"><!--
+								--><img id="slowmotionBackwardButton" alt="backward slowmotion" src=" slowmotionbackward.png" width="16" height="16" onClick="slowmotionBackward();"><!--
+								--><img id="stepbackButton" alt="previous frame" src=" stepbackward.png" width="16" height="16" onClick="stepBackward();"><!--
+								--><img id="stepforwardButton" alt="next frane" src=" stepforward.png" width="16" height="16" onClick="stepForward();"><!--
+								--><img id="slowmotionForwardButton" alt="forward slowmotion" src=" slowmotionforward.png" width="16" height="16" onClick="slowmotionForward();"><!--
+								--><img id="scanForwardButton" alt="scan forward" src=" scanforward.png" width="16" height="16" onClick="scanForward();">
 								</span>
-								<br>
+								<br />
 								
-								<img src="marker.png" alt="" style="position: relative;" id="mainFrameSliderTip"><br>
-								<img src="frame.png" alt="frame slider" width="390" height="16" onmousemove="if(dragging)changeAnimationMainFrame();" onmousedown="mouseDown(this);" onmouseup="mouseUp(this);" onclick="changeAnimationMainFrame();mouseUp(this);" ondragstart="return false;" onmousewheel="changeAnimationMainFrameW();return false;"><br>
-								<img src="marker.png" alt="" style="position: relative;" id="subFrameSliderTip"><br>
-								<img src="subframe.png" alt="subframe slider" width="390" height="16" onmousemove="if(dragging)changeAnimationSubFrame();" onmousedown="mouseDown(this);" onmouseup="mouseUp(this);" onclick="changeAnimationSubFrame();mouseUp(this);" ondragstart="return false;" onmousewheel="changeAnimationSubFrameW();return false;"><br>
-								<img src="marker.png" alt="" style="position: relative;" id="superSubFrameSliderTip"><br>
-								<img src="supersubframe.png" alt="supersubframe slider" width="390" height="16" onmousemove="if(dragging)changeAnimationSuperSubFrame();" onmousedown="mouseDown(this);" onmouseup="mouseUp(this);" onclick="changeAnimationSuperSubFrame();mouseUp(this);" ondragstart="return false;" onmousewheel="changeAnimationSuperSubFrameW();return false;">
+								<img src=" marker.png" alt="" style="position: relative;" id="mainFrameSliderTip"><br>
+								<img src=" frame.png" alt="frame slider" width="390" height="16" onMouseMove="if(dragging)changeAnimationMainFrame();" onMouseDown="mouseDown(this);" onMouseUp="mouseUp(this);" onClick="changeAnimationMainFrame();mouseUp(this);" onDragStart="return false;" onMouseWheel="changeAnimationMainFrameW();return false;"><br>
+								<img src=" marker.png" alt="" style="position: relative;" id="subFrameSliderTip"><br>
+								<img src=" subframe.png" alt="subframe slider" width="390" height="16" onMouseMove="if(dragging)changeAnimationSubFrame();" onMouseDown="mouseDown(this);" onMouseUp="mouseUp(this);" onClick="changeAnimationSubFrame();mouseUp(this);" onDragStart="return false;" onMouseWheel="changeAnimationSubFrameW();return false;"><br>
+								<img src=" marker.png" alt="" style="position: relative;" id="superSubFrameSliderTip"><br>
+								<img src=" supersubframe.png" alt="supersubframe slider" width="390" height="16" onMouseMove="if(dragging)changeAnimationSuperSubFrame();" onMouseDown="mouseDown(this);" onMouseUp="mouseUp(this);" onClick="changeAnimationSuperSubFrame();mouseUp(this);" onDragStart="return false;" onMouseWheel="changeAnimationSuperSubFrameW();return false;">
 							</td>
 						</tr>
 					</tbody>
@@ -9647,34 +9448,34 @@ Now Loading
 <tr id="physicalBlock">
 <td class="controllerBlock">
 <div class="block" style="float:left;padding-right:1px;">
-	<label for="heightSelector" class="controllerHeader">身長:</label><br>
-	<select name="heightSelector" onchange="changeScaleByMenu();">
-								<option value="0">10歳 (130cm)</option>
-								<option value="1">11歳 (134cm)</option>
-								<option value="2">11.5歳 (137cm)</option>
-								<option value="3">12歳 (140cm)</option>
-								<option value="4">13歳 (144cm)</option>
-								<option value="5">13.5歳 (147cm)</option>
-								<option value="6">14歳 (150cm)</option>
-								<option value="7">15歳 (154cm)</option>
-								<option value="8">15.5歳 (157cm)</option>
-								<option value="9">16歳 (160cm)</option>
-								<option value="10">17歳 (164cm)</option>
-								<option value="11">18歳 (167cm)</option>
-								<option value="12">19歳 (170cm)</option>
-								<option value="13">20歳 (174cm)</option>
-								<option value="14">21歳 (177cm)</option>
-								<option value="15">22歳 (180cm)</option>
-								<option value="16">23歳 (184cm)</option>
-								<option value="17">24歳 (187cm)</option>
-								<option value="18">25歳 (190cm)</option>
-								<option value="19">26歳 (194cm)</option>
-								<option value="20">27歳 (197cm)</option>
+	<label for="heightSelector" class="controllerHeader">Height:</label><br>
+	<select name="heightSelector" onChange="changeScaleByMenu();">
+								<option value="0">10years old (130cm)</option>
+								<option value="1">11years old (134cm)</option>
+								<option value="2">11.5years old (137cm)</option>
+								<option value="3">12years old (140cm)</option>
+								<option value="4">13years old (144cm)</option>
+								<option value="5">13.5years old (147cm)</option>
+								<option value="6">14years old (150cm)</option>
+								<option value="7">15years old (154cm)</option>
+								<option value="8">15.5years old (157cm)</option>
+								<option value="9">16years old (160cm)</option>
+								<option value="10">17years old (164cm)</option>
+								<option value="11">18years old (167cm)</option>
+								<option value="12">19years old (170cm)</option>
+								<option value="13">20years old (174cm)</option>
+								<option value="14">21years old (177cm)</option>
+								<option value="15">22years old (180cm)</option>
+								<option value="16">23years old (184cm)</option>
+								<option value="17">24years old (187cm)</option>
+								<option value="18">25years old (190cm)</option>
+								<option value="19">26years old (194cm)</option>
+								<option value="20">27years old (197cm)</option>
 			</select>
 </div>
 <div class="block" style="float:left;padding-right:1px;">
-	<span class="controllerHeader">体重:</span><br>
-	<select name="fatnessSelector" onchange="changeScaleByMenu();">
+	<span class="controllerHeader">Fatness:</span><br />
+	<select name="fatnessSelector" onChange="changeScaleByMenu();">
 					<option value="4">20kg</option>
 					<option value="5">25kg</option>
 					<option value="6">30kg</option>
@@ -9696,8 +9497,8 @@ Now Loading
 </div>
 
 <div class="block" style="float:left;padding-right:1px;">
-	<span class="controllerHeader">上半身:</span><br>
-	<select name="topSelector" onchange="changeScaleByMenu();">
+	<span class="controllerHeader">Top:</span><br />
+	<select name="topSelector" onChange="changeScaleByMenu();">
 		<option value="3">- !......:....... +</option>
 		<option value="4">- .!.....:....... +</option>
 		<option value="5">- ..!....:....... +</option>
@@ -9705,7 +9506,7 @@ Now Loading
 		<option value="7">- ....!..:....... +</option>
 		<option value="8">- .....!.:....... +</option>
 		<option value="9">- ......!:....... +</option>
-   <option value="10" selected="">- .......!....... +</option>
+   <option value="10" selected>- .......!....... +</option>
 		<option value="11">- .......:!...... +</option>
 		<option value="12">- .......:.!..... +</option>
 		<option value="13">- .......:..!.... +</option>
@@ -9717,8 +9518,8 @@ Now Loading
 </div>
 			
 <div class="block" style="float:left;padding-right:1px;">
-	<span class="controllerHeader">下半身:</span><br>
-	<select name="bottomSelector" onchange="changeScaleByMenu();">
+	<span class="controllerHeader">Bottom:</span><br />
+	<select name="bottomSelector" onChange="changeScaleByMenu();">
 		<option value="3">- !......:....... +</option>
 		<option value="4">- .!.....:....... +</option>
 		<option value="5">- ..!....:....... +</option>
@@ -9726,7 +9527,7 @@ Now Loading
 		<option value="7">- ....!..:....... +</option>
 		<option value="8">- .....!.:....... +</option>
 		<option value="9">- ......!:....... +</option>
-   <option value="10" selected="">- .......!....... +</option>
+   <option value="10" selected>- .......!....... +</option>
 		<option value="11">- .......:!...... +</option>
 		<option value="12">- .......:.!..... +</option>
 		<option value="13">- .......:..!.... +</option>
@@ -9740,133 +9541,133 @@ Now Loading
 </tr>
 
 
-<tr id="hairBlock">
+<tr id="hairBlock" >
 <td class="controllerBlock">
 <table border="0" cellpadding="0" cellspacing="0">
 	<tbody>
 		<tr>
 			<td>
-				<span class="controllerHeader">髪型:</span><br>
-				<select name="hairMenu" onchange="changeHair(this.value)" style="width:150px;">
-<option value="59">ｳｪｰﾌﾞ 1</option>
-<option value="63">ｽｳｪﾌﾟﾄﾊﾞｯｸ 1</option>
-<option value="67">ｼｮｰﾄﾍｱ 1</option>
-<option value="71">ｽﾏｰﾄｼｮｰﾝ 1</option>
-<option value="75">ﾄﾞﾚｯﾄﾞﾛｯｸ 1</option>
-<option value="79">ﾚｰｻﾞｰｶｯﾄ 1</option>
-<option value="83">ｽﾄｰﾑﾍｱ 1</option>
-<option value="87">ｳｫｰﾀｰﾌｫｰﾙ 1</option>
-<option value="91">ナチュラルシェイプヘア_あごひげ</option>
-<option value="95">ブレイディッドルック_あごひげ</option>
-<option value="99">スタンドショートカット_あごひげ</option>
-<option value="103">ハードテールウェーブ_あごひげ</option>
-<option value="107">シューティングスター_あごひげ</option>
-<option value="108">アレックス・ルイ・アームストロングヘア</option>
-<option value="109">アシンメトリー_あごひげ</option>
-<option value="110">ダンディハーフアップ_あごひげ</option>
-<option value="111">ぽっぽヘアスタイル</option>
+				<span class="controllerHeader">Hair Style:</span><br>
+				<select name="hairMenu" onChange = "changeHair(this.value)" style="width:150px;">
+<OPTION value="59">웨이브 파팅_턱수염</OPTION>
+<OPTION value="63">웨이브 스웹백_턱수염</OPTION>
+<OPTION value="67">숏 컬링 헤어_턱수염</OPTION>
+<OPTION value="71">스마트 숀 헤어_턱수염</OPTION>
+<OPTION value="75">드래드락_턱수염</OPTION>
+<OPTION value="79">ﾚｰｻﾞｰｶｯﾄ 1</OPTION>
+<OPTION value="83">ｽﾄｰﾑﾍｱ 1</OPTION>
+<OPTION value="87">워터폴 헤어 스타일_턱수염</OPTION>
+<OPTION value="91">내츄럴 셰이프 헤어_턱수염</OPTION>
+<OPTION value="95">브레이디드 룩_턱수염</OPTION>
+<OPTION value="99">스텐드 숏 컷_턱수염</OPTION>
+<OPTION value="103">하드테일 웨이브_턱수염</OPTION>
+<OPTION value="107">슈팅스타_턱수염</OPTION>
+<OPTION value="108">アレックス・ルイ・アームストロングヘア</OPTION>
+<OPTION value="109">Swept Cut_Beard</OPTION>
+<OPTION value="110">Mid-Length Pullback_Beard</OPTION>
+<OPTION value="111">폿포 헤어 스타일</OPTION>
 
 </select>
 
 			</td>
 			<td width="1"></td>
 			<td>
-				<span class="controllerHeader">髪色:</span><br>
-				<select name="hairColorMenu" onchange="changeHairColor(this.value)" style="width:130px;">
+				<span class="controllerHeader">Hair Color:</span><br>
+				<select name="hairColorMenu" onChange = "changeHairColor(this.value)" style="width:130px;">
 
 
-<option style="background-color:#000000;" value="0" selected="">ブラック</option>
+<option style='background-color:#000000;' value="0" selected>ブラック</option>
 
-<option style="background-color:#211C39;" value="1">ブルーブラック</option>
+<option style='background-color:#211C39;' value="1">ブルーブラック</option>
 
-<option style="background-color:#424563;" value="2">ブルーグレー</option>
+<option style='background-color:#424563;' value="2">ブルーグレー</option>
 
-<option style="background-color:#5A4D8C;" value="3">バイオレット</option>
+<option style='background-color:#5A4D8C;' value="3">バイオレット</option>
 
-<option style="background-color:#7B8AAD;" value="4">ライトブルー</option>
+<option style='background-color:#7B8AAD;' value="4">ライトブルー</option>
 
-<option style="background-color:#ADAEC6;" value="5">ﾗｲﾄﾊﾞｲｵﾚｯﾄ</option>
+<option style='background-color:#ADAEC6;' value="5">ﾗｲﾄﾊﾞｲｵﾚｯﾄ</option>
 
-<option style="background-color:#E7E3FF;" value="6">ｼﾙﾊﾞｰﾊﾞｲｵﾚｯﾄ</option>
+<option style='background-color:#E7E3FF;' value="6">ｼﾙﾊﾞｰﾊﾞｲｵﾚｯﾄ</option>
 
-<option style="background-color:#FFF38C;" value="7">ブロンド</option>
+<option style='background-color:#FFF38C;' value="7">ブロンド</option>
 
-<option style="background-color:#EF9252;" value="8">オレンジ</option>
+<option style='background-color:#EF9252;' value="8">オレンジ</option>
 
-<option style="background-color:#C67139;" value="9">ライトブラウン</option>
+<option style='background-color:#C67139;' value="9">ライトブラウン</option>
 
-<option style="background-color:#C61400;" value="10">レッド</option>
+<option style='background-color:#C61400;' value="10">レッド</option>
 
-<option style="background-color:#7B2C10;" value="11">ブラウン</option>
+<option style='background-color:#7B2C10;' value="11">ブラウン</option>
 
-<option style="background-color:#393839;" value="12">ダークグレー</option>
+<option style='background-color:#393839;' value="12">ダークグレー</option>
 
-<option style="background-color:#330000;" value="13">ﾀﾞｰｸﾌﾞﾗｳﾝﾚｯﾄﾞ</option>
+<option style='background-color:#330000;' value="13">ﾀﾞｰｸﾌﾞﾗｳﾝﾚｯﾄﾞ</option>
 
-<option style="background-color:#663300;" value="14">ｵｰｸﾛｰｽﾞﾚｯﾄﾞ</option>
+<option style='background-color:#663300;' value="14">ｵｰｸﾛｰｽﾞﾚｯﾄﾞ</option>
 
-<option style="background-color:#CC9933;" value="15">カーキー</option>
+<option style='background-color:#CC9933;' value="15">カーキー</option>
 
-<option style="background-color:#999999;" value="16">ムースグレー</option>
+<option style='background-color:#999999;' value="16">ムースグレー</option>
 
-<option style="background-color:#996666;" value="17">グレーチェリー</option>
+<option style='background-color:#996666;' value="17">グレーチェリー</option>
 
-<option style="background-color:#9C5D42;" value="18">ｶｯﾊﾟｰﾌﾞﾗｳﾝ</option>
+<option style='background-color:#9C5D42;' value="18">ｶｯﾊﾟｰﾌﾞﾗｳﾝ</option>
 
-<option style="background-color:#333300;" value="19">ﾙｰﾅｻｸﾞﾘｰﾝ</option>
+<option style='background-color:#333300;' value="19">ﾙｰﾅｻｸﾞﾘｰﾝ</option>
 
-<option style="background-color:#336666;" value="20">ｲﾒﾝﾏﾊﾌﾞﾙｰ</option>
+<option style='background-color:#336666;' value="20">ｲﾒﾝﾏﾊﾌﾞﾙｰ</option>
 
-<option style="background-color:#996600;" value="21">オクロス</option>
+<option style='background-color:#996600;' value="21">オクロス</option>
 
-<option style="background-color:#FFFFCC;" value="22">ｼﾙﾊﾞｰﾌﾞﾛﾝﾄﾞ</option>
+<option style='background-color:#FFFFCC;' value="22">ｼﾙﾊﾞｰﾌﾞﾛﾝﾄﾞ</option>
 
-<option style="background-color:#FFCC66;" value="23">リッチブロンド</option>
+<option style='background-color:#FFCC66;' value="23">リッチブロンド</option>
 
-<option style="background-color:#990033;" value="24">カレントレッド</option>
+<option style='background-color:#990033;' value="24">カレントレッド</option>
 
-<option style="background-color:#666666;" value="25">ディムグレー</option>
+<option style='background-color:#666666;' value="25">ディムグレー</option>
 
-<option style="background-color:#003300;" value="26">チークグリーン</option>
+<option style='background-color:#003300;' value="26">チークグリーン</option>
 
-<option style="background-color:#CCCC66;" value="27">ライトオリーブ</option>
+<option style='background-color:#CCCC66;' value="27">ライトオリーブ</option>
 
-<option style="background-color:#FFFF66;" value="28">レモンイエロー</option>
+<option style='background-color:#FFFF66;' value="28">レモンイエロー</option>
 
-<option style="background-color:#FFCC33;" value="29">ｶﾅﾘｱｲｴﾛｰ</option>
+<option style='background-color:#FFCC33;' value="29">ｶﾅﾘｱｲｴﾛｰ</option>
 
-<option style="background-color:#CCCC99;" value="30">ワームグレー</option>
+<option style='background-color:#CCCC99;' value="30">ワームグレー</option>
 
-<option style="background-color:#999999;" value="31">レイングレー</option>
+<option style='background-color:#999999;' value="31">レイングレー</option>
 
-<option style="background-color:#BD7D21;" value="32">ダークオレンジ</option>
+<option style='background-color:#BD7D21;' value="32">ダークオレンジ</option>
 
-<option style="background-color:#FFD7B5;" value="33">サンドピンク</option>
+<option style='background-color:#FFD7B5;' value="33">サンドピンク</option>
 
-<option style="background-color:#6699FF;" value="34">イウェカブルー</option>
+<option style='background-color:#6699FF;' value="34">イウェカブルー</option>
 
-<option style="background-color:#CC0000;" value="35">ﾌﾞﾗｯﾃﾞｨﾚｯﾄﾞ</option>
+<option style='background-color:#CC0000;' value="35">ﾌﾞﾗｯﾃﾞｨﾚｯﾄﾞ</option>
 
-<option style="background-color:#CCFFCC;" value="36">ﾎﾜｲﾄｴﾒﾗﾙﾄﾞ</option>
+<option style='background-color:#CCFFCC;' value="36">ﾎﾜｲﾄｴﾒﾗﾙﾄﾞ</option>
 
-<option style="background-color:#99CCFF;" value="37">アイスブルー</option>
+<option style='background-color:#99CCFF;' value="37">アイスブルー</option>
 
-<option style="background-color:#FF9999;" value="38">サーモンピンク</option>
+<option style='background-color:#FF9999;' value="38">サーモンピンク</option>
 
-<option style="background-color:#FF9933;" value="39">ﾒﾙﾀﾞｼｰﾄｲｴﾛｰ</option>
+<option style='background-color:#FF9933;' value="39">ﾒﾙﾀﾞｼｰﾄｲｴﾛｰ</option>
 
-<option style="background-color:#99FF99;" value="40">イリアグリーン</option>
+<option style='background-color:#99FF99;' value="40">イリアグリーン</option>
 
-<option style="background-color:#CCCCFF;" value="41">ミスリルホワイト</option>
-<option style="background-color:#FFFFFF;" value="42">セラフィムホワイト</option>
-<option style="background-color:#FF66CC;" value="43">ホットピンク</option>
-<option style="background-color:#663333;" value="44">チョコレートブラウン</option>
-<option style="background-color:#CC9999;" value="45">ロージーブラウン</option></select>
+<option style='background-color:#CCCCFF;' value="41">ミスリルホワイト</option>
+<option style='background-color:#FFFFFF;' value="42">セラフィムホワイト</option>
+<option style='background-color:#FF66CC;' value="43">ホットピンク</option>
+<option style='background-color:#663333;' value="44">チョコレートブラウン</option>
+<option style='background-color:#CC9999;' value="45">ロージーブラウン</option></select>
 
-				<span class="colorPaletteMini" id="hairPalette" onclick="dyeColor(this);changeHairColorByPalette();" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(123, 44, 16); background-position: initial initial; background-repeat: initial initial;" title="7B2C10"><img src="sp.gif"></span>
+				<span class="colorPaletteMini" id="hairPalette" onClick="dyeColor(this);changeHairColorByPalette();" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 
 				<input type="text" value="7f7f7f" size="6" name="hairColor">
-				<a class="controllerLink" href="javascript:void(0);" onclick="dyeHair(hairColor.value);">&nbsp;染色</a>
+				<a class="controllerLink" href="javascript:void(0);" onClick="dyeHair(hairColor.value);">&nbsp;Dye</a>
 
 			</td>
 		</tr>
@@ -9874,117 +9675,117 @@ Now Loading
 </table>
 </td>
 </tr>
-<tr id="eyeBlock">
+<tr id="eyeBlock" >
 <td class="controllerBlock">
 <table border="0" cellpadding="0" cellspacing="0">
 	<tbody>
 		<tr>
 			<td>
-				<span class="controllerHeader">目:</span><br>
-				<select name="eyeEmotionMenu" onchange="changeEyeEmotion(this.value)" style="width:150px;">
-<option value="45">強烈な目</option>
-<option value="46">心の目</option>
-<option value="47">強い目</option>
-<option value="48">鋭い目</option>
-<option value="49">真摯な目</option>
-<option value="50">集中する目</option>
-<option value="51">落ち着いた目</option>
-<option value="52">凝視する目</option>
-<option value="53">タカの目</option>
-<option value="54">大人っぽい目</option>
-<option value="55">獅子の目</option>
-<option value="56">暗い目</option>
-<option value="95">怒った目</option>
-<option value="97">無関心な目</option>
-<option value="107">正義感のある目</option>
-<option value="116">アレックス・ルイ・アームストロングの目</option>
-<option value="119">猛獣の目</option>
-<option value="121">ジャイアントぽっぽの目(男性用)</option>
+				<span class="controllerHeader">Eye Style:</span><br>
+				<select name="eyeEmotionMenu" onChange = "changeEyeEmotion(this.value)" style="width:150px;">
+<OPTION value="45">Intense Eyes</OPTION>
+<OPTION value="46">Heartfelt Eyes</OPTION>
+<OPTION value="47">Powerful Eyes</OPTION>
+<OPTION value="48">Sharp Eyes</OPTION>
+<OPTION value="49">Solemn Eyes</OPTION>
+<OPTION value="50">Focused Eyes</OPTION>
+<OPTION value="51">Calm Eyes</OPTION>
+<OPTION value="52">Gazing Eyes</OPTION>
+<OPTION value="53">Hawk Eyes</OPTION>
+<OPTION value="54">Confident Eyes</OPTION>
+<OPTION value="55">Lion Eyes</OPTION>
+<OPTION value="56">Dark Eyes</OPTION>
+<OPTION value="95">怒った目</OPTION>
+<OPTION value="97">Apathetic Eyes</OPTION>
+<OPTION value="107">Righteous Eyes</OPTION>
+<OPTION value="116">알렉스 루이 암스트롱의 눈빛</OPTION>
+<OPTION value="119">Beastly Eyes</OPTION>
+<OPTION value="121">남자자이언트 폿포눈</OPTION>
 
 </select>
 
 			</td>
 			<td width="1"></td>
 			<td>
-				<span class="controllerHeader">目の色:</span><br>
-				<select name="eyeColorMenu" onchange="changeEyeColor(this.value)" style="width:130px;">
+				<span class="controllerHeader">Eye Color:</span><br>
+				<select name="eyeColorMenu" onChange = "changeEyeColor(this.value)" style="width:130px;">
 
-<option style="background-color:#633C31;" value="0" selected="">暗褐色</option>
+<option style='background-color:#633C31;' value="0" selected>暗褐色</option>
 
-<option style="background-color:#003399;" value="1">ブルー</option>
+<option style='background-color:#003399;' value="1">ブルー</option>
 
-<option style="background-color:#211C39;" value="2">ブルーブラック</option>
+<option style='background-color:#211C39;' value="2">ブルーブラック</option>
 
-<option style="background-color:#000099;" value="3">ウルトラマリン</option>
+<option style='background-color:#000099;' value="3">ウルトラマリン</option>
 
-<option style="background-color:#330000;" value="4">オークブラウン</option>
+<option style='background-color:#330000;' value="4">オークブラウン</option>
 
-<option style="background-color:#660066;" value="5">ﾀﾞｰｸﾊﾞｲｵﾚｯﾄ</option>
+<option style='background-color:#660066;' value="5">ﾀﾞｰｸﾊﾞｲｵﾚｯﾄ</option>
 
-<option style="background-color:#5A4D8C;" value="6">バイオレット</option>
+<option style='background-color:#5A4D8C;' value="6">バイオレット</option>
 
-<option style="background-color:#C61400;" value="7">レッド</option>
+<option style='background-color:#C61400;' value="7">レッド</option>
 
-<option style="background-color:#000000;" value="8">ピュアブラック</option>
+<option style='background-color:#000000;' value="8">ピュアブラック</option>
 
-<option style="background-color:#006600;" value="9">グリーン</option>
+<option style='background-color:#006600;' value="9">グリーン</option>
 
-<option style="background-color:#C67139;" value="10">ライトブラウン</option>
+<option style='background-color:#C67139;' value="10">ライトブラウン</option>
 
-<option style="background-color:#424563;" value="11">ブルーグレー</option>
+<option style='background-color:#424563;' value="11">ブルーグレー</option>
 
-<option style="background-color:#393839;" value="12">ダークグレー</option>
+<option style='background-color:#393839;' value="12">ダークグレー</option>
 
-<option style="background-color:#333300;" value="13">ｼｭﾘｰｳﾞｸﾞﾘｰﾝ</option>
+<option style='background-color:#333300;' value="13">ｼｭﾘｰｳﾞｸﾞﾘｰﾝ</option>
 
-<option style="background-color:#990000;" value="14">カーマイン</option>
+<option style='background-color:#990000;' value="14">カーマイン</option>
 
-<option style="background-color:#003333;" value="15">ｱｽﾞﾃﾞｨｰﾌﾟｸﾞﾘｰﾝ</option>
+<option style='background-color:#003333;' value="15">ｱｽﾞﾃﾞｨｰﾌﾟｸﾞﾘｰﾝ</option>
 
-<option style="background-color:#996666;" value="16">ワームグレー</option>
+<option style='background-color:#996666;' value="16">ワームグレー</option>
 
-<option style="background-color:#999966;" value="17">グリニッシュ</option>
+<option style='background-color:#999966;' value="17">グリニッシュ</option>
 
-<option style="background-color:#006666;" value="18">シアナグリーン</option>
+<option style='background-color:#006666;' value="18">シアナグリーン</option>
 
-<option style="background-color:#666666;" value="19">グレー</option>
+<option style='background-color:#666666;' value="19">グレー</option>
 
-<option style="background-color:#FF9900;" value="20">アンバー</option>
+<option style='background-color:#FF9900;' value="20">アンバー</option>
 
-<option style="background-color:#7B8AAD;" value="21">ライトブルー</option>
+<option style='background-color:#7B8AAD;' value="21">ライトブルー</option>
 
-<option style="background-color:#99CCCC;" value="22">ﾅﾙｼｻｽﾌﾞﾙｰ</option>
+<option style='background-color:#99CCCC;' value="22">ﾅﾙｼｻｽﾌﾞﾙｰ</option>
 
-<option style="background-color:#CEAAAD;" value="23">グレーレッド</option>
+<option style='background-color:#CEAAAD;' value="23">グレーレッド</option>
 
-<option style="background-color:#C6794A;" value="24">レッドブラウン</option>
+<option style='background-color:#C6794A;' value="24">レッドブラウン</option>
 
-<option style="background-color:#9999CC;" value="25">ﾗｲﾄﾊﾞｲｵﾚｯﾄ</option>
+<option style='background-color:#9999CC;' value="25">ﾗｲﾄﾊﾞｲｵﾚｯﾄ</option>
 
-<option style="background-color:#CC6600;" value="26">ビビッドオレンジ</option>
+<option style='background-color:#CC6600;' value="26">ビビッドオレンジ</option>
 
-<option style="background-color:#6699CC;" value="27">ｽﾁｰﾙﾌﾞﾙｰ</option>
+<option style='background-color:#6699CC;' value="27">ｽﾁｰﾙﾌﾞﾙｰ</option>
 
-<option style="background-color:#009966;" value="28">バジル</option>
+<option style='background-color:#009966;' value="28">バジル</option>
 
-<option style="background-color:#3399CC;" value="29">ﾌｪｱｷﾞｽﾌﾞﾙｰ</option>
+<option style='background-color:#3399CC;' value="29">ﾌｪｱｷﾞｽﾌﾞﾙｰ</option>
 
-<option style="background-color:#66CC99;" value="30">スカイグリーン</option>
+<option style='background-color:#66CC99;' value="30">スカイグリーン</option>
 
-<option style="background-color:#CC3366;" value="31">マリーローズ</option>
+<option style='background-color:#CC3366;' value="31">マリーローズ</option>
 
-<option style="background-color:#0099FF;" value="32">サマースカイ</option>
+<option style='background-color:#0099FF;' value="32">サマースカイ</option>
 
-<option style="background-color:#9C5D42;" value="33">カッパーブラウン</option>
+<option style='background-color:#9C5D42;' value="33">カッパーブラウン</option>
 
-<option style="background-color:#B58A7B;" value="34">コーヒー</option>
+<option style='background-color:#B58A7B;' value="34">コーヒー</option>
 </select>
 
-				<span class="colorPaletteMini" id="eyePalette" onclick="dyeColor(this);changeEyeColorByPalette();" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(66, 69, 99); background-position: initial initial; background-repeat: initial initial;" title="424563"><img src="sp.gif"></span>
+				<span class="colorPaletteMini" id="eyePalette" onClick="dyeColor(this);changeEyeColorByPalette();" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 
 
 				<input type="text" value="7f7f7f" size="6" name="eyeColor">
-				<a class="controllerLink" href="javascript:void(0);" onclick="dyeEye(eyeColor.value);">&nbsp;染色</a>
+				<a class="controllerLink" href="javascript:void(0);" onClick="dyeEye(eyeColor.value);">&nbsp;Dye</a>
 
 			</td>
 		</tr>
@@ -9992,32 +9793,32 @@ Now Loading
 </table>
 </td>
 </tr>
-<tr id="faceBlock">
+<tr id="faceBlock" >
 <td class="controllerBlock">
 <table border="0" cellpadding="0" cellspacing="0">
 	<tbody>
 		<tr>
 			<td>
-				<span class="controllerHeader">顔:</span><br>
-				<select name="faceMenu" onchange="changeFace(this.value)">
-<option value="14">ジャイアント男顔</option>
-<option value="15">クリューグ</option>
-<option value="16">タウネス</option>
-<option value="17">レウス</option>
-<option value="18">バルバ</option>
+				<span class="controllerHeader">Face:</span><br>
+				<select name="faceMenu" onChange = "changeFace(this.value)">
+<OPTION value="14">자이언트 남자 얼굴</OPTION>
+<OPTION value="15">크루크</OPTION>
+<OPTION value="16">타우네스</OPTION>
+<OPTION value="17">레우스</OPTION>
+<OPTION value="18">바르바</OPTION>
 
 </select>
 
 			</td>
 			<td width="1"></td>
 			<td>
-				<span class="controllerHeader">口:</span><br>
-				<select name="mouthEmotionMenu" onchange="changeMouthEmotion(this.value)">
-<option value="26">ぎゅっと閉じた口</option>
-<option value="27">根気強い口</option>
-<option value="28">穏やかな口</option>
-<option value="29">温かい微笑み</option>
-<option value="30">軽く開いた口</option>
+				<span class="controllerHeader">Mouth:</span><br>
+				<select name="mouthEmotionMenu" onChange = "changeMouthEmotion(this.value)">
+<OPTION value="26">Tightly Shut Mouth</OPTION>
+<OPTION value="27">Firm Mouth</OPTION>
+<OPTION value="28">Relaxed Mouth</OPTION>
+<OPTION value="29">Warm Smile</OPTION>
+<OPTION value="30">Whispering Mouth</OPTION>
 
 </select>
 
@@ -10025,9 +9826,9 @@ Now Loading
 			<td width="1"></td>
 			<td>
 			
-	<span class="controllerHeader">表情:</span><br>
-	<select name="reactionMenu" onchange="changeReaction(this.value)">
-<option value="0" selected="">(普)</option>
+	<span class="controllerHeader">Face Reaction:</span><br />
+	<select name="reactionMenu" onChange = "changeReaction(this.value)">
+<option value="0" selected>(普)</option>
 <option value="1">(笑)</option>
 <option value="2">(怒)</option>
 <option value="3">(真)</option>
@@ -10081,40 +9882,40 @@ Now Loading
 	<tbody>
 		<tr>
 			<td>
-				<span class="controllerHeader">肌色:</span><br>
-				<select name="skinColorMenu" onchange="changeSkinColor(this.value)">
+				<span class="controllerHeader">Skin Color:</span><br>
+				<select name="skinColorMenu" onChange = "changeSkinColor(this.value)">
 
 
-<option style="background-color:#F7EFFF;" value="0" selected="">[HEG]美白色</option>
+<option style='background-color:#F7EFFF;' value="0" selected>[HEG]美白色</option>
 
-<option style="background-color:#F7F3DE;" value="1">[HEG]白黄色</option>
+<option style='background-color:#F7F3DE;' value="1">[HEG]白黄色</option>
 
-<option style="background-color:#EFE3B5;" value="2">[HEG]濃い黄色</option>
+<option style='background-color:#EFE3B5;' value="2">[HEG]濃い黄色</option>
 
-<option style="background-color:#FFE3B5;" value="3">[HEG]薄い黄色</option>
+<option style='background-color:#FFE3B5;' value="3">[HEG]薄い黄色</option>
 
-<option style="background-color:#FFD7B5;" value="4">[HEG]黄色</option>
+<option style='background-color:#FFD7B5;' value="4">[HEG]黄色</option>
 
-<option style="background-color:#FFC7C6;" value="5">[HE]桃色</option>
+<option style='background-color:#FFC7C6;' value="5">[HE]桃色</option>
 
-<option style="background-color:#CEAAAD;" value="6">[HG]赤茶色</option>
+<option style='background-color:#CEAAAD;' value="6">[HG]赤茶色</option>
 
-<option style="background-color:#B58A7B;" value="7">[HG]コーヒー色</option>
+<option style='background-color:#B58A7B;' value="7">[HG]コーヒー色</option>
 
-<option style="background-color:#ADAAA5;" value="8">[HG]土色</option>
+<option style='background-color:#ADAAA5;' value="8">[HG]土色</option>
 
-<option style="background-color:#9C5D42;" value="9">[HG]茶色</option>
+<option style='background-color:#9C5D42;' value="9">[HG]茶色</option>
 
-<option style="background-color:#C6794A;" value="10">[HG]赤褐色</option>
+<option style='background-color:#C6794A;' value="10">[HG]赤褐色</option>
 
-<option style="background-color:#633C31;" value="11">[HG]暗褐色</option>
+<option style='background-color:#633C31;' value="11">[HG]暗褐色</option>
 
 
 </select>
 
-				<span class="colorPaletteMini" id="skinPalette" onclick="dyeColor(this);changeSkinColorByPalette();" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(156, 93, 66); background-position: initial initial; background-repeat: initial initial;" title="9C5D42"><img src="sp.gif"></span>
+				<span class="colorPaletteMini" id="skinPalette" onClick="dyeColor(this);changeSkinColorByPalette();" onContextMenu="pickColor(this);return false;" ><img src="sp.gif"></span>
 				<input type="text" value="7f7f7f" size="6" name="skinColor">
-				<a class="controllerLink" href="javascript:void(0);" onclick="dyeSkin(skinColor.value);">&nbsp;染色</a>
+				<a class="controllerLink" href="javascript:void(0);" onClick="dyeSkin(skinColor.value);">&nbsp;Dye</a>
 			</td>
 		</tr>
 	</tbody>
@@ -10124,7 +9925,7 @@ Now Loading
 </tbody>
 </table>
 
-<table width="430" border="0" cellpadding="0" cellspacing="0">
+<table width="430" border="0" cellpadding="0" cellspacing="0" >
 <tbody>
 <tr id="colorPickerBlock">
 <td>
@@ -10133,7 +9934,7 @@ Now Loading
 	<tbody>
 		<tr>
 			<td class="controllerTitle">
-				<a href="javascript:void(0);" onclick="toggleColorPicker();" id="colorPickerController" class="configLink">+ カラーパレット</a>
+				<a href="javascript:void(0);" onClick="toggleColorPicker();" id="colorPickerController" class="configLink">+ Color Picker</a>
 			</td>
 		</tr>
 		<tr id="colorPickerLocalBlock">
@@ -10142,72 +9943,72 @@ Now Loading
 			
 							
 				<span class="controllerHeader">RGB</span>
-				<input name="colorPickerR" onchange="changeRInput(this);" type="text" style="width:30px;">
-				<input name="colorPickerG" onchange="changeGInput(this);" type="text" style="width:30px;">
-				<input name="colorPickerB" onchange="changeBInput(this);" type="text" style="width:30px;">
+				<INPUT name="colorPickerR" onchange="changeRInput(this);" type="text" style="width:30px;">
+				<INPUT name="colorPickerG" onchange="changeGInput(this);" type="text" style="width:30px;">
+				<INPUT name="colorPickerB" onchange="changeBInput(this);" type="text" style="width:30px;">
 				<span class="controllerHeader"></span>
-				<input name="colorPickerHEX" onchange="setPickerColor(this.value);" type="text" style="width:60px;">
+				<INPUT name="colorPickerHEX" onchange="setPickerColor(this.value);" type="text" style="width:60px;">
 				
-				<input style="width:120px;" type="button" onclick="encode_TrueMabiColor();" value="染色可能色に変換" title="選択中の色を右リストのパレットで染色可能な色に変換します。最も近い色に変換されます。">
+				<input style="width:120px;" type="button" onclick="encode_TrueMabiColor();" value="GetDyeAmpleColor" title="" />
 				
 				<select name="paletteTrueColorMenu" style="width:70px;">
-				<option value="normal1" selected="">通常1</option>
-				<option value="normal2">通常2</option>
-				<option value="normal3">通常3</option>
-				<option value="leather1">革</option>
-				<option value="metal1">金属1</option>
-				<option value="metal2">金属2</option>
-				<option value="metal3">金属3</option>
+				<option value="normal1" selected>normal1</option>
+				<option value="normal2">normal2</option>
+				<option value="normal3">normal3</option>
+				<option value="leather1">leather</option>
+				<option value="metal1">metal1</option>
+				<option value="metal2">metal2</option>
+				<option value="metal3">metal3</option>
 				</select> 
-				<a class="controllerLink" href="http://labo.erinn.biz/cs/usage.truecolor.php" target="_blank">？</a>
+				<a class="controllerLink" href="usage.truecolor.php" target="_blank">？</a>
 				
-				<table class="colorPickerArea" oncontextmenu="return false;">
+				<table class="colorPickerArea" onContextMenu="return false;">
 					<tbody>
 						<tr>
 							<td rowspan="3">
-								<div onclick="simplePicker.run(&#39;colorPickerHEX&#39;);" class="colorPaletteSelected" id="colorSwatch" style="background-color: rgb(0, 0, 0); background-position: initial initial; background-repeat: initial initial;" title="000000">&nbsp;</div>
+								<div onclick="simplePicker.run('colorPickerHEX');" class="colorPaletteSelected" id="colorSwatch">&nbsp;</div>
 							</td>
 							<td class="paletteArea">
-								<span class="colorPalettePicker" id="palette1" onclick="dyeColor(this);setColorPalette(0, this);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(250, 208, 41); background-position: initial initial; background-repeat: initial initial;" title="fad029"><img src="sp.gif"></span>
-								<span class="colorPalettePicker" id="palette2" onclick="dyeColor(this);setColorPalette(1, this);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(90, 210, 81); background-position: initial initial; background-repeat: initial initial;" title="5ad251"><img src="sp.gif"></span>
-								<span class="colorPalettePicker" id="palette3" onclick="dyeColor(this);setColorPalette(2, this);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(106, 179, 251); background-position: initial initial; background-repeat: initial initial;" title="6ab3fb"><img src="sp.gif"></span>
+								<span class="colorPalettePicker" id="palette1" onClick="dyeColor(this);setColorPalette(0, this);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
+								<span class="colorPalettePicker" id="palette2" onClick="dyeColor(this);setColorPalette(1, this);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
+								<span class="colorPalettePicker" id="palette3" onClick="dyeColor(this);setColorPalette(2, this);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 							</td>
 							<td style="padding-left:3px;" rowspan="3">
-								<img src="marker.png" alt="" style="position: relative; left: 0px;" id="rTip"><br>
-								<img src="red.png" alt="red slider" width="262" height="16" onmousemove="if(dragging)changeR();" onmousedown="mouseDown(this);" onmouseup="mouseUp(this);" onclick="changeR();mouseUp(this);" ondragstart="return false;" onmousewheel="changeRw();return false;"><br>
-								<img src="marker.png" alt="" style="position: relative; left: 0px;" id="gTip"><br>
-								<img src="green.png" alt="green slider" width="262" height="16" onmousemove="if(dragging)changeG();" onmousedown="mouseDown(this);" onmouseup="mouseUp(this);" onclick="changeG();mouseUp(this);" ondragstart="return false;" onmousewheel="changeGw();return false;"><br>
-								<img src="marker.png" alt="" style="position: relative; left: 0px;" id="bTip"><br>
-								<img src="blue.png" alt="blue slider" width="262" height="16" onmousemove="if(dragging)changeB();" onmousedown="mouseDown(this);" onmouseup="mouseUp(this);" onclick="changeB();mouseUp(this);" ondragstart="return false;" onmousewheel="changeBw();return false;"><br>
+								<img src=" marker.png" alt="" style="position: relative;" id="rTip"><br>
+								<img src=" red.png" alt="red slider" width="262" height="16" onMouseMove="if(dragging)changeR();" onMouseDown="mouseDown(this);" onMouseUp="mouseUp(this);" onClick="changeR();mouseUp(this);" onDragStart="return false;" onMouseWheel="changeRw();return false;"><br>
+								<img src=" marker.png" alt="" style="position: relative;" id="gTip"><br>
+								<img src=" green.png" alt="green slider" width="262" height="16" onMouseMove="if(dragging)changeG();" onMouseDown="mouseDown(this);" onMouseUp="mouseUp(this);" onClick="changeG();mouseUp(this);" onDragStart="return false;" onMouseWheel="changeGw();return false;"><br>
+								<img src=" marker.png" alt="" style="position: relative;" id="bTip"><br>
+								<img src=" blue.png" alt="blue slider" width="262" height="16" onMouseMove="if(dragging)changeB();" onMouseDown="mouseDown(this);" onMouseUp="mouseUp(this);" onClick="changeB();mouseUp(this);" onDragStart="return false;" onMouseWheel="changeBw();return false;"><br>
 							</td>
 						</tr>
 						<tr>
 							<td class="paletteArea">
-								<span class="colorPalettePicker" id="palette4" onclick="dyeColor(this);setColorPalette(3, this);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(0, 0, 0); background-position: initial initial; background-repeat: initial initial;" title="000000"><img src="sp.gif"></span>
-								<span class="colorPalettePicker" id="palette5" onclick="dyeColor(this);setColorPalette(4, this);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(127, 127, 127); background-position: initial initial; background-repeat: initial initial;" title="7f7f7f"><img src="sp.gif"></span>
-								<span class="colorPalettePicker" id="palette6" onclick="dyeColor(this);setColorPalette(5, this);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(255, 255, 255); background-position: initial initial; background-repeat: initial initial;" title="ffffff"><img src="sp.gif"></span>
+								<span class="colorPalettePicker" id="palette4" onClick="dyeColor(this);setColorPalette(3, this);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
+								<span class="colorPalettePicker" id="palette5" onClick="dyeColor(this);setColorPalette(4, this);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
+								<span class="colorPalettePicker" id="palette6" onClick="dyeColor(this);setColorPalette(5, this);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 							</td>
 						</tr>
 						<tr>
 							<td class="paletteArea">
-								<span class="colorPalettePicker" id="palette7" onclick="dyeColor(this);setColorPalette(6, this);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(253, 179, 236); background-position: initial initial; background-repeat: initial initial;" title="fdb3ec"><img src="sp.gif"></span>
-								<span class="colorPalettePicker" id="palette8" onclick="dyeColor(this);setColorPalette(7, this);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(255, 0, 0); background-position: initial initial; background-repeat: initial initial;" title="ff0000"><img src="sp.gif"></span>
-								<span class="colorPalettePicker" id="palette9" onclick="dyeColor(this);setColorPalette(8, this);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(209, 251, 254); background-position: initial initial; background-repeat: initial initial;" title="d1fbfe"><img src="sp.gif"></span>
+								<span class="colorPalettePicker" id="palette7" onClick="dyeColor(this);setColorPalette(6, this);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
+								<span class="colorPalettePicker" id="palette8" onClick="dyeColor(this);setColorPalette(7, this);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
+								<span class="colorPalettePicker" id="palette9" onClick="dyeColor(this);setColorPalette(8, this);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="3" class="controllerHeader">
-								<b>↑をクリックすると色選択を開きます</b> [左クリック] 色を貼り付け [右クリック] 色をコピー							</td>
+								<B>Please click the upper to open color picker.</B><BR>[Left click] Paste color [Right click] Copy color							</td>
 						</tr>
 					</tbody>
 				</table>
 				
 				
-				<table class="colorLogFrame" style="width:100%;" border="0" cellpadding="0" cellspacing="0" oncontextmenu="return false;">
+				<table class="colorLogFrame" style="width:100%;" border="0" cellpadding="0" cellspacing="0" onContextMenu="return false;">
 					<tbody>
 						<tr>
 							<td class="secondaryControllerHeader">
-								<a href="javascript:void(0);" onclick="toggleColorLog();" id="colorLogController" class="secondaryControllerHeader">+ 色選択ログ (Cookie)</a>
+								<a href="javascript:void(0);" onClick="toggleColorLog();" id="colorLogController" class="secondaryControllerHeader">+ Color Logs (Cookie)</a>
 							</td>
 						</tr>
 						<tr id="colorLogBlock">
@@ -10216,7 +10017,7 @@ Now Loading
 									<tbody>
 										<tr>
 											<td class="paletteArea">
-												<span class="colorPaletteLog" id="paletteLog0" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog1" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog2" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog3" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog4" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog5" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog6" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog7" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog8" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog9" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog10" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog11" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog12" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog13" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog14" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog15" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog16" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog17" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog18" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog19" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog20" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onclick="pickColorNoLog(this);return false;" oncontextmenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span>											</td>
+												<span class="colorPaletteLog" id="paletteLog0" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog1" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog2" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog3" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog4" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog5" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog6" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog7" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog8" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog9" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog10" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog11" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog12" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog13" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog14" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog15" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog16" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog17" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog18" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog19" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span><span class="colorPaletteLog" id="paletteLog20" style="padding-top:4px;padding-bottom:4px;margin-right:3px;" onClick="pickColorNoLog(this);return false;" onContextMenu="pickColorNoLog(this);return false;"><img src="sp.gif"></span>											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -10237,11 +10038,11 @@ Now Loading
 
 <div id="colorpicksp" style="display:none;height:256px;">&nbsp;</div>
 
-<table width="430" border="0" cellpadding="0" cellspacing="2">
+<table width="430" border="0" cellpadding="0" cellspacing="2" >
 <tbody>
 	<tr>
 		<td class="controllerTitle">
-			<a href="javascript:void(0);" onclick="toggleSearchController();" id="searchController" class="configLink">+ 検索</a>
+			<a href="javascript:void(0);" onClick="toggleSearchController();" id="searchController" class="configLink">+ Search</a>
 		</td>
 	</tr>
 	<tr id="searchBlock">
@@ -10250,32 +10051,32 @@ Now Loading
 			<tbody>
 			<tr>
 				<td>
-					<span class="controllerHeader">検索語句:</span><br>
-					<input onfocus="if(this.value==&#39;検索したい装備名など→ 例)ばなれん&#39;){this.value=&#39;&#39;;this.style.color=&#39;#000000&#39;;}" name="searchText" type="text" value="検索したい装備名など→ 例)ばなれん" style="width:250px;font-size:14px;color : #b3b3b3;border-width : 1px;border-style : solid;border-color : red;padding:3px;">
+					<span class="controllerHeader">Search Word:</span><br>
+					<input onfocus="if(this.value=='search example) Vanalen'){this.value='';this.style.color='#000000';}" name="searchText" type="text" value="search example) Vanalen" style="width:250px;font-size:14px;color : #b3b3b3;border-width : 1px;border-style : solid;border-color : red;padding:3px;">
 				</td>
 				<td width="3"></td>
 				<td>
-					<span class="controllerHeader">検索部位:</span><br>
+					<span class="controllerHeader">Search Target:</span><br>
 					<select name="searchPartsMenu" onchange="runSearch();" style="font-size:14px;width:150px;">
-										<option value="_equip">装備: すべて</option>
-					<option value="head">装備: 頭</option>
-					<option value="body">装備: 体</option>
-					<option value="foot">装備: 足</option>
-					<option value="hand">装備: 手</option>
-					<option value="robe">装備: ローブ</option>
-					<option value="weaponFirst">装備: メイン武器(右手)</option>
-					<option value="shieldFirst">装備: メイン武器(左手)</option>
-					<option value="weaponSecond">装備: サブ武器(右手)</option>
-					<option value="shieldSecond">装備: サブ武器(左手)</option>
-					<option value="animation">キャラ: モーション</option>
-					<option value="hair">キャラ: 髪型</option>
-					<option value="hairColor">キャラ: 髪色</option>
-					<option value="eyeEmotion">キャラ: 目</option>
-					<option value="eyeColor">キャラ: 目の色</option>
-					<option value="face">キャラ: 顔</option>
-					<option value="mouthEmotion">キャラ: 口</option>
-					<option value="reaction">キャラ: 表情</option>
-					<option value="skinColor">キャラ: 肌色</option>
+										<option value="_equip">Equip: ALL</option>
+					<option value="head">Equip: Head</option>
+					<option value="body">Equip: Body</option>
+					<option value="foot">Equip: Foot</option>
+					<option value="hand">Equip: Hand</option>
+					<option value="robe">Equip: Robe</option>
+					<option value="weaponFirst">Equip: Weapon Main (Left Hand)</option>
+					<option value="shieldFirst">Equip: Weapon Main (Right Hand)</option>
+					<option value="weaponSecond">Equip: Weapon Sub (Left Hand)</option>
+					<option value="shieldSecond">Equip: Weapon Sub (Right Hand)</option>
+					<option value="animation">Character: Motion</option>
+					<option value="hair">Character: Hair Style</option>
+					<option value="hairColor">Character: Hair Color</option>
+					<option value="eyeEmotion">Character: Eye Style</option>
+					<option value="eyeColor">Character: Eye Color</option>
+					<option value="face">Character: Face</option>
+					<option value="mouthEmotion">Character: Mouth</option>
+					<option value="reaction">Character: Face Reaction</option>
+					<option value="skinColor">Character: Skin Color</option>
 										
 					</select>
 				</td>
@@ -10287,12 +10088,12 @@ Now Loading
 			<tbody>
 			<tr>
 				<td>
-					<span class="controllerHeader">検索結果:</span>
+					<span class="controllerHeader">Result:</span>
 				</td>
 			</tr>
 			<tr>
 				<td id="searchResult" style="line-height: 140%;">
-				<div style="padding : 5px;border-width : 2px;border-style : solid solid solid solid;border-color : #ff9799;font-size : 14px;font-weight : bold;color : #ff9799;width : 100%;">▲ 装備は検索機能を使って探しましょう！</div>				</td>
+				* <i>try search.</i>				</td>
 			</tr>
 			</tbody>
 			</table>
@@ -10305,13 +10106,13 @@ Now Loading
 <tbody>
 	<tr>
 		<td class="controllerTitle">
-		<a href="javascript:void(0);" onclick="toggleHistoryController();" id="historyController" class="configLink">+ ヒストリー</a>
+		<a href="javascript:void(0);" onClick="toggleHistoryController();" id="historyController" class="configLink">+ History</a>
 		</td>
 	</tr>
 	<tr id="historyBlock" style="display:none;">
 		<td class="controllerBlock">
 		<div id="historyArea" style="height:85px; width:100%; overflow-y:scroll;">
-		* <a href="javascript:void(0);" onclick="if(confirm(&#39;開いたときの状態に戻しますがよろしいですか？&#39;)){parent.location.reload();}">Mabinogi Character Simulator 2 を開きました。</a><br>
+		* <a href="javascript:void(0);" onclick="if(confirm('開いたときの状態に戻しますがよろしいですか？')){parent.location.reload();}">Mabinogi Character Simulator 2 を開きました。</a><br>
 		</div>
 		</td>
 	</tr>
@@ -10319,1463 +10120,1291 @@ Now Loading
 </table>
 
 <center>
-<input id="backHistoryButton" type="button" value="(戻れません)" onclick="backHistory();" style="width:100px;" disabled=""> 
-<input id="nextHistoryButton" type="button" value="(進められません)" disabled="" onclick="nextHistory();" style="width:100px;"> 
+<input id="backHistoryButton" type="button" value="---" disabled onclick="backHistory();" style="width:100px;"> 
+<input id="nextHistoryButton" type="button" value="---" disabled onclick="nextHistory();" style="width:100px;"> 
 </center>
 	
 <table width="430" border="0" cellpadding="0" cellspacing="2">
 <tbody>																						
 <tr>
-<td class="controllerTitle">
-<a href="javascript:void(0);" onclick="toggleEquipmentsController();" id="equipmentController" class="configLink">+ 装備</a>
+<td class="controllerTitle" >
+<a href="javascript:void(0);" onClick="toggleEquipmentsController();" id="equipmentController" class="configLink">+ Equip</a>
 </td>
 </tr>
-<tr id="headBlock">
+<tr id="headBlock" >
 <td class="controllerBlock">
-<span class="controllerHeader">頭:</span><br>
-<select name="headMenu" onchange="changeHead(this.value);" style="width:300px;">
-<option value="-1">(無し)</option>
-<option value="1">モンゴジェスターキャップ</option>
-<option value="2">しっぽ帽子</option>
-<option value="3">モンゴシーフキャップ</option>
-<option value="4">バンダナ</option>
-<option value="5">短い鹿の角のカチューシャ</option>
-<option value="6">鹿の角のカチューシャ</option>
-<option value="7">長い鹿の角のカチューシャ</option>
-<option value="8">ボリュームベレー帽</option>
-<option value="9">羽根つきベレー帽</option>
-<option value="10">コレスベレー帽</option>
-<option value="11">見習いコックの帽子</option>
-<option value="12">中堅コックの帽子</option>
-<option value="13">ベテランコックの帽子</option>
-<option value="14">ラビットバンド1</option>
-<option value="15">革のラビットバンド1</option>
-<option value="16">星のラビットバンド1</option>
-<option value="17">紙帽子</option>
-<option value="18">マビノギ1周年記念ミニハット</option>
-<option value="19">鈴ねこ帽子</option>
-<option value="20">とらねこ帽子</option>
-<option value="21">ピンねこ帽子</option>
-<option value="22">見習いデザイナーの帽子</option>
-<option value="23">首席デザイナーの帽子</option>
-<option value="24">一流デザイナーの帽子</option>
-<option value="25">サンタ帽子</option>
-<option value="26">太い角(男性用)</option>
-<option value="27">ひつじ帽子</option>
-<option value="28">エミィロリンアドミラルハット(男性用)</option>
-<option value="29">キュアレスゴーグル付きキャスケット</option>
-<option value="30">ネコ耳カチューシャ</option>
-<option value="31">鼻眼鏡</option>
-<option value="32">プラスチック眼鏡</option>
-<option value="33">トルディメタルグラス</option>
-<option value="34">ネコ型イヤーマフ</option>
-<option value="35">#35: Coke UFO Hat</option>
-<option value="36">#36: Coke Sporty Sun Cap</option>
-<option value="37">#37: Coke Play Sun Cap</option>
-<option value="38">イチゴケーキ帽子 (Eタイプ)</option>
-<option value="39">葡萄ケーキ帽子 (Eタイプ)</option>
-<option value="40">ジャイアント異国風民族頭巾(男性用)</option>
-<option value="41">眼帯</option>
-<option value="42">テンガロンハット</option>
-<option value="43">京劇髪飾り（男性用）</option>
-<option value="44">アングリーかぼちゃ帽子</option>
-<option value="45">スマイルかぼちゃ帽子</option>
-<option value="46">ウィキッドかぼちゃ帽子</option>
-<option value="47">ビンテージボリュームベレー帽</option>
-<option value="48">ビンテージバンダナ</option>
-<option value="49">ビンテージエミィロリンアドミラルハット(男性用)</option>
-<option value="50">ビンテージキュアレスゴーグル付きキャスケット</option>
-<option value="51">ビンテージ羽根つきベレー帽</option>
-<option value="52">ビンテージしっぽ帽子</option>
-<option value="53">ビンテージコレスベレー帽</option>
-<option value="54">桜の髪飾り</option>
-<option value="55">ヴィセオバッジ付き飛行帽</option>
-<option value="56">温泉帽子</option>
-<option value="57">ラバーゴーグル</option>
-<option value="58">アイリスナイトキャップ</option>
-<option value="59">ディックステッチマスク</option>
-<option value="60">パールシャインドロップ</option>
-<option value="61">パイレーツボースンバンダナ</option>
-<option value="62">パイレーツキャプテンハット</option>
-<option value="68">ガーディアンヘルム</option>
-<option value="69">クィラシアヘルム</option>
-<option value="70">ナイトフルヘルム</option>
-<option value="71">スパイクキャップ</option>
-<option value="72">ツインホーンキャップ</option>
-<option value="73">イビルダイングクラウン</option>
-<option value="74">アイアンマスキングヘッドギア</option>
-<option value="75">ノルマンウォーリアヘルメット</option>
-<option value="76">ダスティンシルバーナイトヘルム</option>
-<option value="77">ドラゴンフェリックスヘルム</option>
-<option value="78">稲妻戦士の兜</option>
-<option value="79">異国風龍飾兜</option>
-<option value="80">ビンテージダスティンシルバーナイトヘルム</option>
-<option value="81">ビンテージドラゴンフェリックスヘルム</option>
-<option value="82">コリンプレートヘルメット</option>
-<option value="83">#83: 3rd Anniversary Mongo's Hat</option>
-<option value="84">オリエンタルキャップ(男性用)</option>
-<option value="85">#85: Nao's Flower Helm</option>
-<option value="88">妖精の羽根</option>
-<option value="89">シルバースリーリング(両側)</option>
-<option value="90">シルバースリーリング(左側)</option>
-<option value="91">シルバースリーリング(右側)</option>
-<option value="92">王子様の王冠(男性用)</option>
-<option value="94">クリスマスケーキ帽子</option>
-<option value="95">#95: Party Hat</option>
-<option value="96">ウィングヘルム</option>
-<option value="97">ネコヘルム</option>
-<option value="98">ハチマキ</option>
-<option value="99">#99: 5th Anniversary Mongo's Hat</option>
-<option value="100">ブランシェ旅人のボレロターバン(ジャイアント男性用)</option>
-<option value="101">サマーニットキャップ</option>
-<option value="102">モノクル</option>
-<option value="93">ドラゴンスケイルヘルム</option>
-<option value="103">シャイニングスター</option>
-<option value="104">エメラルドケルティックパターンキャップ(男性用)</option>
-<option value="105">トナカイの角</option>
-<option value="107">虎帽子</option>
-<option value="106">モンキーヘルメット</option>
-<option value="108">チューリップカチューシャ</option>
-<option value="109">タラ突撃歩兵の兜 (ジャイアント男性用)</option>
-<option value="110">ドーナツ型めがね</option>
-<option value="111">暴君の兜(男性用)</option>
-<option value="112">トーガのマスク</option>
-<option value="113">シャナたん</option>
-<option value="114">ヘカテーたん</option>
-<option value="116">高原民族の伝統帽子(男性用)</option>
-<option value="115">kumataru愉快なオーケストラの帽子</option>
-<option value="117">セーラーマンハット(男性用)</option>
-<option value="119">ヘボナサークレット</option>
-<option value="120">トリニティサークレット</option>
-<option value="121">アドニス帽子(男性用)</option>
-<option value="122">ボヘミアン帽子(男性用)</option>
-<option value="123">ペイトラン帽子</option>
-<option value="124">ベルモント帽子(男性用)</option>
-<option value="125">テムズプレートヘルメット</option>
-<option value="126">バーナムプレートヘルメット</option>
-<option value="127">アルフォンス・エルリックのヘルム(男性用)</option>
-<option value="128">ピルグリム帽子(ジャイアント男性用)</option>
-<option value="129">ナオたん</option>
-<option value="130">ジャイアントプレミアムウィンターファー帽子 (男性用)</option>
-<option value="131">男性ジャイアント用ネズミ帽子</option>
-<option value="132">ナイトウィングプレートヘルム</option>
-<option value="133">ドラゴンライダーヘルム</option>
-<option value="134">キツネ帽子</option>
-<option value="135">アヒル帽子</option>
-<option value="136">チョコレート帽子</option>
-<option value="137">ゾロのマスク</option>
-<option value="138">ミスリルランスヘビーヘルム(男性)(男性用)</option>
-<option value="139">ローズドレスハット(男性)(男性用)</option>
-<option value="140">帽子屋の帽子(男性用)</option>
-<option value="141">狸一族 木ノ葉髪飾り</option>
-<option value="142">狐一族 月の髪飾り</option>
-<option value="143">シグナディオラクーンドッグヘッドコサージュ(男性用)</option>
-<option value="144">蝶々サングラス</option>
-<option value="145">舞台セット</option>
-<option value="146">ヘッドフォン</option>
-<option value="147">スポーツサングラス</option>
-<option value="148">嵐エクスクイジットヘルム</option>
-<option value="149">ミニ浴衣の狐お面(男性用)</option>
-<option value="150">うさぎヘルメット</option>
-<option value="151">ニンジンをかんだうさぎヘルメット</option>
-<option value="152">韓国軍隊服の帽子(男性用)</option>
-<option value="153">ハロウィンヴァンパイアハット(男性用)</option>
-<option value="154">妖狐の耳</option>
-<option value="155">クリスタルルドルフバンド</option>
-<option value="156">ロミオのかつら(男性用)</option>
-<option value="157">ティボルトのかつら(男性用)</option>
-<option value="158">パリスのかつら(男性用)</option>
-<option value="159">狂ったパリスのかつら(男性用)</option>
-<option value="160">ロマンティックフェザーキャップ(男性用)</option>
-<option value="161">サニーフェズハット(男性用)</option>
-<option value="162">スターマジシャンハット</option>
-<option value="163">幼稚園の帽子</option>
-<option value="164">ゴーグル型サングラス</option>
-<option value="165">高級ゴーグル型サングラス</option>
-<option value="166">スペースキャットヘルメット</option>
-<option value="167">なぎさのスターライド☆帽子</option>
-<option value="168">フェニックスイヤーマフ</option>
-<option value="169">#169: Trump Hat</option>
-<option value="170">羽根付き魔法使い帽子</option>
-<option value="171">抗魔のイヤリング(ローパ専用)(男性用)</option>
-<option value="172">コロッサスヘビーヘルム(男性用)</option>
-<option value="173">レノックスの眼鏡</option>
-<option value="174">センチュリオンヘルメット</option>
-<option value="175">ダークナイトヘルム</option>
-<option value="176">チーターカチューシャ</option>
-<option value="177">烏天狗の烏帽子(男性用)</option>
-<option value="178">雪の王冠(男性用)</option>
-<option value="179">#179: Tin Soldier Hat</option>
-<option value="180">初音ミクたん</option>
-<option value="181">鏡音レンのヘッドセット(男性用)</option>
-<option value="182">鏡音レンたん</option>
-<option value="183">鏡音リンたん</option>
-<option value="184">KAITOのヘッドセット(男性用)</option>
-<option value="185">KAITOたん</option>
+<span class="controllerHeader">Head:</span><br>
+<select name="headMenu" onChange = "changeHead(this.value);" style="width:300px;">
+<OPTION value="-1">(none)</OPTION>
+<OPTION value="1">Mongo's Jester Cap</OPTION>
+<OPTION value="2">Tail Cap</OPTION>
+<OPTION value="3">Mongo's Theif Cap</OPTION>
+<OPTION value="4">Bandana</OPTION>
+<OPTION value="5">Short Antler Hairband</OPTION>
+<OPTION value="6">Antler Hairband</OPTION>
+<OPTION value="7">Long Antler Hairband</OPTION>
+<OPTION value="8">Volume Beret Cap</OPTION>
+<OPTION value="9">Feather Barret Cap</OPTION>
+<OPTION value="10">Cores Knob Beret Cap</OPTION>
+<OPTION value="11">Beginning Cook Cap</OPTION>
+<OPTION value="12">Apprentice Cook Cap</OPTION>
+<OPTION value="13">Professonal Cook Cap</OPTION>
+<OPTION value="14">Fur Bunny Hairband1</OPTION>
+<OPTION value="15">Leather Bunny Hairband1</OPTION>
+<OPTION value="16">Star Bunny Hairband1</OPTION>
+<OPTION value="17">Paper Hat</OPTION>
+<OPTION value="18">Mabinogi 1st Anniversary Mini Hat</OPTION>
+<OPTION value="19">Pointed Ear Cat Hat</OPTION>
+<OPTION value="20">Stripe Cat Hat</OPTION>
+<OPTION value="21">Cat Hat With Fish Pin</OPTION>
+<OPTION value="22">Hat of Apprentice Designer</OPTION>
+<OPTION value="23">Hat of Arch-Designer</OPTION>
+<OPTION value="24">Hat of Grand Meister</OPTION>
+<OPTION value="25">Santa Claus' Hat</OPTION>
+<OPTION value="26">Thick horn</OPTION>
+<OPTION value="27">Mabinogi 2nd Anniversary Sheep Hat</OPTION>
+<OPTION value="28">EmyLollin's Admiral Cap for Men</OPTION>
+<OPTION value="29">Cureless's Casquette and goggle</OPTION>
+<OPTION value="30">Cat Ear Hairband</OPTION>
+<OPTION value="31">conky glasses</OPTION>
+<OPTION value="32">plastic frame glasses</OPTION>
+<OPTION value="33">Trudy's metal glasses</OPTION>
+<OPTION value="34">Devcat Hairband</OPTION>
+<OPTION value="35">Coke UFO Hat</OPTION>
+<OPTION value="36">Coke Sporty Sun Cap</OPTION>
+<OPTION value="37">Coke Play Sun Cap</OPTION>
+<OPTION value="38">Strawberry Cake Hat (Type E)</OPTION>
+<OPTION value="39">Grape Cake Hat (Type E)</OPTION>
+<OPTION value="40">Korean Hood for Giant Men</OPTION>
+<OPTION value="41">Eye Bandage</OPTION>
+<OPTION value="42">Cowboy Hat</OPTION>
+<OPTION value="43">Beijing Opera Headdress for Men</OPTION>
+<OPTION value="44">Angry Pumpkin Bonnet</OPTION>
+<OPTION value="45">Smile Pumpkin Bonnet</OPTION>
+<OPTION value="46">Wicked Pumpkin Bonnet</OPTION>
+<OPTION value="47">Vintage Volume Beret Cap</OPTION>
+<OPTION value="48">Vintage Bandana</OPTION>
+<OPTION value="49">Vintage EmyLollin's Admiral Cap for Men</OPTION>
+<OPTION value="50">Vintage Cureless's Casquette and goggle</OPTION>
+<OPTION value="51">Vintage Feather Barret Cap</OPTION>
+<OPTION value="52">Vintage Tail Cap</OPTION>
+<OPTION value="53">Vintage Cores Knob Beret Cap</OPTION>
+<OPTION value="54">Cherry Blossoms Hair Accessory</OPTION>
+<OPTION value="55">Viseo's Flight Cap With Badge</OPTION>
+<OPTION value="56">Hot Spring Cap</OPTION>
+<OPTION value="57">rubber goggle</OPTION>
+<OPTION value="58">Iris nightcap</OPTION>
+<OPTION value="59">Dick Stitch Mask</OPTION>
+<OPTION value="60">Pearl Shine Drop</OPTION>
+<OPTION value="61">Pirate Boatswain Bandana</OPTION>
+<OPTION value="62">Pirate Captain Hat</OPTION>
+<OPTION value="68">Guardian Helm</OPTION>
+<OPTION value="69">Cuirassir Helm</OPTION>
+<OPTION value="70">Knight Full Helm</OPTION>
+<OPTION value="71">Spike Cap</OPTION>
+<OPTION value="72">Twin Horn Cap</OPTION>
+<OPTION value="73">Evil Dying Crown</OPTION>
+<OPTION value="74">Iron Masking Headgear</OPTION>
+<OPTION value="75">Norman Warrior Helmet</OPTION>
+<OPTION value="76">Dustin Silver Knight Helm</OPTION>
+<OPTION value="77">Dragon Felix Helm</OPTION>
+<OPTION value="78">Lightning Warrior's Helmet</OPTION>
+<OPTION value="79">China Dragon Helm</OPTION>
+<OPTION value="80">Dustin Silver Knight Helm</OPTION>
+<OPTION value="81">Dragon Felix Helm</OPTION>
+<OPTION value="82">Colin Plate Helmet</OPTION>
+<OPTION value="83">3rd Anniversary Mongo's Hat</OPTION>
+<OPTION value="84">Aladdin's Cap</OPTION>
+<OPTION value="85">Nao's Flower Helm</OPTION>
+<OPTION value="88">Wing Of Fairy</OPTION>
+<OPTION value="89">Silver Three Ring</OPTION>
+<OPTION value="90">Silver Three Ring</OPTION>
+<OPTION value="91">Silver Three Ring</OPTION>
+<OPTION value="92">Prince Crown</OPTION>
+<OPTION value="94">Xmas Cake Hat</OPTION>
+<OPTION value="95">Party Hat</OPTION>
+<OPTION value="96">Wing Helm</OPTION>
+<OPTION value="97">Neko Helm</OPTION>
+<OPTION value="98">Matsuri Hairband</OPTION>
+<OPTION value="99">5th Anniversary Mongo's Hat</OPTION>
+<OPTION value="100">Blanche's Casual Bolero &amp; Clothes of Journey for Giant Men</OPTION>
+<OPTION value="101">Summer Knit Cap</OPTION>
+<OPTION value="102">Monocle</OPTION>
+<OPTION value="93">Dragon Scale Helm</OPTION>
+<OPTION value="103">Shining Star Earring</OPTION>
+<OPTION value="104">Emerald's Celtic Pattern Decorated Cap</OPTION>
+<OPTION value="105">Reindeer Antler Headband</OPTION>
+<OPTION value="107">Tiger Headgear</OPTION>
+<OPTION value="106">Monkey-shaped Mask</OPTION>
+<OPTION value="108"> Tulip Headband</OPTION>
+<OPTION value="109">Tara Assault Infantry Helmet for Giant Men</OPTION>
+<OPTION value="110">Donut Glasses</OPTION>
+<OPTION value="111">Helmet Of The Tyrant</OPTION>
+<OPTION value="112">Mask Of The Toga</OPTION>
+<OPTION value="113">Shana Tan</OPTION>
+<OPTION value="114">Hecate Tan</OPTION>
+<OPTION value="116">Ethnic Hat for Highlands People (M)</OPTION>
+<OPTION value="115">Kumataru`s Cheerful Orchestra Hat</OPTION>
+<OPTION value="117">Sailor Hat (M)</OPTION>
+<OPTION value="119">Hebona Circlet</OPTION>
+<OPTION value="120">Trinity Circlet</OPTION>
+<OPTION value="121">Adonis Hat for Men</OPTION>
+<OPTION value="122">Bohemian Hat for Men</OPTION>
+<OPTION value="123">Partron Hat</OPTION>
+<OPTION value="124">Belmont Hat for Men</OPTION>
+<OPTION value="125">Thames Plate Helmet</OPTION>
+<OPTION value="126">Birnam Plate Helmet</OPTION>
+<OPTION value="127">Alphonse Elric's Helm</OPTION>
+<OPTION value="128">Pilgrim Hat for Men</OPTION>
+<OPTION value="129">Nao Tan</OPTION>
+<OPTION value="130">Premium Winter Cap for Giant Men</OPTION>
+<OPTION value="131">Rat Cap for Giant Men</OPTION>
+<OPTION value="132">Knight Wing Plate Helmet</OPTION>
+<OPTION value="133">Dragon Rider Helm</OPTION>
+<OPTION value="134">Fox hat</OPTION>
+<OPTION value="135">Duck hat</OPTION>
+<OPTION value="136">Chocolate hat</OPTION>
+<OPTION value="137">Mask of Zorro</OPTION>
+<OPTION value="138">Leisure Night's Mythril Lance Helmet for Men</OPTION>
+<OPTION value="139">Jana's Sea Rose dress Hat</OPTION>
+<OPTION value="140">Mad hatter's Hat</OPTION>
+<OPTION value="141">Racoon Clan Basic Headdress</OPTION>
+<OPTION value="142">Fox Clan Moon Headdress</OPTION>
+<OPTION value="143">Signadio's Raccoon Dog Hair Accessory(M)</OPTION>
+<OPTION value="144">Accessories</OPTION>
+<OPTION value="145">Accessories</OPTION>
+<OPTION value="146">Accessories</OPTION>
+<OPTION value="147">Accessories</OPTION>
+<OPTION value="148">ARASHI's Exquisite Helm</OPTION>
+<OPTION value="149">Men's Mini Yukata Accessory</OPTION>
+<OPTION value="150">Rabbit-shaped Mask</OPTION>
+<OPTION value="151">Rabbit-shaped Mask</OPTION>
+<OPTION value="152">Korean Traditional Military Cap for Men</OPTION>
+<OPTION value="153">Halloween Vampire Hat</OPTION>
+<OPTION value="154">Fox Monster Hat</OPTION>
+<OPTION value="155">Crystal Antler Headband</OPTION>
+<OPTION value="156">Wig of Romeo</OPTION>
+<OPTION value="157">Wig of Tybalt</OPTION>
+<OPTION value="158">Wig of Paris</OPTION>
+<OPTION value="159">Wig of Mad Paris</OPTION>
+<OPTION value="160">Romantic Feather Cap</OPTION>
+<OPTION value="161">Sunny Fez Hat</OPTION>
+<OPTION value="162">Star-shaped Floppy Hat for Magician</OPTION>
+<OPTION value="163">Grade School Hat</OPTION>
+<OPTION value="164">Accessories</OPTION>
+<OPTION value="165">Accessories</OPTION>
+<OPTION value="166">Space Cat Hat</OPTION>
+<OPTION value="167">Star Ride Hat</OPTION>
+<OPTION value="168">Phoenix Hairband</OPTION>
+<OPTION value="169">Trump Hat</OPTION>
+<OPTION value="170">Winged Magician Hat</OPTION>
+<OPTION value="171">Gothick Skull Hat(Only_Ropa)</OPTION>
+<OPTION value="172">Colosus Helmet</OPTION>
+<OPTION value="173">Lennox's Glasses</OPTION>
+<OPTION value="174">Centurion Helmet</OPTION>
+<OPTION value="175">Dark Knight Helmet</OPTION>
+<OPTION value="176">Cheeta Hairband</OPTION>
+<OPTION value="177">Tengu's Hat</OPTION>
+<OPTION value="178">Ice Crown</OPTION>
+<OPTION value="179">Tin Soldier Hat</OPTION>
+<OPTION value="180">Hatsune Miku Tan</OPTION>
+<OPTION value="181">Kagamine Len Headset</OPTION>
+<OPTION value="182">Kagamine Len Tan</OPTION>
+<OPTION value="183">Kagamine Lin Tan</OPTION>
+<OPTION value="184">Kaito Headset</OPTION>
+<OPTION value="185">Kaito Tan</OPTION>
+<OPTION value="186">idol Check Hat</OPTION>
+<OPTION value="187">チャイナハット（男性用）</OPTION>
 
 </select>
 
-<select name="headState" onchange="changeHeadState(this.value);" style="width: 80px; visibility: hidden;">
-	<option value="0">被る</option>
-	<option value="1">被らない</option>
+<select name="headState" onChange="changeHeadState(this.value);" style="width:80px;">
+	<option value="0">put on</option>
+	<option value="1">take off</option>
 </select><br>
-<span class="colorPaletteMini" id="headPalette1" onclick="dyeColor(this);changeHeadColorByPalette(1);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(0, 104, 127); background-position: initial initial; background-repeat: initial initial;" title="00687F"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="headPalette1" onClick="dyeColor(this);changeHeadColorByPalette(1);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="headColor1">
-<span class="colorPaletteMini" id="headPalette2" onclick="dyeColor(this);changeHeadColorByPalette(2);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(8, 97, 159); background-position: initial initial; background-repeat: initial initial;" title="08619F"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="headPalette2" onClick="dyeColor(this);changeHeadColorByPalette(2);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="headColor2">
-<span class="colorPaletteMini" id="headPalette3" onclick="dyeColor(this);changeHeadColorByPalette(3);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(233, 180, 84); background-position: initial initial; background-repeat: initial initial;" title="E9B454"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="headPalette3" onClick="dyeColor(this);changeHeadColorByPalette(3);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="headColor3">
-<a class="controllerLink" href="javascript:void(0);" onclick="dyeHead(headColor1.value,headColor2.value,headColor3.value);">染色</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="searchPublist(headMenu.options[headMenu.selectedIndex].text);">コーデ</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="controller.headMenu.value=-1;changeHead(controller.headMenu.value);">解除</a>
+<a class="controllerLink" href="javascript:void(0);" onClick="dyeHead(headColor1.value,headColor2.value,headColor3.value);">Dye</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="searchPublist(headMenu.options[headMenu.selectedIndex].text);">Search</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="controller.headMenu.value=-1;changeHead(controller.headMenu.value);">Purge</a>
 </td>
 </tr>
-<tr id="bodyBlock">
+<tr id="bodyBlock" >
 <td class="controllerBlock">
-<span class="controllerHeader">体:</span><br>
-<select name="bodyMenu" onchange="changeBody(this.value)" style="width:300px;">
-<option value="-2">(男性用下着／ジャイアント用)</option>
-<option value="-1">スパイカーシルバープレートアーマー(男性用)</option>
-<option value="0">バシルギムレットアーマー(男性用)</option>
-<option value="1">バレンシアクロスラインプレートアーマー(ジャイアント用)</option>
-<option value="2">コリンプレートアーマー</option>
-<option value="14">ピルタレザーアーマー</option>
-<option value="15">異国風龍飾鎧</option>
-<option value="16">キルステンレザーアーマー</option>
-<option value="17">ビートクラックスアーマー(ジャイアント用)</option>
-<option value="18">クマタルバーバラスフォックスアーマー (男性用)</option>
-<option value="19">セリナオープンレザージャケット(男性用)</option>
-<option value="21">チークスーツ</option>
-<option value="22">ゼダーNPCコスチューム</option>
-<option value="23">ジャイアント異国風民族衣装（男性用）</option>
-<option value="24">プレミアムニュービーウェア(男性用)</option>
-<option value="25">ジャイアントウェディングスーツ(男性用)</option>
-<option value="55">ハロウィンプレミアムニュービーウェア</option>
-<option value="26">ねこ服</option>
-<option value="27">ラビット服</option>
-<option value="28">#30: Coke Men's Sporty Wear</option>
-<option value="29">プレミアムジャイアントサマーニュービーウェア</option>
-<option value="30">プレミアム探検家ジャイアントニュービーウェア</option>
-<option value="31">男性用の浴衣</option>
-<option value="32">男性用水着</option>
-<option value="33">男性用水着</option>
-<option value="34">男性用水着</option>
-<option value="35">ジャイアント異国風民族衣装（男性用）</option>
-<option value="36">京劇衣装（男性用）</option>
-<option value="37">メイプルスーツ(男性用)</option>
-<option value="38">ジャイアントプレミアムウィンターニュービーウェア (男性用)</option>
-<option value="39">ジャイアントプレミアムスノーニュービーウェア(男性用)</option>
-<option value="40">#42: 3rd Anniversary Premium Newbie Wear</option>
-<option value="41">オリエンタルダンディウェア(男性用)</option>
-<option value="42">アルカレイドストライプファーコート</option>
-<option value="43">ロマンティックテイルコート(男性用)</option>
-<option value="47">パイレーツボースンスーツ</option>
-<option value="48">見習い錬金術師のスーツ</option>
-<option value="50">パイレーツキャプテンスーツ</option>
-<option value="51">パイレーツウッドワーカーウェア</option>
-<option value="52">パイレーツクルーユニフォーム</option>
-<option value="53">ジャイアントプレミアムサマーニュービーウェア</option>
-<option value="54">ジャイアントプレミアムニュービーウェア(男性用)</option>
-<option value="56">ロマンティックゴシックスーツ(男性用)</option>
-<option value="59">プロパースモールコードスーツ(男性用)</option>
-<option value="60">ダンディゴシックケープスーツ(男性用)</option>
-<option value="20">セリナセクシーベアルック(男性用)</option>
-<option value="109">コリンホーザーウェア</option>
-<option value="57">ゴシックライディングスーツ(男性用)</option>
-<option value="58">ビビッドカジュアルスーツ(男性用)</option>
-<option value="111">カジュアルスーツAタイプ(男性用)</option>
-<option value="110">カジュアルスーツBタイプ(男性用)</option>
-<option value="49">天龍之衣(男性用)</option>
-<option value="112">ヴァルドール学園の制服(男性用)</option>
-<option value="113">エリネドティアードスーツ(男性用)</option>
-<option value="114">エリネドマタニティスーツ(男性用)</option>
-<option value="115">エリネドカバリエスーツ(男性用)</option>
-<option value="116">ネコ鎧(ジャイアント用)</option>
-<option value="117">ハッピ</option>
-<option value="118">うさだんごTシャツ(男性用)</option>
-<option value="119">#121: 5th Anniversary Wear</option>
-<option value="120">ブランシェ旅人のボレロ(ジャイアント男性用)</option>
-<option value="121">カジュアルジャンプスーツ(男性用)</option>
-<option value="122">ジャイアント男性用水着</option>
-<option value="123">ジャイアント男性用水着</option>
-<option value="124">エリネドメディーバルジャケット(男性用)</option>
-<option value="125">エリネドファッショニスタスーツ(男性用)</option>
-<option value="126">イズリエッタハーフガードレザーアーマー(ジャイアント男性用)</option>
-<option value="127">バナレンオリエンタルゴシックウェア(男性用)</option>
-<option value="4">ドラゴンスケイルアーマー（ジャイアント男性用）</option>
-<option value="128">エメラルドケルティックパターンスーツ(男性用)</option>
-<option value="129">ジャイアントプレミアムウィンターニュービーウェア (男性用)</option>
-<option value="130">タラ突撃歩兵の鎧 (ジャイアント男性用)</option>
-<option value="133">クラシックカップルスーツ(男性用)</option>
-<option value="131">王政錬金術師の制服</option>
-<option value="134">暴君の鎧</option>
-<option value="135">トーガコスチューム</option>
-<option value="137">高原民族の伝統衣装(男性用)</option>
-<option value="136">kumataru愉快なオーケストラのユニフォーム(ジャイアント男性用)</option>
-<option value="138">セーラーマンユニフォーム(男性用)</option>
-<option value="61">ディフェンス1段胴着</option>
-<option value="62">ディフェンス4段胴着</option>
-<option value="63">ディフェンス7段胴着</option>
-<option value="64">スマッシュ1段胴着</option>
-<option value="65">スマッシュ4段胴着</option>
-<option value="66">スマッシュ7段胴着</option>
-<option value="67">カウンターアタック1段胴着</option>
-<option value="68">カウンターアタック4段胴着</option>
-<option value="69">カウンターアタック7段胴着</option>
-<option value="70">ウィンドミル1段胴着</option>
-<option value="71">ウィンドミル4段胴着</option>
-<option value="72">ウィンドミル7段胴着</option>
-<option value="73">マグナムショット1段胴着</option>
-<option value="74">マグナムショット4段胴着</option>
-<option value="75">マグナムショット7段胴着</option>
-<option value="76">アタック1段胴着</option>
-<option value="77">アタック4段胴着</option>
-<option value="78">アタック7段胴着</option>
-<option value="79">レンジアタック1段胴着</option>
-<option value="80">レンジアタック4段胴着</option>
-<option value="81">レンジアタック7段胴着</option>
-<option value="82">アイスボルト1段胴着</option>
-<option value="83">アイスボルト4段胴着</option>
-<option value="84">アイスボルト7段胴着</option>
-<option value="85">ファイアボルト1段胴着</option>
-<option value="86">ファイアボルト4段胴着</option>
-<option value="87">ファイアボルト7段胴着</option>
-<option value="88">ライトニングボルト1段胴着</option>
-<option value="89">ライトニングボルト4段胴着</option>
-<option value="90">ライトニングボルト7段胴着</option>
-<option value="91">裁縫1段胴着</option>
-<option value="92">裁縫4段胴着</option>
-<option value="93">裁縫7段胴着</option>
-<option value="94">鍛冶1段胴着</option>
-<option value="95">鍛冶4段胴着</option>
-<option value="96">鍛冶7段胴着</option>
-<option value="97">釣り1段胴着</option>
-<option value="98">釣り4段胴着</option>
-<option value="99">釣り7段胴着</option>
-<option value="140">テムズプレートアーマー</option>
-<option value="141">バーナムプレートアーマー</option>
-<option value="143">ペイトランウェア</option>
-<option value="142">トリニティウェア(男性用)</option>
-<option value="144">ベルモントウェア(男性用)</option>
-<option value="145">アドニスウェア(男性用)</option>
-<option value="146">ボヘミアンウェア(男性用)</option>
-<option value="147">クレシダウェア</option>
-<option value="148">アメストリス軍服（ジャイアント男性用）</option>
-<option value="149">アルフォンス・エルリックプレートアーマー(男性用)</option>
-<option value="150">ピルグリム衣装(ジャイアント男性用)</option>
-<option value="151">聖パトリックデーの衣装(男性用)</option>
-<option value="152">ジャイアントプレミアムウィンターニュービーウェア (男性用)</option>
-<option value="153">ジャイアントプレミアムウィンターファーウェア (男性用)</option>
-<option value="154">ナイトウィングプレートアーマー</option>
-<option value="155">ドラゴンライダープレートアーマー</option>
-<option value="156">古代儀式用礼服</option>
-<option value="157">ゾロの衣装(男性)(男性用)</option>
-<option value="158">ライダースウェア(男性用)</option>
-<option value="159">ミスリルランスヘビーアーマー(男性)(男性用)</option>
-<option value="160">ローズドレススーツ(男性)(男性用)</option>
-<option value="161">帽子屋の衣装(男性用)</option>
-<option value="162">狸一族 木ノ葉衣服</option>
-<option value="163">狐一族 月の衣服</option>
-<option value="164">シグナディオラクーンドッグウエア(男性用)</option>
-<option value="165">嵐エクスクイジットアーマー (ジャイアント男性用)</option>
-<option value="166">#168: Guiyi` Gothic Dress Style Light Armor</option>
-<option value="167">ミニ浴衣(男性用)</option>
-<option value="168">韓国軍隊服(男性用)</option>
-<option value="170">バナレンレインウェア (男性用)</option>
-<option value="171">ハロウィンヴァンパイアスーツ(男性用)</option>
-<option value="172">ぽっぽの衣装(ジャイアント用)(男性用)</option>
-<option value="173">妖狐の衣(モーションあり)(男性用)</option>
-<option value="46">男性用水着</option>
-<option value="175">ロマンティックワイルドスーツ(男性用)</option>
-<option value="176">パーティースーツ(男性用)</option>
-<option value="177">スターマジシャンコスチューム(男性用)</option>
-<option value="178">幼稚園の制服(男性用)</option>
-<option value="179">2012 ジャイアントプレミアムウィンターニュービーウェア(男性用)</option>
-<option value="180">スペースキャットスーツ(男性用)</option>
-<option value="181">なぎさのスターライド☆ウェア(男性用)</option>
-<option value="182">クマのパジャマ(男性用)</option>
-<option value="183">新学期制服(ジャイアント男性用)</option>
-<option value="184">オーランの衣装</option>
-<option value="185">#187: Diamond Card Clothes For Men</option>
-<option value="186">#188: Heart Card Clothes For Men</option>
-<option value="187">#189: Clover Card Clothes For Men</option>
-<option value="188">#190: Spade Card Clothes For Men</option>
-<option value="189">抗魔の制服(ローパ専用)(男性用)</option>
-<option value="190">ウィザードローブアーマー(男性用)</option>
-<option value="191">コロッサスヘビーアーマー(男性用)</option>
-<option value="192">ヒューの衣装(男性用)</option>
-<option value="193">センチュリオンアーマー</option>
-<option value="194">ダークナイトアーマー(男性用)</option>
-<option value="195">ハロウィンかぼちゃコウモリ衣装(男性用)</option>
-<option value="196">烏天狗の法衣(男性用)</option>
-<option value="197">マーチャントウェア(男性用)</option>
-<option value="198">#200: Tin Soldier Clothes</option>
-<option value="199">初音ミクファンクラブＴシャツ</option>
-<option value="200">鏡音レンの衣装(男性用)</option>
-<option value="201">鏡音レンファンクラブＴシャツ</option>
-<option value="202">鏡音リンファンクラブＴシャツ</option>
-<option value="203">KAITOの衣装(男性用)</option>
-<option value="204">KAITOファンクラブＴシャツ</option>
-
+<span class="controllerHeader">Body:</span><br>
+<select name="bodyMenu" onChange = "changeBody(this.value)" style="width:300px;">
+    <option value="-2">(男性用下着／ジャイアント用)</option>
+    <option value="-1">スパイカーシルバープレートアーマー(男性用)</option>
+    %n = 0
+    %for i in body:
+    <option value="{{n}}">{{i['name']}}</option>
+    %n += 1
+    %end
 </select>
-<select name="bodyState" onchange="changeBodyState(this.value);" style="width: 80px; visibility: hidden;">
-	<option value="0">被る</option>
-	<option value="1">被らない</option>
+<select name="bodyState" onChange="changeBodyState(this.value);" style="width:80px;">
+	<option value="0">put on</option>
+	<option value="1">take off</option>
 </select><br>
-<span class="colorPaletteMini" id="bodyPalette1" onclick="dyeColor(this);changeBodyColorByPalette(1);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(81, 110, 123); background-position: initial initial; background-repeat: initial initial;" title="516E7B"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="bodyPalette1" onClick="dyeColor(this);changeBodyColorByPalette(1);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="bodyColor1">
-<span class="colorPaletteMini" id="bodyPalette2" onclick="dyeColor(this);changeBodyColorByPalette(2);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(31, 76, 86); background-position: initial initial; background-repeat: initial initial;" title="1F4C56"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="bodyPalette2" onClick="dyeColor(this);changeBodyColorByPalette(2);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="bodyColor2">
-<span class="colorPaletteMini" id="bodyPalette3" onclick="dyeColor(this);changeBodyColorByPalette(3);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(101, 108, 121); background-position: initial initial; background-repeat: initial initial;" title="656C79"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="bodyPalette3" onClick="dyeColor(this);changeBodyColorByPalette(3);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="bodyColor3">
-<a class="controllerLink" href="javascript:void(0);" onclick="dyeBody(bodyColor1.value,bodyColor2.value,bodyColor3.value);">染色</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="searchPublist(bodyMenu.options[bodyMenu.selectedIndex].text);">コーデ</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="controller.bodyMenu.value=-1;changeBody(controller.bodyMenu.value);">解除</a>
+<a class="controllerLink" href="javascript:void(0);" onClick="dyeBody(bodyColor1.value,bodyColor2.value,bodyColor3.value);">Dye</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="searchPublist(bodyMenu.options[bodyMenu.selectedIndex].text);">Search</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="controller.bodyMenu.value=-1;changeBody(controller.bodyMenu.value);">Purge</a>
 </td>
 </tr>
-<tr id="footBlock">
+<tr id="footBlock" >
 <td class="controllerBlock">
-<span class="controllerHeader">足:</span><br>
-<select name="footMenu" onchange="changeFoot(this.value)" style="width:300px;">
-<option value="-1">(無し)</option>
-<option value="1">コレスオリエンタルロングブーツ</option>
-<option value="2">ねこブーツ</option>
-<option value="3">下駄</option>
-<option value="4">ジャイアント伝統靴</option>
-<option value="5">ジャイアントウェディングブーツ(男性用)</option>
-<option value="6">ラビットフット</option>
-<option value="7">異国風龍飾足鎧</option>
-<option value="8">プレミアムジャイアントサマーニュービーブーツ</option>
-<option value="9">ベアシューズ</option>
-<option value="10">ジャイアント異国風民族靴(男性用)</option>
-<option value="11">京劇靴</option>
-<option value="12">プレミアムウィンターニュービーウェア (ブーツ)</option>
-<option value="13">ビンテージコレスオリエンタルロングブーツ</option>
-<option value="14">ビンテージトゥースアンクルシューズ</option>
-<option value="15">オリエンタルシューズ</option>
-<option value="16">アルカレイドストライプファーブーツ (男性用)</option>
-<option value="17">クラシックシューズ(男性用)</option>
-<option value="18">パイレーツボースンブーツ</option>
-<option value="19">見習い錬金術師のシューズ</option>
-<option value="21">パイレーツキャプテンブーツ</option>
-<option value="22">パイレーツウッドワーカーブーツ</option>
-<option value="23">パイレーツクルーブーツ</option>
-<option value="24">ビーチサンダル</option>
-<option value="25">ジャイアントプレミアムニュービーブーツ(男性用)</option>
-<option value="27">ロマンティックゴシックバックルブーツ(男性用)</option>
-<option value="26">ハロウィンプレミアムニュービーシューズ</option>
-<option value="30">プロパースモールコードシューズ(男性用)</option>
-<option value="31">ダンディゴシックエナメルシューズ(男性用)</option>
-<option value="32">スパイカーシルバープレートブーツ</option>
-<option value="33">バレンシアクロスラインプレートブーツ</option>
-<option value="34">大きい鳥の足ブーツ</option>
-<option value="35">ピルタレザーブーツ</option>
-<option value="36">キルステンレザーブーツ</option>
-<option value="37">ビートクラックスグリーブ(ジャイアント用)</option>
-<option value="38">バシルギムレットグリーブ</option>
-<option value="39">コリンプレートブーツ</option>
-<option value="43">ゼダーNPCブーツ</option>
-<option value="44">コリンビクセンブーツ</option>
-<option value="45">コリンペルトブーツ</option>
-<option value="46">コリンホーザーブーツ</option>
-<option value="28">ゴシックライディングシューズ(男性用)</option>
-<option value="29">ビビッドカジュアルシューズ(男性用)</option>
-<option value="20">天龍之靴</option>
-<option value="47">ヴァルドール学園の学生靴</option>
-<option value="48">ネコグリーブ</option>
-<option value="49">ブランシェ旅人のボレロシューズ(ジャイアント男性用)</option>
-<option value="50">チェック柄アンクルブーツ</option>
-<option value="51">イズリエッタハーフガードレザーグリーブ(ジャイアント男性用)</option>
-<option value="52">バナレンぽっくり下駄(男性用)</option>
-<option value="41">ドラゴンスケイルグリーブ</option>
-<option value="53">エメラルドケルティックパターンシューズ(男性用)</option>
-<option value="54">タラ突撃歩兵のブーツ (ジャイアント男性用)</option>
-<option value="55">王政錬金術師のブーツ</option>
-<option value="56">クラシックカップルシューズ(男性用)</option>
-<option value="57">白虎シューズ</option>
-<option value="58">暴君のグリーブ</option>
-<option value="59">トーガの靴</option>
-<option value="61">高原民族の伝統靴(男性用)</option>
-<option value="60">kumataru愉快なオーケストラの靴(ジャイアント男性用)</option>
-<option value="62">セーラーマンシューズ(男性用)</option>
-<option value="63">ヌアザプレートブーツ</option>
-<option value="73">バーナムプレートブーツ</option>
-<option value="72">テムズプレートブーツ</option>
-<option value="71">ベルモントシューズ(男性用)</option>
-<option value="70">ペイトランシューズ</option>
-<option value="69">ボヘミアンシューズ(男性用)</option>
-<option value="68">アドニスシューズ(男性用)</option>
-<option value="67">トリニティシューズ</option>
-<option value="66">クレシダシューズ</option>
-<option value="65">ヘボナシューズ</option>
-<option value="74">アメストリス軍靴（男性用）</option>
-<option value="75">アルフォンス・エルリックのグリーブ(男性用)</option>
-<option value="76">ジャイアントプレミアムウィンターブーツ (男性用)</option>
-<option value="77">ナイトウィングプレートブーツ</option>
-<option value="78">ドラゴンライダーグリーブ</option>
-<option value="79">ゾロの靴(男性)(男性用)</option>
-<option value="80">ライダースブーツ(男性用)</option>
-<option value="81">ミスリルランスヘビーブーツ(男性)(男性用)</option>
-<option value="82">ローズドレスシューズ(男性)(男性用)</option>
-<option value="83">帽子屋の靴(男性用)</option>
-<option value="84">狸一族 木ノ葉靴</option>
-<option value="85">狐一族 月の靴</option>
-<option value="86">シグナディオラクーンドッグシューズ(男性用)</option>
-<option value="87">嵐エクスクイジットグリーブ (男性用)</option>
-<option value="88">#88: Guiyi` Gothic Dress Style Greave</option>
-<option value="89">ミニ浴衣の下駄(男性用)</option>
-<option value="90">韓国軍隊服の靴(男性用)</option>
-<option value="91">バナレンレインブーツ</option>
-<option value="92">ハロウィンヴァンパイアブーツ(男性用)</option>
-<option value="93">ぽっぽの靴(ジャイアント用)(男性用)</option>
-<option value="94">妖狐の履物(男性用)</option>
-<option value="96">ドゥループアンクルシューズ（男性用）</option>
-<option value="97">ロマンティックワイルドブーツ(男性用)</option>
-<option value="98">スタイリッシュシューズ(男性用)</option>
-<option value="40">フルートプレートグリーブ(男性用)</option>
-<option value="99">2012 ジャイアントプレミアムウインターニュービーブーツ(男性用)</option>
-<option value="100">スペースキャットシューズ(男性用)</option>
-<option value="101">なぎさのスターライド☆シューズ(男性用)</option>
-<option value="102">オーランの靴</option>
-<option value="103">抗魔のブーツ(ローパ専用)(男性用)</option>
-<option value="104">ウィザードローブシューズ(男性用)</option>
-<option value="105">コロッサスヘビーブーツ(男性用)</option>
-<option value="106">ヒューの靴(男性用)</option>
-<option value="107">センチュリオンブーツ</option>
-<option value="108">ダークナイトブーツ(男性用)</option>
-<option value="109">ハロウィンかぼちゃコウモリブーツ(男性用)</option>
-<option value="110">烏天狗の一本歯下駄(男性用)</option>
-<option value="111">マーチャントサンダル(男性用)</option>
-<option value="112">#112: Tin Soldier Boots</option>
-<option value="113">鏡音レンの靴(男性用)</option>
-<option value="114">KAITOの靴(男性用)</option>
+<span class="controllerHeader">Foot:</span><br>
+<select name="footMenu" onChange = "changeFoot(this.value)" style="width:300px;">
+<OPTION value="-1">(none)</OPTION>
+<OPTION value="1">Cores' Oriental Long Boots</OPTION>
+<OPTION value="2">Cat Foot</OPTION>
+<OPTION value="3">Japanese Sandals</OPTION>
+<OPTION value="4">Giant Tradition Shoes</OPTION>
+<OPTION value="5">Wedding boots for Male Giant</OPTION>
+<OPTION value="6">Rabbit Foot</OPTION>
+<OPTION value="7">China Dragon Boots</OPTION>
+<OPTION value="8">Premium Giant Summer Newbie Boots</OPTION>
+<OPTION value="9">Bear Boots</OPTION>
+<OPTION value="10">Korean Shoes for Giant Men</OPTION>
+<OPTION value="11">Beijing Opera Shoes</OPTION>
+<OPTION value="12">Premium Winter Newbie Wear</OPTION>
+<OPTION value="13">Vintage Cores' Oriental Long Boots</OPTION>
+<OPTION value="14">Vintage Tooth Printed Ankle Shoes</OPTION>
+<OPTION value="15">Aladdin's Shoes</OPTION>
+<OPTION value="16">Alkaleido`s Stripe Fur Boots for Men</OPTION>
+<OPTION value="17">Classic Shoes</OPTION>
+<OPTION value="18">Pirate Boatswain Boots</OPTION>
+<OPTION value="19">Novice Alchemist's Shoes</OPTION>
+<OPTION value="21">Pirate Captain Boots</OPTION>
+<OPTION value="22">Pirate Woodworker Boots</OPTION>
+<OPTION value="23">Pirate Crew Boots</OPTION>
+<OPTION value="24">Sandle for Beach</OPTION>
+<OPTION value="25">Premium Newbie Boots for Giant Men</OPTION>
+<OPTION value="27">Romantic Gothic Buckle Boots</OPTION>
+<OPTION value="26">Premium Newbie Shoes for Halloween</OPTION>
+<OPTION value="30">Proper Small Cord Shoes</OPTION>
+<OPTION value="31">Dandy Gothic Enamel Shoes</OPTION>
+<OPTION value="32">Spika's Silver Plate Boots</OPTION>
+<OPTION value="33">Valencia's Cross Line Plate Boots</OPTION>
+<OPTION value="34">Big Bird's Foot Boots</OPTION>
+<OPTION value="35">Pirta Leather Boots</OPTION>
+<OPTION value="36">Kirsten Leather Boots</OPTION>
+<OPTION value="37">Vito Crux Greave for giant</OPTION>
+<OPTION value="38">basil gimlet Greave</OPTION>
+<OPTION value="39">Colin Plate Boots</OPTION>
+<OPTION value="43">NPC Zeder boots</OPTION>
+<OPTION value="44">Colin Vixen Boots</OPTION>
+<OPTION value="45">Colin Pelt Boots</OPTION>
+<OPTION value="46">Colin Hawser Boots</OPTION>
+<OPTION value="28">Gothic Riding Shoes</OPTION>
+<OPTION value="29">Vivid Casual Shoes</OPTION>
+<OPTION value="20">Sky Dragon Shoes</OPTION>
+<OPTION value="47">Valdorl School Shoes</OPTION>
+<OPTION value="48">Neko Greave</OPTION>
+<OPTION value="49">Blanche's Casual Bolero &amp; Clothes of Journey for Giant Men</OPTION>
+<OPTION value="50">Check Ankle Boots</OPTION>
+<OPTION value="51">Izurietta's Half Guard Leather Greave for Giant Men</OPTION>
+<OPTION value="52">Banhallen's Floral pattern Sandals</OPTION>
+<OPTION value="41">Dragon Scale Greave</OPTION>
+<OPTION value="53">Emerald's Celtic Pattern Decorated Shoes</OPTION>
+<OPTION value="54">Tara Assault Infantry Boots for Giant Men</OPTION>
+<OPTION value="55">Royal Alchemist's Shoes</OPTION>
+<OPTION value="56">Classic Couple Shoes for Men</OPTION>
+<OPTION value="57">White Tiger Shoes</OPTION>
+<OPTION value="58">Shoes of the Tyrant</OPTION>
+<OPTION value="59">Shoes of Toga</OPTION>
+<OPTION value="61">Ethnic Shoes for Highlands People (M)</OPTION>
+<OPTION value="60">Kumataru`s Cheerful Orchestra Shoes for Giant Men</OPTION>
+<OPTION value="62">Sailor Shoes (M)</OPTION>
+<OPTION value="63">Nuadha's Plate Boots</OPTION>
+<OPTION value="73">Birnam Plate Boots</OPTION>
+<OPTION value="72">Thames Plate Boots</OPTION>
+<OPTION value="71">Belmont Shoes for Men</OPTION>
+<OPTION value="70">Partron Shoes</OPTION>
+<OPTION value="69">Bohemian Shoes for Men</OPTION>
+<OPTION value="68">Adonis Shoes for Men</OPTION>
+<OPTION value="67">Trinity Shoes</OPTION>
+<OPTION value="66">Cressida Shoes</OPTION>
+<OPTION value="65">Hebona Shoes</OPTION>
+<OPTION value="74">Amestriss Military Boots For Men</OPTION>
+<OPTION value="75">Alphonse Elric's Greave</OPTION>
+<OPTION value="76">Premium Winter Boots for Giant Men</OPTION>
+<OPTION value="77">Knight Wing Plate Boots</OPTION>
+<OPTION value="78">Dragon Rider Greave</OPTION>
+<OPTION value="79">Zorro Shoes for Men</OPTION>
+<OPTION value="80">Riders Boots for Men</OPTION>
+<OPTION value="81">Leisure Night's Mythril Lance Shoes for Men</OPTION>
+<OPTION value="82">Jana's Sea Rose dress Shoes for Men</OPTION>
+<OPTION value="83">Mad hatter's shoes</OPTION>
+<OPTION value="84">Racoon Clan Basic Shoes</OPTION>
+<OPTION value="85">Fox Clan Moon Shoes</OPTION>
+<OPTION value="86">Signadio's Raccoon Dog Shoes(M)</OPTION>
+<OPTION value="87">ARASHI's Exquisite Greave For Men</OPTION>
+<OPTION value="88">Guiyi` Gothic Dress Style Greave</OPTION>
+<OPTION value="89">Men's Mini Yukata Shoes</OPTION>
+<OPTION value="90">Korean Traditional Military Shoes for Men</OPTION>
+<OPTION value="91">Banhallen's Rain Boots</OPTION>
+<OPTION value="92">Halloween Vampire Boots</OPTION>
+<OPTION value="93">Poppo's Shoes</OPTION>
+<OPTION value="94">Fox Monster Shoes Male</OPTION>
+<OPTION value="96">Droop Ankle Shoes For Men</OPTION>
+<OPTION value="97">Romatic Wild Boots</OPTION>
+<OPTION value="98">Stylish Shoes</OPTION>
+<OPTION value="40">Flute Plate Greave</OPTION>
+<OPTION value="99">2012 Premium Winter Newbie Boots for Giant Men</OPTION>
+<OPTION value="100">Space Cat Shoes Male</OPTION>
+<OPTION value="101">Star Ride Shoes for Male</OPTION>
+<OPTION value="102">Odran's Shoes</OPTION>
+<OPTION value="103">Gothick Skull Boots(Only_Ropa)</OPTION>
+<OPTION value="104">Gamyu's Wizard robe Shoes for Men</OPTION>
+<OPTION value="105">Colosus Boots</OPTION>
+<OPTION value="106">Huw's Boots</OPTION>
+<OPTION value="107">Centurion Boots</OPTION>
+<OPTION value="108">Dark Knight Boots for Men</OPTION>
+<OPTION value="109">Halloween Pumpkin Bat Boots</OPTION>
+<OPTION value="110">Tengu's Shoes</OPTION>
+<OPTION value="111">2012 Premium Summer Boots</OPTION>
+<OPTION value="112">Tin Soldier Boots</OPTION>
+<OPTION value="113">Kagamine Len Shoes</OPTION>
+<OPTION value="114">Kaito Shoes</OPTION>
+<OPTION value="115">idol Check Shoes</OPTION>
+<OPTION value="116">チャイナシューズ（男性用）</OPTION>
 
 </select>
 <br>
-<span class="colorPaletteMini" id="footPalette1" onclick="dyeColor(this);changeFootColorByPalette(1);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(24, 53, 50); background-position: initial initial; background-repeat: initial initial;" title="183532"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="footPalette1" onClick="dyeColor(this);changeFootColorByPalette(1);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="footColor1">
-<span class="colorPaletteMini" id="footPalette2" onclick="dyeColor(this);changeFootColorByPalette(2);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(78, 112, 112); background-position: initial initial; background-repeat: initial initial;" title="4E7070"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="footPalette2" onClick="dyeColor(this);changeFootColorByPalette(2);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="footColor2">
-<span class="colorPaletteMini" id="footPalette3" onclick="dyeColor(this);changeFootColorByPalette(3);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(42, 79, 97); background-position: initial initial; background-repeat: initial initial;" title="2A4F61"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="footPalette3" onClick="dyeColor(this);changeFootColorByPalette(3);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="footColor3">
-<a class="controllerLink" href="javascript:void(0);" onclick="dyeFoot(footColor1.value,footColor2.value,footColor3.value);">染色</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="searchPublist(footMenu.options[footMenu.selectedIndex].text);">コーデ</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="controller.footMenu.value=-1;changeFoot(controller.footMenu.value);">解除</a>
+<a class="controllerLink" href="javascript:void(0);" onClick="dyeFoot(footColor1.value,footColor2.value,footColor3.value);">Dye</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="searchPublist(footMenu.options[footMenu.selectedIndex].text);">Search</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="controller.footMenu.value=-1;changeFoot(controller.footMenu.value);">Purge</a>
 </td>
 </tr>
-<tr id="handBlock">
+<tr id="handBlock" >
 <td class="controllerBlock">
-<span class="controllerHeader">手:</span><br>
-<select name="handMenu" onchange="changeHand(this.value)" style="width:300px;">
-<option value="-1">(無し)</option>
-<option value="1">ねこグローブ</option>
-<option value="2">ラビットハンド</option>
-<option value="3">ベアグローブ</option>
-<option value="4">ねこの手ぶくろ</option>
-<option value="5">ビンテージタークスオープングローブ</option>
-<option value="6">クマタルバーバラスフォックスグローブ (男性用)</option>
-<option value="7">アイアンピラミッドバンド</option>
-<option value="8">パールシャインブレスレット</option>
-<option value="9">ウェーブラインバングル</option>
-<option value="10">オリエンタルバングル</option>
-<option value="11">クリスマスベルの腕輪</option>
-<option value="12">スパイカーシルバーガントレット</option>
-<option value="13">スネークガントレット</option>
-<option value="14">ピルタレザーグローブ</option>
-<option value="15">キルステンレザーガントレット</option>
-<option value="16">異国風龍飾篭手</option>
-<option value="17">ビートクラックスガントレット(ジャイアント用)</option>
-<option value="18">バシルギムレットガントレット</option>
-<option value="19">バレンシアクロスラインプレートガントレット(ジャイアント用)</option>
-<option value="20">コリンプレートガントレット</option>
-<option value="21">フルートプレートガントレット(男性用)</option>
-<option value="22">ドラゴンスケイルガントレット（ジャイアント用）</option>
-<option value="23">量産型シルクの紡織手袋</option>
-<option value="24">一般用シルクの紡織手袋</option>
-<option value="25">専門家用シルクの紡織手袋</option>
-<option value="0">タークスオープングローブ</option>
-<option value="28">ゼダーNPC手袋</option>
-<option value="26">コリンビクセングローブ</option>
-<option value="27">コリンペルトグローブ</option>
-<option value="29">ジャベリングローブ</option>
-<option value="30">ネコガントレット(ジャイアント用)</option>
-<option value="31">イズリエッタハーフガードレザーガントレット(ジャイアント男性用)</option>
-<option value="32">バナレンダブルブレスレット</option>
-<option value="33">タラ突撃歩兵のグローブ (ジャイアント男性用)</option>
-<option value="34">白虎グローブ</option>
-<option value="35">暴君のガントレット(男性用)</option>
-<option value="36">トーガの手袋</option>
-<option value="37">ヌアザガントレット</option>
-<option value="39">ヘボナグローブ</option>
-<option value="40">クレシダグローブ</option>
-<option value="41">ボヘミアンバンド (男性用)</option>
-<option value="42">ペイトラングローブ</option>
-<option value="43">ベルモントグローブ</option>
-<option value="44">アルフォンス・エルリックのガントレット(男性用)</option>
-<option value="45">ジャイアントプレミアムウィンターグローブ</option>
-<option value="46">ナイトウィングプレートガントレット</option>
-<option value="47">ドラゴンライダーガントレット</option>
-<option value="48">ランスフェザーグローブ(男性)(男性用)</option>
-<option value="49">狸一族 木ノ葉腕輪</option>
-<option value="50">狐一族 月の腕輪</option>
-<option value="51">嵐エクスクイジットガントレット (ジャイアント男性用)</option>
-<option value="52">#52: Guiyi` Gothic Dress Style Gauntlet</option>
-<option value="53">妖狐の手鈴(男性用)</option>
-<option value="55">ロイ・マスタングの手袋</option>
-<option value="56">アレックス・ルイ・アームストロングの手袋</option>
-<option value="57">テムズプレートガントレット</option>
-<option value="58">バーナムプレートガントレット</option>
-<option value="59">2012 ジャイアントプレミアムウィンターニュービーグローブ(男性用)</option>
-<option value="60">スペースキャットグローブ(男性用)</option>
-<option value="61">オーランの手袋</option>
-<option value="62">コロッサスヘビーガントレット(男性用)</option>
-<option value="63">ヒューの時計(男性用)</option>
-<option value="64">センチュリオンガントレット</option>
-<option value="65">ダークナイトガントレット</option>
-<option value="66">烏天狗の手袋(男性用)</option>
+<span class="controllerHeader">Hand:</span><br>
+<select name="handMenu" onChange = "changeHand(this.value)" style="width:300px;">
+<OPTION value="-1">(none)</OPTION>
+<OPTION value="1">Cat Hand</OPTION>
+<OPTION value="2">Rabbit Hand</OPTION>
+<OPTION value="3">Bear Glove</OPTION>
+<OPTION value="4">Cat Hand Glove</OPTION>
+<OPTION value="5">Vintage Terks Open-Finger Glove</OPTION>
+<OPTION value="6">Kumataru's Barbarous Fox Glove for Men</OPTION>
+<OPTION value="7">Iron Pyramid Band</OPTION>
+<OPTION value="8">Pearl Shine Bracelet</OPTION>
+<OPTION value="9">Waveline Bangle</OPTION>
+<OPTION value="10">Oriental Bangle</OPTION>
+<OPTION value="11">Jingle bell Bracelet</OPTION>
+<OPTION value="12">Spika's Silver Gauntlet</OPTION>
+<OPTION value="13">Snake's Gauntlet</OPTION>
+<OPTION value="14">Pirta Leather Glove</OPTION>
+<OPTION value="15">Kirsten Leather Gauntlet</OPTION>
+<OPTION value="16">China Dragon Gauntlet</OPTION>
+<OPTION value="17">Vito Crux Gauntlet for giant</OPTION>
+<OPTION value="18">basil gimlet Gauntlet</OPTION>
+<OPTION value="19">Valencia's Cross Line Plate Gauntlet for Giant</OPTION>
+<OPTION value="20">Colin Plate Gauntlet</OPTION>
+<OPTION value="21">Flute Plate Gauntlet</OPTION>
+<OPTION value="22">Dragon Scale Gauntlet</OPTION>
+<OPTION value="23">Popular Silk Weaving Glove</OPTION>
+<OPTION value="24">Silk Weaving Glove</OPTION>
+<OPTION value="25">Professional Silk Weaving Glove</OPTION>
+<OPTION value="0">Terks Open-Finger Glove</OPTION>
+<OPTION value="28">NPC Zeder glove</OPTION>
+<OPTION value="26">Colin Vixen Glove</OPTION>
+<OPTION value="27">Colin Pelt Glove</OPTION>
+<OPTION value="29">Javelin Glove</OPTION>
+<OPTION value="30">Neko Gauntlet</OPTION>
+<OPTION value="31">Izurietta's Half Guard Leather Gauntlet for Giant Men</OPTION>
+<OPTION value="32">Banhallen's Double Bracelet</OPTION>
+<OPTION value="33">Tara Assault Infantry Glove for Giant Men</OPTION>
+<OPTION value="34">White Tiger Glove</OPTION>
+<OPTION value="35">Gauntlet of the Tyrant</OPTION>
+<OPTION value="36">Gloves of the Toga</OPTION>
+<OPTION value="37">Nuadha's Gauntlet</OPTION>
+<OPTION value="39">Hebona Glove</OPTION>
+<OPTION value="40">Cressida Glove</OPTION>
+<OPTION value="41">Bohemian Band for Men</OPTION>
+<OPTION value="42">Partron Glove</OPTION>
+<OPTION value="43">Belmont Glove</OPTION>
+<OPTION value="44">Alphonse Elric's Gauntlet</OPTION>
+<OPTION value="45">Premium Winter Glove for Giant</OPTION>
+<OPTION value="46">Knight Wing Plate Gauntlet</OPTION>
+<OPTION value="47">Dragon Rider Gauntlet</OPTION>
+<OPTION value="48">Leisure Night's Lance Feather Light Leather Glove for Men</OPTION>
+<OPTION value="49">Racoon Clan Basic Bracelet</OPTION>
+<OPTION value="50">Fox Clan Moon Bracelet</OPTION>
+<OPTION value="51">ARASHI's Exquisite Gauntlet For Giant Men</OPTION>
+<OPTION value="52">Guiyi` Gothic Dress Style Gauntlet</OPTION>
+<OPTION value="53">Fox Monster Glove Male</OPTION>
+<OPTION value="55">Roy Mustang's Glove</OPTION>
+<OPTION value="56">Alex Luois Armstrong's Glove</OPTION>
+<OPTION value="57">Thames Plate Gauntlet</OPTION>
+<OPTION value="58">Birnam Plate Gauntlet</OPTION>
+<OPTION value="59">2012 Premium Winter Newbie Glove for Giant Men</OPTION>
+<OPTION value="60">Space Cat Glove Male</OPTION>
+<OPTION value="61">Odran's Glove</OPTION>
+<OPTION value="62">Colosus Gauntlet</OPTION>
+<OPTION value="63">Huw's Watch</OPTION>
+<OPTION value="64">Centurion Gauntlet</OPTION>
+<OPTION value="65">Dark Knight Gauntlet</OPTION>
+<OPTION value="66">Tengu's Glove</OPTION>
 
 </select>
 <br>
-<span class="colorPaletteMini" id="handPalette1" onclick="dyeColor(this);changeHandColorByPalette(1);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(22, 118, 225); background-position: initial initial; background-repeat: initial initial;" title="1676e1"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="handPalette1" onClick="dyeColor(this);changeHandColorByPalette(1);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="handColor1">
-<span class="colorPaletteMini" id="handPalette2" onclick="dyeColor(this);changeHandColorByPalette(2);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(60, 200, 213); background-position: initial initial; background-repeat: initial initial;" title="3cc8d5"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="handPalette2" onClick="dyeColor(this);changeHandColorByPalette(2);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="handColor2">
-<span class="colorPaletteMini" id="handPalette3" onclick="dyeColor(this);changeHandColorByPalette(3);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(74, 118, 161); background-position: initial initial; background-repeat: initial initial;" title="4a76a1"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="handPalette3" onClick="dyeColor(this);changeHandColorByPalette(3);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="handColor3">
-<a class="controllerLink" href="javascript:void(0);" onclick="dyeHand(handColor1.value,handColor2.value,handColor3.value);">染色</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="searchPublist(handMenu.options[handMenu.selectedIndex].text);">コーデ</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="controller.handMenu.value=-1;changeHand(controller.handMenu.value);">解除</a>
+<a class="controllerLink" href="javascript:void(0);" onClick="dyeHand(handColor1.value,handColor2.value,handColor3.value);">Dye</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="searchPublist(handMenu.options[handMenu.selectedIndex].text);">Search</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="controller.handMenu.value=-1;changeHand(controller.handMenu.value);">Purge</a>
 </td>
 </tr>
-<tr id="robeBlock">
+<tr id="robeBlock" >
 <td class="controllerBlock">
-<span class="controllerHeader">ローブ:</span><br>
-<select name="robeMenu" onchange="changeRobe(this.value)" style="width:300px;">
-<option value="-1">(無し)</option>
-<option value="1">オオカミローブ</option>
-<option value="2">ジャイアントベアローブ</option>
-<option value="3">ジャイアントトラディショナルローブ</option>
-<option value="4">アルカレイドスターライトローブ</option>
-<option value="5">#5: Coke Bear Robe</option>
-<option value="6">クルーシーズローブ</option>
-<option value="7">ジャイアントオオカミローブ</option>
-<option value="8">ラバキャットローブ</option>
-<option value="9">ビンテージアルカレイドスターライトローブ</option>
-<option value="10">雪合戦防水ローブ</option>
-<option value="11">3周年記念ローブ</option>
-<option value="12">エプロンローブ(男性用)</option>
-<option value="13">ギルドローブ</option>
-<option value="14">ナタネスラスラインローブ (男性用)</option>
-<option value="15">#15: Dragon Robe for Event</option>
-<option value="16">#16: 4th Anniversary Robe</option>
-<option value="17">ひつじローブ</option>
-<option value="18">乳牛ローブ</option>
-<option value="19">ネコローブ</option>
-<option value="20">クレシュセイウチローブ(ジャイアント男性用)</option>
-<option value="22">ハロウィンカボチャローブ</option>
-<option value="23">ペンギンローブ</option>
-<option value="24">トナカイローブ</option>
-<option value="25">虎ローブ</option>
-<option value="26">イズリエッタプロテクターローブ</option>
-<option value="27">白虎ローブ</option>
-<option value="28">カエルのレインコート</option>
-<option value="29">ヌアザローブ(男性用)</option>
-<option value="30">オリエンタルローブ</option>
-<option value="31">シューティングスターローブ</option>
-<option value="32">オレンジローブ</option>
-<option value="33">ヘボナローブ</option>
-<option value="34">#34: Lucky Neko Robe</option>
-<option value="36">死神ローブ</option>
+<span class="controllerHeader">Robe:</span><br>
+<select name="robeMenu" onChange = "changeRobe(this.value)" style="width:300px;">
+<OPTION value="-1">(none)</OPTION>
+<OPTION value="1">Wolf Robe</OPTION>
+<OPTION value="2">Giant Bear Robe</OPTION>
+<OPTION value="3">Giant Traditional Robe</OPTION>
+<OPTION value="4">Alkaleido's StarLight Robe</OPTION>
+<OPTION value="5">Coke Bear Robe</OPTION>
+<OPTION value="6">Cruces Robe</OPTION>
+<OPTION value="7">Giant wolf Robe</OPTION>
+<OPTION value="8">Lava Cat Robe</OPTION>
+<OPTION value="9">Vintage Alkaleido's StarLight Robe</OPTION>
+<OPTION value="10">Waterproof Robe for Snow Fight</OPTION>
+<OPTION value="11">3rd Anniversary Robe</OPTION>
+<OPTION value="12">Children's Day Robe For Men</OPTION>
+<OPTION value="13">Guild Robe</OPTION>
+<OPTION value="14">Natane`s Thrush Line Robe for Men</OPTION>
+<OPTION value="15">Dragon Robe for Event</OPTION>
+<OPTION value="16">4th Anniversary Robe</OPTION>
+<OPTION value="17">Sheep Robe</OPTION>
+<OPTION value="18">Cow Robe</OPTION>
+<OPTION value="19">Neko Robe</OPTION>
+<OPTION value="20">Clech's Walrus Robe for Giant Men</OPTION>
+<OPTION value="22">Halloween Pumpkin Robe</OPTION>
+<OPTION value="23">Penguin Robe</OPTION>
+<OPTION value="24">Reindeer Robe</OPTION>
+<OPTION value="25">Tiger Robe</OPTION>
+<OPTION value="26">Izurietta's Protector Robe</OPTION>
+<OPTION value="27">White Tiger Robe</OPTION>
+<OPTION value="28">Frog Robe</OPTION>
+<OPTION value="29">Nuadha's Robe for Men</OPTION>
+<OPTION value="30">Lupa's Oriental Robe</OPTION>
+<OPTION value="31">Shooting Star Robe</OPTION>
+<OPTION value="32">Twin Star`s Orange Robe</OPTION>
+<OPTION value="33">Hebona Robe</OPTION>
+<OPTION value="34">Lucky Neko Robe</OPTION>
+<OPTION value="36">Robe for Grim Reaper</OPTION>
 
 </select>
 
-<select name="robeState" onchange="changeRobeState(this.value);" style="width: 80px; visibility: hidden;">
-	<option value="0">被る</option>
-	<option value="1">被らない</option>
+<select name="robeState" onChange="changeRobeState(this.value);" style="width:80px;">
+	<option value="0">put on</option>
+	<option value="1">take off</option>
 </select><br>
-<span class="colorPaletteMini" id="robePalette1" onclick="dyeColor(this);changeRobeColorByPalette(1);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(22, 118, 225); background-position: initial initial; background-repeat: initial initial;" title="1676e1"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="robePalette1" onClick="dyeColor(this);changeRobeColorByPalette(1);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="robeColor1">
-<span class="colorPaletteMini" id="robePalette2" onclick="dyeColor(this);changeRobeColorByPalette(2);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(60, 200, 213); background-position: initial initial; background-repeat: initial initial;" title="3cc8d5"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="robePalette2" onClick="dyeColor(this);changeRobeColorByPalette(2);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="robeColor2">
-<span class="colorPaletteMini" id="robePalette3" onclick="dyeColor(this);changeRobeColorByPalette(3);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(74, 118, 161); background-position: initial initial; background-repeat: initial initial;" title="4a76a1"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="robePalette3" onClick="dyeColor(this);changeRobeColorByPalette(3);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="robeColor3">
-<a class="controllerLink" href="javascript:void(0);" onclick="dyeRobe(robeColor1.value,robeColor2.value,robeColor3.value);">染色</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="searchPublist(robeMenu.options[robeMenu.selectedIndex].text);">コーデ</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="controller.robeMenu.value=-1;changeRobe(controller.robeMenu.value);">解除</a>
+<a class="controllerLink" href="javascript:void(0);" onClick="dyeRobe(robeColor1.value,robeColor2.value,robeColor3.value);">Dye</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="searchPublist(robeMenu.options[robeMenu.selectedIndex].text);">Search</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="controller.robeMenu.value=-1;changeRobe(controller.robeMenu.value);">Purge</a>
 </td>
 </tr>
-<tr id="weapon1Block">
+<tr id="weapon1Block" >
 <td class="controllerBlock">
-<span class="controllerHeader">メイン武器(右手): </span><br>
-<select name="weaponFirstMenu" onchange="changeWeaponFirst(this.value)" style="width:300px;">
-<option value="-1">(無し)</option>
-<option value="1">グレートソード</option>
-<option value="2">クリーバー</option>
-<option value="3">モーニングスター</option>
-<option value="4">グレートモール</option>
-<option value="5">バトルハンマー</option>
-<option value="6">ウォーリアアックス</option>
-<option value="7">ブロードアックス</option>
-<option value="8">スパイクドナックル</option>
-<option value="9">ホブネイルナックル</option>
-<option value="10">ウッドアトラートル</option>
-<option value="11">ボーンアトラートル</option>
-<option value="12">折れた丸太</option>
-<option value="4">グレートモール</option>
-<option value="13">アイスソード</option>
-<option value="14">光るアイスソード</option>
-<option value="15">氷の柱</option>
-<option value="16">バトルメイス</option>
-<option value="17">象牙剣</option>
-<option value="18">#18: Cat Hand Club</option>
-<option value="19">#19: Chocolate Pepero Wand</option>
-<option value="20">#20: Strawberry Pepero Wand</option>
-<option value="21">#21: White Pepero Wand</option>
-<option value="22">バリスタ</option>
-<option value="13">アイスソード</option>
-<option value="14">光るアイスソード</option>
-<option value="23">ビホルダーソード</option>
-<option value="24">ディティス聖魔ワンド</option>
-<option value="25">レミニア星月の剣</option>
-<option value="27">ルィエフェイシェ紫蝶</option>
-<option value="26">シャオラネン騎士の弓</option>
-<option value="28">バレスグレートソード</option>
-<option value="29">フェザーアトラートル</option>
-<option value="30">アイアンメイス</option>
-<option value="31">#31: giant_female_weapon_flamberge01.pmg</option>
-<option value="32">ベアナックル</option>
-<option value="33">おもちゃのハンマー</option>
-<option value="34">シリンダー</option>
-<option value="35">ウォーソード</option>
-<option value="36">エグゼキュショナーズソード</option>
-<option value="37">イウェカショートソード</option>
-<option value="38">ファイアシリンダー</option>
-<option value="39">アースシリンダー</option>
-<option value="40">ウィンドシリンダー</option>
-<option value="41">ウォーターシリンダー</option>
-<option value="42">ランス</option>
-<option value="43">アイアンクロー</option>
-<option value="4">グレートモール</option>
-<option value="44">精霊のグレイトソード</option>
-<option value="45">精霊のクリーバー</option>
-<option value="46">精霊のモーニングスター</option>
-<option value="47">精霊のグレートモール</option>
-<option value="48">精霊のバトルハンマー</option>
-<option value="49">精霊のウォーリアアックス</option>
-<option value="50">精霊のブロードアックス</option>
-<option value="23">ビホルダーソード</option>
-<option value="51">精霊のディティス聖魔ワンド</option>
-<option value="52">精霊レミニア星月の剣</option>
-<option value="53">精霊シャオラネン騎士の弓</option>
-<option value="54">精霊のルィエフェイシェ紫蝶</option>
-<option value="60">クマのぬいぐるみ</option>
-<option value="58">日傘</option>
-<option value="59">はたき</option>
-<option value="33">おもちゃのハンマー</option>
-<option value="61">ウサギのぬいぐるみ</option>
-<option value="62">斬龍剣</option>
-<option value="63">巨大生地用麺棒</option>
-<option value="64">ヴァルドール学園のカバン</option>
-<option value="65">キャンディーの杖</option>
-<option value="66">薪用斧</option>
-<option value="67">木工用かんな</option>
-<option value="68">ピシスチューバ</option>
-<option value="69">アンドラスパペット人形</option>
-<option value="70">エラサパペット人形</option>
-<option value="71">女神への奉剣</option>
-<option value="72">ソフトクリーム型ショートソード</option>
-<option value="73">みたらし団子型ソード</option>
-<option value="74">クラッカー型弓</option>
-<option value="75">コンペイトウ型メイス</option>
-<option value="76">ロールケーキ型シリンダー</option>
-<option value="77">タワーシリンダー</option>
-<option value="78">ファルカタ</option>
-<option value="79">フランキスカ</option>
-<option value="80">ハイランダークレイモア</option>
-<option value="81">エルシノアソード</option>
-<option value="82">バトルマンドリン</option>
-<option value="83">グローリーソード</option>
-<option value="83">グローリーソード</option>
-<option value="84">ドラゴントゥース</option>
-<option value="85">トリニティスタッフ</option>
-<option value="86">ボルケーノシリンダー</option>
-<option value="87">アースクエイクシリンダー</option>
-<option value="88">ハリケーンシリンダー</option>
-<option value="89">タイダルウェーブシリンダー</option>
-<option value="90">オリヴィエ・ミラ・アームストロングのソード</option>
-<option value="91">ウィンリィ・ロックベルのスパナ</option>
-<option value="92">ロナパペット人形</option>
-<option value="93">パンパペット人形</option>
-<option value="94">ネコちゃんのぬいぐるみ</option>
-<option value="95">羽根ペンの剣</option>
-<option value="96">フェアリーファイアワンド</option>
-<option value="97">フェアリーアイスワンド</option>
-<option value="98">フェアリーライトニングワンド</option>
-<option value="99">ピシスウッドランス</option>
-<option value="101">ライオンクローランス</option>
-<option value="100">ナイトランス</option>
-<option value="102">ランドセル</option>
-<option value="103">モンタギュー家の家宝の剣 S</option>
-<option value="103">モンタギュー家の家宝の剣 S</option>
-<option value="104">不思議なニンジン</option>
-<option value="105">ビニール傘</option>
-<option value="106">レース傘</option>
-<option value="107">カエル傘</option>
-<option value="108">ビニール傘 (開)</option>
-<option value="109">レース傘 (開)</option>
-<option value="110">カエル傘 (開)</option>
-<option value="111">台湾傘</option>
-<option value="112">アメリカ傘</option>
-<option value="113">日本傘</option>
-<option value="114">台湾傘 (開)</option>
-<option value="115">アメリカ傘 (開)</option>
-<option value="116">日本傘 (開)</option>
-<option value="117">モリアンパペット人形</option>
-<option value="118">キホールパペット人形</option>
-<option value="119">精霊のトゥハンドソード</option>
-<option value="120">精霊のクレイモア</option>
-<option value="121">精霊のドラゴンブレイド</option>
-<option value="122">精霊の長刀</option>
-<option value="123">精霊の正宗</option>
-<option value="124">精霊のアイアンメイス</option>
-<option value="125">精霊のバレスグレートソード</option>
-<option value="126">精霊のダスティンシルバーナイトソード</option>
-<option value="127">精霊のグローリーソード</option>
-<option value="134">精霊のドラゴントゥース</option>
-<option value="128">精霊フランキスカ</option>
-<option value="129">精霊ハイランダークレイモア</option>
-<option value="130">精霊エグゼキュショナーズソード</option>
-<option value="131">精霊ウォーソード</option>
-<option value="132">精霊ファルカタ</option>
-<option value="133">精霊ブロンズミラーブレイド</option>
-<option value="135">大太鼓</option>
-<option value="136">小太鼓</option>
-<option value="137">シンバル</option>
-<option value="138">ブリューナク</option>
-<option value="139">エンドレスウィングスタッフ</option>
-<option value="140">斬魔の大鎌</option>
-<option value="141">野蛮な狐の鎌</option>
-<option value="142">ブレイスナックル</option>
-<option value="143">チャンピオンナックル</option>
-<option value="144">クマの足跡枕</option>
-<option value="145">遊び用枕</option>
-<option value="146">海のトロールの棍棒</option>
-<option value="147">荒野のトロールの棍棒</option>
-<option value="148">ハートソード</option>
-<option value="149">#149: Diamond Mini Spear</option>
-<option value="150">#150: Heart Mini Spear</option>
-<option value="151">#151: Clover Mini Spear</option>
-<option value="152">#152: Spade Mini Spear</option>
-<option value="153">リスのぬいぐるみ</option>
-<option value="154">フェネックのぬいぐるみ</option>
-<option value="153">リスのぬいぐるみ</option>
-<option value="155">クマのぬいぐるみ</option>
-<option value="156">トラのぬいぐるみ</option>
-<option value="157">ウサギのぬいぐるみ</option>
-<option value="159">イングレイブドマリオネットハンドル</option>
-<option value="160">ジュエリーマリオネットハンドル</option>
-<option value="158">ベーシックマリオネットハンドル</option>
-<option value="161">パンダ傘</option>
-<option value="162">キラキラ星傘</option>
-<option value="163">キラキラ星傘 (開)</option>
-<option value="164">パンダ傘 (開)</option>
-<option value="165">蓮の葉傘</option>
-<option value="166">蓮の葉傘 (開)</option>
-<option value="167">鈴付きチーターの手棒</option>
-<option value="168">ハロウィンかぼちゃコウモリ傘</option>
-<option value="169">デモニックヘルファイアシリンダー</option>
-<option value="170">デモニックインナーコアシリンダー</option>
-<option value="170">デモニックインナーコアシリンダー</option>
-<option value="171">デモニックスケールアイランス</option>
-<option value="172">デモニックデスペナルティブレイド</option>
-<option value="173">デモニックデスナイトソード</option>
-<option value="174">デモニックインフィニティスタッフ</option>
-<option value="175">デモニックイリュージョンハンドル</option>
-<option value="176">デモニックグルーミーサンデー</option>
-<option value="177">デモニックソリチュードナックル</option>
-<option value="178">デモニックナイトメアドリームキャッチャー</option>
-<option value="179">ムーンライトドリームキャッチャー</option>
-<option value="180">オーディナリードリームキャッチャー</option>
-<option value="181">ネギ(基本型)</option>
-<option value="182">みかん(基本型)</option>
-<option value="183">アイスクリームライトニングワンド</option>
-<option value="184">アイスクリームファイアワンド</option>
-<option value="185">アイスクリームアイスワンド</option>
-<option value="186">エレキギター</option>
+<span class="controllerHeader">Weapon Main (Left Hand): </span><br>
+<select name="weaponFirstMenu" onChange = "changeWeaponFirst(this.value)" style="width:300px;">
+<OPTION value="-1">(none)</OPTION>
+<OPTION value="1">Great Sword</OPTION>
+<OPTION value="2">Cleaver</OPTION>
+<OPTION value="3">Morningstar</OPTION>
+<OPTION value="4">Great Mallet</OPTION>
+<OPTION value="5">Battle Hammer</OPTION>
+<OPTION value="6">Warrior Axe</OPTION>
+<OPTION value="7">Broad Axe</OPTION>
+<OPTION value="8">Spiked Knuckle</OPTION>
+<OPTION value="9">Hobnail Knuckle</OPTION>
+<OPTION value="10">Wood Atlatl</OPTION>
+<OPTION value="11">Bone Atlatl</OPTION>
+<OPTION value="12">Broken Log</OPTION>
+<OPTION value="4">Great Mallet</OPTION>
+<OPTION value="13">Ice Sword</OPTION>
+<OPTION value="14">Shining Ice Sword</OPTION>
+<OPTION value="15">Ice Pole</OPTION>
+<OPTION value="16">Battle Mace</OPTION>
+<OPTION value="17">Ivory Sword</OPTION>
+<OPTION value="18">Cat Hand Club</OPTION>
+<OPTION value="19">Chocolate Stick Wand</OPTION>
+<OPTION value="20">Strawberry Stick Wand</OPTION>
+<OPTION value="21">White Stick Wand</OPTION>
+<OPTION value="22">Ballista</OPTION>
+<OPTION value="13">Ice Sword</OPTION>
+<OPTION value="14">Shining Ice Sword</OPTION>
+<OPTION value="23">Sword of Beholder</OPTION>
+<OPTION value="24">Ditis's Wand of Evil</OPTION>
+<OPTION value="25">Reminia's Star And Moon Sword</OPTION>
+<OPTION value="27">Ruyuefeixue's Amethyst Butterfly</OPTION>
+<OPTION value="26">Shaoranen's Bow of Chivalry</OPTION>
+<OPTION value="28">Vales Great Sword</OPTION>
+<OPTION value="29">Feather Atlatl</OPTION>
+<OPTION value="30">Iron Mace</OPTION>
+<OPTION value="31">#31: giant_female_weapon_flamberge01.pmg</OPTION>
+<OPTION value="32">Bear Knuckle</OPTION>
+<OPTION value="33">Toy hammer</OPTION>
+<OPTION value="34">Cylinder</OPTION>
+<OPTION value="35">War Sword</OPTION>
+<OPTION value="36">Executioner's sword</OPTION>
+<OPTION value="37">Eweca Short Sword</OPTION>
+<OPTION value="38">Fire Cylinder</OPTION>
+<OPTION value="39">Earth Cylinder</OPTION>
+<OPTION value="40">Wind Cylinder</OPTION>
+<OPTION value="41">Water Cylinder</OPTION>
+<OPTION value="42">Jousting Lance</OPTION>
+<OPTION value="43">Iron Claw</OPTION>
+<OPTION value="4">Great Mallet</OPTION>
+<OPTION value="44">Ego Great Sword</OPTION>
+<OPTION value="45">Ego Cleaver</OPTION>
+<OPTION value="46">Ego Morningstar</OPTION>
+<OPTION value="47">Ego Great Mallet</OPTION>
+<OPTION value="48">Ego Battle Hammer</OPTION>
+<OPTION value="49">Ego Warrior Axe</OPTION>
+<OPTION value="50">Ego Broad Axe</OPTION>
+<OPTION value="23">Sword of Beholder</OPTION>
+<OPTION value="51">Ego Ditis's Wand of Evil</OPTION>
+<OPTION value="52">Ego Reminia's Star And Moon Sword</OPTION>
+<OPTION value="53">Ego Shaoranen's Bow of Chivalry</OPTION>
+<OPTION value="54">Ego Ruyuefeixue's Amethyst Butterfly</OPTION>
+<OPTION value="60">Bear Doll</OPTION>
+<OPTION value="58">Sunshade</OPTION>
+<OPTION value="59">Duster</OPTION>
+<OPTION value="33">Toy hammer</OPTION>
+<OPTION value="61">Rabbit Doll</OPTION>
+<OPTION value="62">Dragon Killer`s Great Two-Handed Sword</OPTION>
+<OPTION value="63">Big Cooking Kneader</OPTION>
+<OPTION value="64">Valdorl School Bag</OPTION>
+<OPTION value="65">Candy Cane</OPTION>
+<OPTION value="66">Axe for Firewood</OPTION>
+<OPTION value="67">Plane for Carpentry</OPTION>
+<OPTION value="68">Physis Tuba</OPTION>
+<OPTION value="69">Andras Puppet</OPTION>
+<OPTION value="70">Elatha Puppet</OPTION>
+<OPTION value="71">Eldra's Two Handed Sword devoted to Goddess</OPTION>
+<OPTION value="72">Soft Ice Cream Short Sword</OPTION>
+<OPTION value="73">Dumpling Sword</OPTION>
+<OPTION value="74">Cracker Bow</OPTION>
+<OPTION value="75">Confeito Mace</OPTION>
+<OPTION value="76">Rollcake Cylinder</OPTION>
+<OPTION value="77">Tower Cylinder</OPTION>
+<OPTION value="78">Falcata</OPTION>
+<OPTION value="79">Francisca</OPTION>
+<OPTION value="80">Highlander Claymore</OPTION>
+<OPTION value="81">Fire Sword of Elsinore</OPTION>
+<OPTION value="82">Battle Mandolin</OPTION>
+<OPTION value="83">Glory Sword</OPTION>
+<OPTION value="83">Glory Sword</OPTION>
+<OPTION value="84">Dragon Tooth</OPTION>
+<OPTION value="85">Trinity Staff</OPTION>
+<OPTION value="86">Volcano Cylinder</OPTION>
+<OPTION value="87">Earthquake Cylinder</OPTION>
+<OPTION value="88">Hurricane Cylinder</OPTION>
+<OPTION value="89">Tidalwave Cylinder</OPTION>
+<OPTION value="90">Olivier Mira Armstrong's Sword</OPTION>
+<OPTION value="91">Winry Rockbell's Spanner</OPTION>
+<OPTION value="92">Lorna Puppet</OPTION>
+<OPTION value="93">Pan Puppet</OPTION>
+<OPTION value="94">Cat Doll</OPTION>
+<OPTION value="95">Quill Sword</OPTION>
+<OPTION value="96">Fire Wand Of Fairy</OPTION>
+<OPTION value="97">Ice Wand Of Fairy</OPTION>
+<OPTION value="98">Lightning Wand Of Fairy</OPTION>
+<OPTION value="99">Physis Wooden Lance</OPTION>
+<OPTION value="101">Lion Claw Lance</OPTION>
+<OPTION value="100">Knight Lance</OPTION>
+<OPTION value="102">Ransel</OPTION>
+<OPTION value="103">Korean Sword S</OPTION>
+<OPTION value="103">Korean Sword S</OPTION>
+<OPTION value="104">Special Carrot</OPTION>
+<OPTION value="105">Umbrella</OPTION>
+<OPTION value="106">Umbrella</OPTION>
+<OPTION value="107">Umbrella</OPTION>
+<OPTION value="108">Umbrella (open)</OPTION>
+<OPTION value="109">Umbrella (open)</OPTION>
+<OPTION value="110">Umbrella (open)</OPTION>
+<OPTION value="111">Umbrella</OPTION>
+<OPTION value="112">Umbrella</OPTION>
+<OPTION value="113">Umbrella</OPTION>
+<OPTION value="114">Umbrella (open)</OPTION>
+<OPTION value="115">Umbrella (open)</OPTION>
+<OPTION value="116">Umbrella (open)</OPTION>
+<OPTION value="117">Morrighan Puppet</OPTION>
+<OPTION value="118">Cichol Puppet</OPTION>
+<OPTION value="119">Ego Two-Handed Sword</OPTION>
+<OPTION value="120">Ego Claymore</OPTION>
+<OPTION value="121">Ego Dragon Blade</OPTION>
+<OPTION value="122">Ego Japanese Long Blade</OPTION>
+<OPTION value="123">Ego Masamune</OPTION>
+<OPTION value="124">Ego Iron Mace</OPTION>
+<OPTION value="125">Ego Vales Great Sword</OPTION>
+<OPTION value="126">Ego Dustin Silver Knight Sword</OPTION>
+<OPTION value="127">Ego Glory Sword</OPTION>
+<OPTION value="134">Ego Dragon Tooth</OPTION>
+<OPTION value="128">Ego Francisca</OPTION>
+<OPTION value="129">Ego Highlander Claymore</OPTION>
+<OPTION value="130">Ego Executioner's sword</OPTION>
+<OPTION value="131">Ego War Sword</OPTION>
+<OPTION value="132">Ego Falcata</OPTION>
+<OPTION value="133">Ego Viseo's Bronze Mirror Blade</OPTION>
+<OPTION value="135">Bass Drum</OPTION>
+<OPTION value="136">Drum</OPTION>
+<OPTION value="137">Cymbals</OPTION>
+<OPTION value="138">Brionac</OPTION>
+<OPTION value="139">Endless Wing Staff</OPTION>
+<OPTION value="140">Kill The Devil Scythe</OPTION>
+<OPTION value="141">Barbarous Fox Scythe</OPTION>
+<OPTION value="142">Brace Knuckle</OPTION>
+<OPTION value="143">Champion Knuckle</OPTION>
+<OPTION value="144">Bear's Paw Pillow</OPTION>
+<OPTION value="145">Event Pillow</OPTION>
+<OPTION value="146">Club of Sea Troll</OPTION>
+<OPTION value="147">Club of Wild Troll</OPTION>
+<OPTION value="148">Heart Sword</OPTION>
+<OPTION value="149">Diamond Mini Spear</OPTION>
+<OPTION value="150">Heart Mini Spear</OPTION>
+<OPTION value="151">Clover Mini Spear</OPTION>
+<OPTION value="152">Spade Mini Spear</OPTION>
+<OPTION value="153">Squirrel Ragdoll</OPTION>
+<OPTION value="154">Desert fox Ragdoll</OPTION>
+<OPTION value="153">Squirrel Ragdoll</OPTION>
+<OPTION value="155">Bear Ragdoll</OPTION>
+<OPTION value="156">Tiger Ragdoll</OPTION>
+<OPTION value="157">Rabbit Ragdoll</OPTION>
+<OPTION value="159">Engraved Marionette Handle</OPTION>
+<OPTION value="160">Jeweled Marionette Handle</OPTION>
+<OPTION value="158">Basic Marionette Handle</OPTION>
+<OPTION value="161">Panda Umbrella</OPTION>
+<OPTION value="162">Twinkling Star Umbrella</OPTION>
+<OPTION value="163">Twinkling Star Umbrella (open)</OPTION>
+<OPTION value="164">Panda Umbrella (open)</OPTION>
+<OPTION value="165">A lotus leaf Umbrella</OPTION>
+<OPTION value="166">A lotus leaf Umbrella (open)</OPTION>
+<OPTION value="167">Cheeta Hand Club</OPTION>
+<OPTION value="168">Halloween Pumpkin Bet Umbrella</OPTION>
+<OPTION value="169">Demonic Hell-Fire Cylinder</OPTION>
+<OPTION value="170">Demonic Inner-Core Cylinder</OPTION>
+<OPTION value="170">Demonic Inner-Core Cylinder</OPTION>
+<OPTION value="171">Demonic Scales-Eye Lance</OPTION>
+<OPTION value="172">Demonic Death Penalty Blade</OPTION>
+<OPTION value="173">Demonic Death Knight Sword</OPTION>
+<OPTION value="174">Demonic Infinity Staff</OPTION>
+<OPTION value="175">Demonic Illusion Handle</OPTION>
+<OPTION value="176">Demonic Gloomy Sunday</OPTION>
+<OPTION value="177">Demonic Solitude Knuckle</OPTION>
+<OPTION value="178">Demonic Nightmare Dreamcatcher</OPTION>
+<OPTION value="179">Moonlight Dreamcatcher</OPTION>
+<OPTION value="180">Ordinary Dreamcatcher</OPTION>
+<OPTION value="181">Spring Onion Sword Basic</OPTION>
+<OPTION value="182">Tangerine Knuckle Basic</OPTION>
+<OPTION value="183">Ice Cream Lightning Wand</OPTION>
+<OPTION value="184">Ice Cream Fire Wand</OPTION>
+<OPTION value="185">Ice Cream Ice Wand</OPTION>
+<OPTION value="186">Electric Guitar</OPTION>
 
 </select>
 
-<select name="weaponFirstState" onchange="changeWeaponFirstState(this.value);" style="width: 80px; visibility: visible;">
-<option value="0">装備</option>
-<option value="3">装備 (逆)</option>
-<option value="1">解除</option>
-<option value="4">解除 (逆)</option>
+<select name="weaponFirstState" onChange="changeWeaponFirstState(this.value);" style="width:80px;">
+<option value="0">Useable</option>
+<option value="3">Useable (Reverse)</option>
+<option value="1">NotUseable</option>
+<option value="4">NotUseable (Reverse)</option>
 </select><br>
-<span class="colorPaletteMini" id="weaponFirstPalette1" onclick="dyeColor(this);changeWeaponFirstColorByPalette(1);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(74, 215, 209); background-position: initial initial; background-repeat: initial initial;" title="4AD7D1"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="weaponFirstPalette1" onClick="dyeColor(this);changeWeaponFirstColorByPalette(1);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="weaponFirstColor1">
-<span class="colorPaletteMini" id="weaponFirstPalette2" onclick="dyeColor(this);changeWeaponFirstColorByPalette(2);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(95, 96, 104); background-position: initial initial; background-repeat: initial initial;" title="5F6068"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="weaponFirstPalette2" onClick="dyeColor(this);changeWeaponFirstColorByPalette(2);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="weaponFirstColor2">
-<span class="colorPaletteMini" id="weaponFirstPalette3" onclick="dyeColor(this);changeWeaponFirstColorByPalette(3);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(19, 96, 155); background-position: initial initial; background-repeat: initial initial;" title="13609B"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="weaponFirstPalette3" onClick="dyeColor(this);changeWeaponFirstColorByPalette(3);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="weaponFirstColor3">
-<a class="controllerLink" href="javascript:void(0);" onclick="dyeWeaponFirst(weaponFirstColor1.value,weaponFirstColor2.value,weaponFirstColor3.value);">染色</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="searchPublist(weaponFirstMenu.options[weaponFirstMenu.selectedIndex].text);">コーデ</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="controller.weaponFirstMenu.value=-1;changeWeaponFirst(controller.weaponFirstMenu.value);">解除</a>
+<a class="controllerLink" href="javascript:void(0);" onClick="dyeWeaponFirst(weaponFirstColor1.value,weaponFirstColor2.value,weaponFirstColor3.value);">Dye</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="searchPublist(weaponFirstMenu.options[weaponFirstMenu.selectedIndex].text);">Search</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="controller.weaponFirstMenu.value=-1;changeWeaponFirst(controller.weaponFirstMenu.value);">Purge</a>
 </td>
 </tr>
-<tr id="shield1Block">
+<tr id="shield1Block" >
 <td class="controllerBlock">
-<span class="controllerHeader">メイン武器(左手):</span><br>
-<select name="shieldFirstMenu" onchange="changeShieldFirst(this.value)" style="width:300px;">
-<option value="-1">(無し)</option>
-<option value="0">ビホルダーシールド</option>
-<option value="1">ティカシールド</option>
-<option value="2">バレスシールド</option>
-<option value="3">コンポジットシールド</option>
-<option value="4">バックラー</option>
-<option value="5">#5: Coke Digital Camcorder</option>
-<option value="6">グレートソード</option>
-<option value="7">クリーバー</option>
-<option value="8">モーニングスター</option>
-<option value="9">グレートモール</option>
-<option value="10">バトルハンマー</option>
-<option value="11">ウォーリアアックス</option>
-<option value="12">ブロードアックス</option>
-<option value="13">スパイクドナックル</option>
-<option value="14">ホブネイルナックル</option>
-<option value="15">ウッドアトラートル</option>
-<option value="16">ボーンアトラートル</option>
-<option value="17">折れた丸太</option>
-<option value="18">アイスソード</option>
-<option value="19">光るアイスソード</option>
-<option value="20">氷の柱</option>
-<option value="21">バトルメイス</option>
-<option value="22">象牙剣</option>
-<option value="23">#23: Cat Hand Club</option>
-<option value="24">#24: Chocolate Pepero Wand</option>
-<option value="25">#25: Strawberry Pepero Wand</option>
-<option value="26">#26: White Pepero Wand</option>
-<option value="27">バリスタ</option>
-<option value="28">ビホルダーソード</option>
-<option value="29">ディティス聖魔ワンド</option>
-<option value="30">レミニア星月の剣</option>
-<option value="31">シャオラネン騎士の弓</option>
-<option value="32">ルィエフェイシェ紫蝶</option>
-<option value="33">バレスグレートソード</option>
-<option value="34">フェザーアトラートル</option>
-<option value="35">アイアンメイス</option>
-<option value="36">#36: giant_female_weapon_flamberge01.pmg</option>
-<option value="37">ベアナックル</option>
-<option value="38">おもちゃのハンマー</option>
-<option value="39">シリンダー</option>
-<option value="40">ウォーソード</option>
-<option value="41">エグゼキュショナーズソード</option>
-<option value="42">イウェカショートソード</option>
-<option value="43">ファイアシリンダー</option>
-<option value="44">アースシリンダー</option>
-<option value="45">ウィンドシリンダー</option>
-<option value="46">ウォーターシリンダー</option>
-<option value="47">ランス</option>
-<option value="48">アイアンクロー</option>
-<option value="49">精霊のグレイトソード</option>
-<option value="50">精霊のクリーバー</option>
-<option value="51">精霊のモーニングスター</option>
-<option value="52">精霊のグレートモール</option>
-<option value="53">精霊のバトルハンマー</option>
-<option value="54">精霊のウォーリアアックス</option>
-<option value="55">精霊のブロードアックス</option>
-<option value="56">精霊のディティス聖魔ワンド</option>
-<option value="57">精霊レミニア星月の剣</option>
-<option value="58">精霊シャオラネン騎士の弓</option>
-<option value="59">精霊のルィエフェイシェ紫蝶</option>
-<option value="60">イカダ用のオール</option>
-<option value="61">#61: (temp)dragon_ship_tool_row</option>
-<option value="62">#62: (temp)</option>
-<option value="63">日傘</option>
-<option value="64">はたき</option>
-<option value="65">クマのぬいぐるみ</option>
-<option value="66">ウサギのぬいぐるみ</option>
-<option value="67">斬龍剣</option>
-<option value="68">巨大生地用麺棒</option>
-<option value="69">ヴァルドール学園のカバン</option>
-<option value="70">キャンディーの杖</option>
-<option value="71">薪用斧</option>
-<option value="72">木工用かんな</option>
-<option value="73">ピシスチューバ</option>
-<option value="74">アンドラスパペット人形</option>
-<option value="75">エラサパペット人形</option>
-<option value="76">女神への奉剣</option>
-<option value="77">ソフトクリーム型ショートソード</option>
-<option value="78">みたらし団子型ソード</option>
-<option value="79">クラッカー型弓</option>
-<option value="80">コンペイトウ型メイス</option>
-<option value="82">クッキー型盾</option>
-<option value="83">タワーシリンダー</option>
-<option value="84">ファルカタ</option>
-<option value="85">フランキスカ</option>
-<option value="86">ハイランダークレイモア</option>
-<option value="81">ロールケーキ型シリンダー</option>
-<option value="87">エルシノアソード</option>
-<option value="88">バトルマンドリン</option>
-<option value="89">グローリーソード</option>
-<option value="89">グローリーソード</option>
-<option value="91">ドラゴントゥース</option>
-<option value="92">トリニティスタッフ</option>
-<option value="93">ボルケーノシリンダー</option>
-<option value="94">アースクエイクシリンダー</option>
-<option value="95">ハリケーンシリンダー</option>
-<option value="96">タイダルウェーブシリンダー</option>
-<option value="97">オリヴィエ・ミラ・アームストロングのソード</option>
-<option value="98">ウィンリィ・ロックベルのスパナ</option>
-<option value="99">ロナパペット人形</option>
-<option value="100">パンパペット人形</option>
-<option value="101">ネコちゃんのぬいぐるみ</option>
-<option value="102">羽根ペンの剣</option>
-<option value="103">フェアリーファイアワンド</option>
-<option value="104">フェアリーアイスワンド</option>
-<option value="105">フェアリーライトニングワンド</option>
-<option value="106">エイヴォンの盾</option>
-<option value="107">ランドセル</option>
-<option value="0">ビホルダーシールド</option>
-<option value="0">ビホルダーシールド</option>
-<option value="0">ビホルダーシールド</option>
-<option value="108">モリアンパペット人形</option>
-<option value="109">キホールパペット人形</option>
-<option value="0">ビホルダーシールド</option>
-<option value="110">タージシールド</option>
-<option value="111">エンドレスウィングスタッフ</option>
-<option value="112">ヴァルキリーの盾</option>
-<option value="113">斬魔の大鎌</option>
-<option value="114">野蛮な狐の鎌</option>
-<option value="115">ブレイスナックル</option>
-<option value="116">チャンピオンナックル</option>
-<option value="117">クマの足跡枕</option>
-<option value="118">遊び用枕</option>
-<option value="119">海のトロールの棍棒</option>
-<option value="120">荒野のトロールの棍棒</option>
-<option value="0">ビホルダーシールド</option>
-<option value="63">日傘</option>
-<option value="121">ビニール傘</option>
-<option value="122">レース傘</option>
-<option value="123">カエル傘</option>
-<option value="124">台湾傘</option>
-<option value="125">アメリカ傘</option>
-<option value="126">日本傘</option>
-<option value="127">パンダ傘</option>
-<option value="128">キラキラ星傘</option>
-<option value="129">蓮の葉傘</option>
-<option value="130">鈴付きチーターの手棒</option>
-<option value="131">デモニックナイトメアドリームキャッチャー</option>
-<option value="132">ムーンライトドリームキャッチャー</option>
-<option value="133">オーディナリードリームキャッチャー</option>
-<option value="134">ネギ(基本型)</option>
-<option value="135">みかん(基本型)</option>
-<option value="136">アイスクリームライトニングワンド</option>
-<option value="137">アイスクリームファイアワンド</option>
-<option value="138">アイスクリームアイスワンド</option>
-<option value="139">エレキギター</option>
+<span class="controllerHeader">Weapon Main (Right Hand):</span><br>
+<select name="shieldFirstMenu" onChange = "changeShieldFirst(this.value)" style="width:300px;">
+<OPTION value="-1">(none)</OPTION>
+<OPTION value="0">Shield of Beholder</OPTION>
+<OPTION value="1">Tikka Shield</OPTION>
+<OPTION value="2">Vales Shield</OPTION>
+<OPTION value="3">Composite Shield</OPTION>
+<OPTION value="4">Buckler</OPTION>
+<OPTION value="5">Coke Digital Camcorder</OPTION>
+<OPTION value="6">Great Sword</OPTION>
+<OPTION value="7">Cleaver</OPTION>
+<OPTION value="8">Morningstar</OPTION>
+<OPTION value="9">Great Mallet</OPTION>
+<OPTION value="10">Battle Hammer</OPTION>
+<OPTION value="11">Warrior Axe</OPTION>
+<OPTION value="12">Broad Axe</OPTION>
+<OPTION value="13">Spiked Knuckle</OPTION>
+<OPTION value="14">Hobnail Knuckle</OPTION>
+<OPTION value="15">Wood Atlatl</OPTION>
+<OPTION value="16">Bone Atlatl</OPTION>
+<OPTION value="17">Broken Log</OPTION>
+<OPTION value="18">Ice Sword</OPTION>
+<OPTION value="19">Shining Ice Sword</OPTION>
+<OPTION value="20">Ice Pole</OPTION>
+<OPTION value="21">Battle Mace</OPTION>
+<OPTION value="22">Ivory Sword</OPTION>
+<OPTION value="23">Cat Hand Club</OPTION>
+<OPTION value="24">Chocolate Stick Wand</OPTION>
+<OPTION value="25">Strawberry Stick Wand</OPTION>
+<OPTION value="26">White Stick Wand</OPTION>
+<OPTION value="27">Ballista</OPTION>
+<OPTION value="28">Sword of Beholder</OPTION>
+<OPTION value="29">Ditis's Wand of Evil</OPTION>
+<OPTION value="30">Reminia's Star And Moon Sword</OPTION>
+<OPTION value="31">Shaoranen's Bow of Chivalry</OPTION>
+<OPTION value="32">Ruyuefeixue's Amethyst Butterfly</OPTION>
+<OPTION value="33">Vales Great Sword</OPTION>
+<OPTION value="34">Feather Atlatl</OPTION>
+<OPTION value="35">Iron Mace</OPTION>
+<OPTION value="36">#36: giant_female_weapon_flamberge01.pmg</OPTION>
+<OPTION value="37">Bear Knuckle</OPTION>
+<OPTION value="38">Toy hammer</OPTION>
+<OPTION value="39">Cylinder</OPTION>
+<OPTION value="40">War Sword</OPTION>
+<OPTION value="41">Executioner's sword</OPTION>
+<OPTION value="42">Eweca Short Sword</OPTION>
+<OPTION value="43">Fire Cylinder</OPTION>
+<OPTION value="44">Earth Cylinder</OPTION>
+<OPTION value="45">Wind Cylinder</OPTION>
+<OPTION value="46">Water Cylinder</OPTION>
+<OPTION value="47">Jousting Lance</OPTION>
+<OPTION value="48">Iron Claw</OPTION>
+<OPTION value="49">Ego Great Sword</OPTION>
+<OPTION value="50">Ego Cleaver</OPTION>
+<OPTION value="51">Ego Morningstar</OPTION>
+<OPTION value="52">Ego Great Mallet</OPTION>
+<OPTION value="53">Ego Battle Hammer</OPTION>
+<OPTION value="54">Ego Warrior Axe</OPTION>
+<OPTION value="55">Ego Broad Axe</OPTION>
+<OPTION value="56">Ego Ditis's Wand of Evil</OPTION>
+<OPTION value="57">Ego Reminia's Star And Moon Sword</OPTION>
+<OPTION value="58">Ego Shaoranen's Bow of Chivalry</OPTION>
+<OPTION value="59">Ego Ruyuefeixue's Amethyst Butterfly</OPTION>
+<OPTION value="60">(temp)tool_row</OPTION>
+<OPTION value="61">(temp)dragon_ship_tool_row</OPTION>
+<OPTION value="62">(temp)</OPTION>
+<OPTION value="63">Sunshade</OPTION>
+<OPTION value="64">Duster</OPTION>
+<OPTION value="65">Bear Doll</OPTION>
+<OPTION value="66">Rabbit Doll</OPTION>
+<OPTION value="67">Dragon Killer`s Great Two-Handed Sword</OPTION>
+<OPTION value="68">Big Cooking Kneader</OPTION>
+<OPTION value="69">Valdorl School Bag</OPTION>
+<OPTION value="70">Candy Cane</OPTION>
+<OPTION value="71">Axe for Firewood</OPTION>
+<OPTION value="72">Plane for Carpentry</OPTION>
+<OPTION value="73">Physis Tuba</OPTION>
+<OPTION value="74">Andras Puppet</OPTION>
+<OPTION value="75">Elatha Puppet</OPTION>
+<OPTION value="76">Eldra's Two Handed Sword devoted to Goddess</OPTION>
+<OPTION value="77">Soft Ice Cream Short Sword</OPTION>
+<OPTION value="78">Dumpling Sword</OPTION>
+<OPTION value="79">Cracker Bow</OPTION>
+<OPTION value="80">Confeito Mace</OPTION>
+<OPTION value="82">Cookie Shield</OPTION>
+<OPTION value="83">Tower Cylinder</OPTION>
+<OPTION value="84">Falcata</OPTION>
+<OPTION value="85">Francisca</OPTION>
+<OPTION value="86">Highlander Claymore</OPTION>
+<OPTION value="81">Rollcake Cylinder</OPTION>
+<OPTION value="87">Fire Sword of Elsinore</OPTION>
+<OPTION value="88">Battle Mandolin</OPTION>
+<OPTION value="89">Glory Sword</OPTION>
+<OPTION value="89">Glory Sword</OPTION>
+<OPTION value="91">Dragon Tooth</OPTION>
+<OPTION value="92">Trinity Staff</OPTION>
+<OPTION value="93">Volcano Cylinder</OPTION>
+<OPTION value="94">Earthquake Cylinder</OPTION>
+<OPTION value="95">Hurricane Cylinder</OPTION>
+<OPTION value="96">Tidalwave Cylinder</OPTION>
+<OPTION value="97">Olivier Mira Armstrong's Sword</OPTION>
+<OPTION value="98">Winry Rockbell's Spanner</OPTION>
+<OPTION value="99">Lorna Puppet</OPTION>
+<OPTION value="100">Pan Puppet</OPTION>
+<OPTION value="101">Cat Doll</OPTION>
+<OPTION value="102">Quill Sword</OPTION>
+<OPTION value="103">Fire Wand Of Fairy</OPTION>
+<OPTION value="104">Ice Wand Of Fairy</OPTION>
+<OPTION value="105">Lightning Wand Of Fairy</OPTION>
+<OPTION value="106">Shield of Avon</OPTION>
+<OPTION value="107">Ransel</OPTION>
+<OPTION value="0">Shield of Beholder</OPTION>
+<OPTION value="0">Shield of Beholder</OPTION>
+<OPTION value="0">Shield of Beholder</OPTION>
+<OPTION value="108">Morrighan Puppet</OPTION>
+<OPTION value="109">Cichol Puppet</OPTION>
+<OPTION value="0">Shield of Beholder</OPTION>
+<OPTION value="110">Targe Shield</OPTION>
+<OPTION value="111">Endless Wing Staff</OPTION>
+<OPTION value="112">Shield of Valkyrie</OPTION>
+<OPTION value="113">Kill The Devil Scythe</OPTION>
+<OPTION value="114">Barbarous Fox Scythe</OPTION>
+<OPTION value="115">Brace Knuckle</OPTION>
+<OPTION value="116">Champion Knuckle</OPTION>
+<OPTION value="117">Bear's Paw Pillow</OPTION>
+<OPTION value="118">Event Pillow</OPTION>
+<OPTION value="119">Club of Sea Troll</OPTION>
+<OPTION value="120">Club of Wild Troll</OPTION>
+<OPTION value="0">Shield of Beholder</OPTION>
+<OPTION value="63">Sunshade</OPTION>
+<OPTION value="121">Umbrella</OPTION>
+<OPTION value="122">Umbrella</OPTION>
+<OPTION value="123">Umbrella</OPTION>
+<OPTION value="124">Umbrella</OPTION>
+<OPTION value="125">Umbrella</OPTION>
+<OPTION value="126">Umbrella</OPTION>
+<OPTION value="127">Panda Umbrella</OPTION>
+<OPTION value="128">Twinkling Star Umbrella</OPTION>
+<OPTION value="129">A lotus leaf Umbrella</OPTION>
+<OPTION value="130">Cheeta Hand Club</OPTION>
+<OPTION value="131">Demonic Nightmare Dreamcatcher</OPTION>
+<OPTION value="132">Moonlight Dreamcatcher</OPTION>
+<OPTION value="133">Ordinary Dreamcatcher</OPTION>
+<OPTION value="134">Spring Onion Sword Basic</OPTION>
+<OPTION value="135">Tangerine Knuckle Basic</OPTION>
+<OPTION value="136">Ice Cream Lightning Wand</OPTION>
+<OPTION value="137">Ice Cream Fire Wand</OPTION>
+<OPTION value="138">Ice Cream Ice Wand</OPTION>
+<OPTION value="139">Electric Guitar</OPTION>
 
 </select>
 
-<select name="shieldFirstState" onchange="changeShieldFirstState(this.value);" style="width: 80px; visibility: hidden;">
-<option value="0">装備</option>
-<option value="3">装備 (逆)</option>
-<option value="1">解除</option>
-<option value="4">解除 (逆)</option>
+<select name="shieldFirstState" onChange="changeShieldFirstState(this.value);" style="width:80px;">
+<option value="0">Useable</option>
+<option value="3">Useable (Reverse)</option>
+<option value="1">NotUseable</option>
+<option value="4">NotUseable (Reverse)</option>
 </select><br>
-<span class="colorPaletteMini" id="shieldFirstPalette1" onclick="dyeColor(this);changeShieldFirstColorByPalette(1);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(22, 118, 225); background-position: initial initial; background-repeat: initial initial;" title="1676e1"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="shieldFirstPalette1" onClick="dyeColor(this);changeShieldFirstColorByPalette(1);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="shieldFirstColor1">
-<span class="colorPaletteMini" id="shieldFirstPalette2" onclick="dyeColor(this);changeShieldFirstColorByPalette(2);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(60, 200, 213); background-position: initial initial; background-repeat: initial initial;" title="3cc8d5"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="shieldFirstPalette2" onClick="dyeColor(this);changeShieldFirstColorByPalette(2);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="shieldFirstColor2">
-<span class="colorPaletteMini" id="shieldFirstPalette3" onclick="dyeColor(this);changeShieldFirstColorByPalette(3);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(74, 118, 161); background-position: initial initial; background-repeat: initial initial;" title="4a76a1"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="shieldFirstPalette3" onClick="dyeColor(this);changeShieldFirstColorByPalette(3);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="shieldFirstColor3">
-<a class="controllerLink" href="javascript:void(0);" onclick="dyeShieldFirst(shieldFirstColor1.value,shieldFirstColor2.value,shieldFirstColor3.value);">染色</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="searchPublist(shieldFirstMenu.options[shieldFirstMenu.selectedIndex].text);">コーデ</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="controller.shieldFirstMenu.value=-1;changeShieldFirst(controller.shieldFirstMenu.value);">解除</a>
+<a class="controllerLink" href="javascript:void(0);" onClick="dyeShieldFirst(shieldFirstColor1.value,shieldFirstColor2.value,shieldFirstColor3.value);">Dye</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="searchPublist(shieldFirstMenu.options[shieldFirstMenu.selectedIndex].text);">Search</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="controller.shieldFirstMenu.value=-1;changeShieldFirst(controller.shieldFirstMenu.value);">Purge</a>
 </td>
 </tr>
-<tr id="weapon2Block">
+<tr id="weapon2Block" >
 <td class="controllerBlock">
-<span class="controllerHeader">サブ武器(右手):</span><br>
-<select name="weaponSecondMenu" onchange="changeWeaponSecond(this.value)" style="width:300px;">
-<option value="-1">(無し)</option>
-<option value="1">グレートソード</option>
-<option value="2">クリーバー</option>
-<option value="3">モーニングスター</option>
-<option value="4">グレートモール</option>
-<option value="5">バトルハンマー</option>
-<option value="6">ウォーリアアックス</option>
-<option value="7">ブロードアックス</option>
-<option value="8">スパイクドナックル</option>
-<option value="9">ホブネイルナックル</option>
-<option value="10">ウッドアトラートル</option>
-<option value="11">ボーンアトラートル</option>
-<option value="12">折れた丸太</option>
-<option value="4">グレートモール</option>
-<option value="13">アイスソード</option>
-<option value="14">光るアイスソード</option>
-<option value="15">氷の柱</option>
-<option value="16">バトルメイス</option>
-<option value="17">象牙剣</option>
-<option value="18">#18: Cat Hand Club</option>
-<option value="19">#19: Chocolate Pepero Wand</option>
-<option value="20">#20: Strawberry Pepero Wand</option>
-<option value="21">#21: White Pepero Wand</option>
-<option value="22">バリスタ</option>
-<option value="13">アイスソード</option>
-<option value="14">光るアイスソード</option>
-<option value="23">ビホルダーソード</option>
-<option value="24">ディティス聖魔ワンド</option>
-<option value="25">レミニア星月の剣</option>
-<option value="27">ルィエフェイシェ紫蝶</option>
-<option value="26">シャオラネン騎士の弓</option>
-<option value="28">バレスグレートソード</option>
-<option value="29">フェザーアトラートル</option>
-<option value="30">アイアンメイス</option>
-<option value="31">#31: giant_female_weapon_flamberge01.pmg</option>
-<option value="32">ベアナックル</option>
-<option value="33">おもちゃのハンマー</option>
-<option value="34">シリンダー</option>
-<option value="35">ウォーソード</option>
-<option value="36">エグゼキュショナーズソード</option>
-<option value="37">イウェカショートソード</option>
-<option value="38">ファイアシリンダー</option>
-<option value="39">アースシリンダー</option>
-<option value="40">ウィンドシリンダー</option>
-<option value="41">ウォーターシリンダー</option>
-<option value="42">ランス</option>
-<option value="43">アイアンクロー</option>
-<option value="4">グレートモール</option>
-<option value="44">精霊のグレイトソード</option>
-<option value="45">精霊のクリーバー</option>
-<option value="46">精霊のモーニングスター</option>
-<option value="47">精霊のグレートモール</option>
-<option value="48">精霊のバトルハンマー</option>
-<option value="49">精霊のウォーリアアックス</option>
-<option value="50">精霊のブロードアックス</option>
-<option value="23">ビホルダーソード</option>
-<option value="51">精霊のディティス聖魔ワンド</option>
-<option value="52">精霊レミニア星月の剣</option>
-<option value="53">精霊シャオラネン騎士の弓</option>
-<option value="54">精霊のルィエフェイシェ紫蝶</option>
-<option value="60">クマのぬいぐるみ</option>
-<option value="58">日傘</option>
-<option value="59">はたき</option>
-<option value="33">おもちゃのハンマー</option>
-<option value="61">ウサギのぬいぐるみ</option>
-<option value="62">斬龍剣</option>
-<option value="63">巨大生地用麺棒</option>
-<option value="64">ヴァルドール学園のカバン</option>
-<option value="65">キャンディーの杖</option>
-<option value="66">薪用斧</option>
-<option value="67">木工用かんな</option>
-<option value="68">ピシスチューバ</option>
-<option value="69">アンドラスパペット人形</option>
-<option value="70">エラサパペット人形</option>
-<option value="71">女神への奉剣</option>
-<option value="72">ソフトクリーム型ショートソード</option>
-<option value="73">みたらし団子型ソード</option>
-<option value="74">クラッカー型弓</option>
-<option value="75">コンペイトウ型メイス</option>
-<option value="76">ロールケーキ型シリンダー</option>
-<option value="77">タワーシリンダー</option>
-<option value="78">ファルカタ</option>
-<option value="79">フランキスカ</option>
-<option value="80">ハイランダークレイモア</option>
-<option value="81">エルシノアソード</option>
-<option value="82">バトルマンドリン</option>
-<option value="83">グローリーソード</option>
-<option value="83">グローリーソード</option>
-<option value="84">ドラゴントゥース</option>
-<option value="85">トリニティスタッフ</option>
-<option value="86">ボルケーノシリンダー</option>
-<option value="87">アースクエイクシリンダー</option>
-<option value="88">ハリケーンシリンダー</option>
-<option value="89">タイダルウェーブシリンダー</option>
-<option value="90">オリヴィエ・ミラ・アームストロングのソード</option>
-<option value="91">ウィンリィ・ロックベルのスパナ</option>
-<option value="92">ロナパペット人形</option>
-<option value="93">パンパペット人形</option>
-<option value="94">ネコちゃんのぬいぐるみ</option>
-<option value="95">羽根ペンの剣</option>
-<option value="96">フェアリーファイアワンド</option>
-<option value="97">フェアリーアイスワンド</option>
-<option value="98">フェアリーライトニングワンド</option>
-<option value="99">ピシスウッドランス</option>
-<option value="101">ライオンクローランス</option>
-<option value="100">ナイトランス</option>
-<option value="102">ランドセル</option>
-<option value="103">モンタギュー家の家宝の剣 S</option>
-<option value="103">モンタギュー家の家宝の剣 S</option>
-<option value="104">不思議なニンジン</option>
-<option value="105">ビニール傘</option>
-<option value="106">レース傘</option>
-<option value="107">カエル傘</option>
-<option value="108">ビニール傘 (開)</option>
-<option value="109">レース傘 (開)</option>
-<option value="110">カエル傘 (開)</option>
-<option value="111">台湾傘</option>
-<option value="112">アメリカ傘</option>
-<option value="113">日本傘</option>
-<option value="114">台湾傘 (開)</option>
-<option value="115">アメリカ傘 (開)</option>
-<option value="116">日本傘 (開)</option>
-<option value="117">モリアンパペット人形</option>
-<option value="118">キホールパペット人形</option>
-<option value="119">精霊のトゥハンドソード</option>
-<option value="120">精霊のクレイモア</option>
-<option value="121">精霊のドラゴンブレイド</option>
-<option value="122">精霊の長刀</option>
-<option value="123">精霊の正宗</option>
-<option value="124">精霊のアイアンメイス</option>
-<option value="125">精霊のバレスグレートソード</option>
-<option value="126">精霊のダスティンシルバーナイトソード</option>
-<option value="127">精霊のグローリーソード</option>
-<option value="134">精霊のドラゴントゥース</option>
-<option value="128">精霊フランキスカ</option>
-<option value="129">精霊ハイランダークレイモア</option>
-<option value="130">精霊エグゼキュショナーズソード</option>
-<option value="131">精霊ウォーソード</option>
-<option value="132">精霊ファルカタ</option>
-<option value="133">精霊ブロンズミラーブレイド</option>
-<option value="135">大太鼓</option>
-<option value="136">小太鼓</option>
-<option value="137">シンバル</option>
-<option value="138">ブリューナク</option>
-<option value="139">エンドレスウィングスタッフ</option>
-<option value="140">斬魔の大鎌</option>
-<option value="141">野蛮な狐の鎌</option>
-<option value="142">ブレイスナックル</option>
-<option value="143">チャンピオンナックル</option>
-<option value="144">クマの足跡枕</option>
-<option value="145">遊び用枕</option>
-<option value="146">海のトロールの棍棒</option>
-<option value="147">荒野のトロールの棍棒</option>
-<option value="148">ハートソード</option>
-<option value="149">#149: Diamond Mini Spear</option>
-<option value="150">#150: Heart Mini Spear</option>
-<option value="151">#151: Clover Mini Spear</option>
-<option value="152">#152: Spade Mini Spear</option>
-<option value="153">リスのぬいぐるみ</option>
-<option value="154">フェネックのぬいぐるみ</option>
-<option value="153">リスのぬいぐるみ</option>
-<option value="155">クマのぬいぐるみ</option>
-<option value="156">トラのぬいぐるみ</option>
-<option value="157">ウサギのぬいぐるみ</option>
-<option value="159">イングレイブドマリオネットハンドル</option>
-<option value="160">ジュエリーマリオネットハンドル</option>
-<option value="158">ベーシックマリオネットハンドル</option>
-<option value="161">パンダ傘</option>
-<option value="162">キラキラ星傘</option>
-<option value="163">キラキラ星傘 (開)</option>
-<option value="164">パンダ傘 (開)</option>
-<option value="165">蓮の葉傘</option>
-<option value="166">蓮の葉傘 (開)</option>
-<option value="167">鈴付きチーターの手棒</option>
-<option value="168">ハロウィンかぼちゃコウモリ傘</option>
-<option value="169">デモニックヘルファイアシリンダー</option>
-<option value="170">デモニックインナーコアシリンダー</option>
-<option value="170">デモニックインナーコアシリンダー</option>
-<option value="171">デモニックスケールアイランス</option>
-<option value="172">デモニックデスペナルティブレイド</option>
-<option value="173">デモニックデスナイトソード</option>
-<option value="174">デモニックインフィニティスタッフ</option>
-<option value="175">デモニックイリュージョンハンドル</option>
-<option value="176">デモニックグルーミーサンデー</option>
-<option value="177">デモニックソリチュードナックル</option>
-<option value="178">デモニックナイトメアドリームキャッチャー</option>
-<option value="179">ムーンライトドリームキャッチャー</option>
-<option value="180">オーディナリードリームキャッチャー</option>
-<option value="181">ネギ(基本型)</option>
-<option value="182">みかん(基本型)</option>
-<option value="183">アイスクリームライトニングワンド</option>
-<option value="184">アイスクリームファイアワンド</option>
-<option value="185">アイスクリームアイスワンド</option>
-<option value="186">エレキギター</option>
+<span class="controllerHeader">Weapon Sub (Left Hand):</span><br>
+<select name="weaponSecondMenu" onChange = "changeWeaponSecond(this.value)" style="width:300px;">
+<OPTION value="-1">(none)</OPTION>
+<OPTION value="1">Great Sword</OPTION>
+<OPTION value="2">Cleaver</OPTION>
+<OPTION value="3">Morningstar</OPTION>
+<OPTION value="4">Great Mallet</OPTION>
+<OPTION value="5">Battle Hammer</OPTION>
+<OPTION value="6">Warrior Axe</OPTION>
+<OPTION value="7">Broad Axe</OPTION>
+<OPTION value="8">Spiked Knuckle</OPTION>
+<OPTION value="9">Hobnail Knuckle</OPTION>
+<OPTION value="10">Wood Atlatl</OPTION>
+<OPTION value="11">Bone Atlatl</OPTION>
+<OPTION value="12">Broken Log</OPTION>
+<OPTION value="4">Great Mallet</OPTION>
+<OPTION value="13">Ice Sword</OPTION>
+<OPTION value="14">Shining Ice Sword</OPTION>
+<OPTION value="15">Ice Pole</OPTION>
+<OPTION value="16">Battle Mace</OPTION>
+<OPTION value="17">Ivory Sword</OPTION>
+<OPTION value="18">Cat Hand Club</OPTION>
+<OPTION value="19">Chocolate Stick Wand</OPTION>
+<OPTION value="20">Strawberry Stick Wand</OPTION>
+<OPTION value="21">White Stick Wand</OPTION>
+<OPTION value="22">Ballista</OPTION>
+<OPTION value="13">Ice Sword</OPTION>
+<OPTION value="14">Shining Ice Sword</OPTION>
+<OPTION value="23">Sword of Beholder</OPTION>
+<OPTION value="24">Ditis's Wand of Evil</OPTION>
+<OPTION value="25">Reminia's Star And Moon Sword</OPTION>
+<OPTION value="27">Ruyuefeixue's Amethyst Butterfly</OPTION>
+<OPTION value="26">Shaoranen's Bow of Chivalry</OPTION>
+<OPTION value="28">Vales Great Sword</OPTION>
+<OPTION value="29">Feather Atlatl</OPTION>
+<OPTION value="30">Iron Mace</OPTION>
+<OPTION value="31">#31: giant_female_weapon_flamberge01.pmg</OPTION>
+<OPTION value="32">Bear Knuckle</OPTION>
+<OPTION value="33">Toy hammer</OPTION>
+<OPTION value="34">Cylinder</OPTION>
+<OPTION value="35">War Sword</OPTION>
+<OPTION value="36">Executioner's sword</OPTION>
+<OPTION value="37">Eweca Short Sword</OPTION>
+<OPTION value="38">Fire Cylinder</OPTION>
+<OPTION value="39">Earth Cylinder</OPTION>
+<OPTION value="40">Wind Cylinder</OPTION>
+<OPTION value="41">Water Cylinder</OPTION>
+<OPTION value="42">Jousting Lance</OPTION>
+<OPTION value="43">Iron Claw</OPTION>
+<OPTION value="4">Great Mallet</OPTION>
+<OPTION value="44">Ego Great Sword</OPTION>
+<OPTION value="45">Ego Cleaver</OPTION>
+<OPTION value="46">Ego Morningstar</OPTION>
+<OPTION value="47">Ego Great Mallet</OPTION>
+<OPTION value="48">Ego Battle Hammer</OPTION>
+<OPTION value="49">Ego Warrior Axe</OPTION>
+<OPTION value="50">Ego Broad Axe</OPTION>
+<OPTION value="23">Sword of Beholder</OPTION>
+<OPTION value="51">Ego Ditis's Wand of Evil</OPTION>
+<OPTION value="52">Ego Reminia's Star And Moon Sword</OPTION>
+<OPTION value="53">Ego Shaoranen's Bow of Chivalry</OPTION>
+<OPTION value="54">Ego Ruyuefeixue's Amethyst Butterfly</OPTION>
+<OPTION value="60">Bear Doll</OPTION>
+<OPTION value="58">Sunshade</OPTION>
+<OPTION value="59">Duster</OPTION>
+<OPTION value="33">Toy hammer</OPTION>
+<OPTION value="61">Rabbit Doll</OPTION>
+<OPTION value="62">Dragon Killer`s Great Two-Handed Sword</OPTION>
+<OPTION value="63">Big Cooking Kneader</OPTION>
+<OPTION value="64">Valdorl School Bag</OPTION>
+<OPTION value="65">Candy Cane</OPTION>
+<OPTION value="66">Axe for Firewood</OPTION>
+<OPTION value="67">Plane for Carpentry</OPTION>
+<OPTION value="68">Physis Tuba</OPTION>
+<OPTION value="69">Andras Puppet</OPTION>
+<OPTION value="70">Elatha Puppet</OPTION>
+<OPTION value="71">Eldra's Two Handed Sword devoted to Goddess</OPTION>
+<OPTION value="72">Soft Ice Cream Short Sword</OPTION>
+<OPTION value="73">Dumpling Sword</OPTION>
+<OPTION value="74">Cracker Bow</OPTION>
+<OPTION value="75">Confeito Mace</OPTION>
+<OPTION value="76">Rollcake Cylinder</OPTION>
+<OPTION value="77">Tower Cylinder</OPTION>
+<OPTION value="78">Falcata</OPTION>
+<OPTION value="79">Francisca</OPTION>
+<OPTION value="80">Highlander Claymore</OPTION>
+<OPTION value="81">Fire Sword of Elsinore</OPTION>
+<OPTION value="82">Battle Mandolin</OPTION>
+<OPTION value="83">Glory Sword</OPTION>
+<OPTION value="83">Glory Sword</OPTION>
+<OPTION value="84">Dragon Tooth</OPTION>
+<OPTION value="85">Trinity Staff</OPTION>
+<OPTION value="86">Volcano Cylinder</OPTION>
+<OPTION value="87">Earthquake Cylinder</OPTION>
+<OPTION value="88">Hurricane Cylinder</OPTION>
+<OPTION value="89">Tidalwave Cylinder</OPTION>
+<OPTION value="90">Olivier Mira Armstrong's Sword</OPTION>
+<OPTION value="91">Winry Rockbell's Spanner</OPTION>
+<OPTION value="92">Lorna Puppet</OPTION>
+<OPTION value="93">Pan Puppet</OPTION>
+<OPTION value="94">Cat Doll</OPTION>
+<OPTION value="95">Quill Sword</OPTION>
+<OPTION value="96">Fire Wand Of Fairy</OPTION>
+<OPTION value="97">Ice Wand Of Fairy</OPTION>
+<OPTION value="98">Lightning Wand Of Fairy</OPTION>
+<OPTION value="99">Physis Wooden Lance</OPTION>
+<OPTION value="101">Lion Claw Lance</OPTION>
+<OPTION value="100">Knight Lance</OPTION>
+<OPTION value="102">Ransel</OPTION>
+<OPTION value="103">Korean Sword S</OPTION>
+<OPTION value="103">Korean Sword S</OPTION>
+<OPTION value="104">Special Carrot</OPTION>
+<OPTION value="105">Umbrella</OPTION>
+<OPTION value="106">Umbrella</OPTION>
+<OPTION value="107">Umbrella</OPTION>
+<OPTION value="108">Umbrella (open)</OPTION>
+<OPTION value="109">Umbrella (open)</OPTION>
+<OPTION value="110">Umbrella (open)</OPTION>
+<OPTION value="111">Umbrella</OPTION>
+<OPTION value="112">Umbrella</OPTION>
+<OPTION value="113">Umbrella</OPTION>
+<OPTION value="114">Umbrella (open)</OPTION>
+<OPTION value="115">Umbrella (open)</OPTION>
+<OPTION value="116">Umbrella (open)</OPTION>
+<OPTION value="117">Morrighan Puppet</OPTION>
+<OPTION value="118">Cichol Puppet</OPTION>
+<OPTION value="119">Ego Two-Handed Sword</OPTION>
+<OPTION value="120">Ego Claymore</OPTION>
+<OPTION value="121">Ego Dragon Blade</OPTION>
+<OPTION value="122">Ego Japanese Long Blade</OPTION>
+<OPTION value="123">Ego Masamune</OPTION>
+<OPTION value="124">Ego Iron Mace</OPTION>
+<OPTION value="125">Ego Vales Great Sword</OPTION>
+<OPTION value="126">Ego Dustin Silver Knight Sword</OPTION>
+<OPTION value="127">Ego Glory Sword</OPTION>
+<OPTION value="134">Ego Dragon Tooth</OPTION>
+<OPTION value="128">Ego Francisca</OPTION>
+<OPTION value="129">Ego Highlander Claymore</OPTION>
+<OPTION value="130">Ego Executioner's sword</OPTION>
+<OPTION value="131">Ego War Sword</OPTION>
+<OPTION value="132">Ego Falcata</OPTION>
+<OPTION value="133">Ego Viseo's Bronze Mirror Blade</OPTION>
+<OPTION value="135">Bass Drum</OPTION>
+<OPTION value="136">Drum</OPTION>
+<OPTION value="137">Cymbals</OPTION>
+<OPTION value="138">Brionac</OPTION>
+<OPTION value="139">Endless Wing Staff</OPTION>
+<OPTION value="140">Kill The Devil Scythe</OPTION>
+<OPTION value="141">Barbarous Fox Scythe</OPTION>
+<OPTION value="142">Brace Knuckle</OPTION>
+<OPTION value="143">Champion Knuckle</OPTION>
+<OPTION value="144">Bear's Paw Pillow</OPTION>
+<OPTION value="145">Event Pillow</OPTION>
+<OPTION value="146">Club of Sea Troll</OPTION>
+<OPTION value="147">Club of Wild Troll</OPTION>
+<OPTION value="148">Heart Sword</OPTION>
+<OPTION value="149">Diamond Mini Spear</OPTION>
+<OPTION value="150">Heart Mini Spear</OPTION>
+<OPTION value="151">Clover Mini Spear</OPTION>
+<OPTION value="152">Spade Mini Spear</OPTION>
+<OPTION value="153">Squirrel Ragdoll</OPTION>
+<OPTION value="154">Desert fox Ragdoll</OPTION>
+<OPTION value="153">Squirrel Ragdoll</OPTION>
+<OPTION value="155">Bear Ragdoll</OPTION>
+<OPTION value="156">Tiger Ragdoll</OPTION>
+<OPTION value="157">Rabbit Ragdoll</OPTION>
+<OPTION value="159">Engraved Marionette Handle</OPTION>
+<OPTION value="160">Jeweled Marionette Handle</OPTION>
+<OPTION value="158">Basic Marionette Handle</OPTION>
+<OPTION value="161">Panda Umbrella</OPTION>
+<OPTION value="162">Twinkling Star Umbrella</OPTION>
+<OPTION value="163">Twinkling Star Umbrella (open)</OPTION>
+<OPTION value="164">Panda Umbrella (open)</OPTION>
+<OPTION value="165">A lotus leaf Umbrella</OPTION>
+<OPTION value="166">A lotus leaf Umbrella (open)</OPTION>
+<OPTION value="167">Cheeta Hand Club</OPTION>
+<OPTION value="168">Halloween Pumpkin Bet Umbrella</OPTION>
+<OPTION value="169">Demonic Hell-Fire Cylinder</OPTION>
+<OPTION value="170">Demonic Inner-Core Cylinder</OPTION>
+<OPTION value="170">Demonic Inner-Core Cylinder</OPTION>
+<OPTION value="171">Demonic Scales-Eye Lance</OPTION>
+<OPTION value="172">Demonic Death Penalty Blade</OPTION>
+<OPTION value="173">Demonic Death Knight Sword</OPTION>
+<OPTION value="174">Demonic Infinity Staff</OPTION>
+<OPTION value="175">Demonic Illusion Handle</OPTION>
+<OPTION value="176">Demonic Gloomy Sunday</OPTION>
+<OPTION value="177">Demonic Solitude Knuckle</OPTION>
+<OPTION value="178">Demonic Nightmare Dreamcatcher</OPTION>
+<OPTION value="179">Moonlight Dreamcatcher</OPTION>
+<OPTION value="180">Ordinary Dreamcatcher</OPTION>
+<OPTION value="181">Spring Onion Sword Basic</OPTION>
+<OPTION value="182">Tangerine Knuckle Basic</OPTION>
+<OPTION value="183">Ice Cream Lightning Wand</OPTION>
+<OPTION value="184">Ice Cream Fire Wand</OPTION>
+<OPTION value="185">Ice Cream Ice Wand</OPTION>
+<OPTION value="186">Electric Guitar</OPTION>
 
 </select>
 
-<select name="weaponSecondState" onchange="changeWeaponSecondState(this.value);" style="width: 80px; visibility: visible;">
-<option value="0">装備</option>
-<option value="1">解除</option>
+<select name="weaponSecondState" onChange="changeWeaponSecondState(this.value);" style="width:80px;">
+<option value="0">Useable</option>
+<option value="1">NotUseable</option>
 </select><br>
-<span class="colorPaletteMini" id="weaponSecondPalette1" onclick="dyeColor(this);changeWeaponSecondColorByPalette(1);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(128, 128, 128); background-position: initial initial; background-repeat: initial initial;" title="808080"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="weaponSecondPalette1" onClick="dyeColor(this);changeWeaponSecondColorByPalette(1);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="weaponSecondColor1">
-<span class="colorPaletteMini" id="weaponSecondPalette2" onclick="dyeColor(this);changeWeaponSecondColorByPalette(2);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(210, 188, 149); background-position: initial initial; background-repeat: initial initial;" title="D2BC95"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="weaponSecondPalette2" onClick="dyeColor(this);changeWeaponSecondColorByPalette(2);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="weaponSecondColor2">
-<span class="colorPaletteMini" id="weaponSecondPalette3" onclick="dyeColor(this);changeWeaponSecondColorByPalette(3);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(112, 112, 112); background-position: initial initial; background-repeat: initial initial;" title="707070"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="weaponSecondPalette3" onClick="dyeColor(this);changeWeaponSecondColorByPalette(3);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="weaponSecondColor3">
-<a class="controllerLink" href="javascript:void(0);" onclick="dyeWeaponSecond(weaponSecondColor1.value,weaponSecondColor2.value,weaponSecondColor3.value);">染色</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="searchPublist(weaponSecondMenu.options[weaponSecondMenu.selectedIndex].text);">コーデ</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="controller.weaponSecondMenu.value=-1;changeWeaponSecond(controller.weaponSecondMenu.value);">解除</a>
+<a class="controllerLink" href="javascript:void(0);" onClick="dyeWeaponSecond(weaponSecondColor1.value,weaponSecondColor2.value,weaponSecondColor3.value);">Dye</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="searchPublist(weaponSecondMenu.options[weaponSecondMenu.selectedIndex].text);">Search</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="controller.weaponSecondMenu.value=-1;changeWeaponSecond(controller.weaponSecondMenu.value);">Purge</a>
 </td>
 </tr>
-<tr id="shield2Block">
+<tr id="shield2Block" >
 <td class="controllerBlock">
-<span class="controllerHeader">サブ武器(左手):</span><br>
-<select name="shieldSecondMenu" onchange="changeShieldSecond(this.value)" style="width:300px;">
-<option value="-1">(無し)</option>
-<option value="0">ビホルダーシールド</option>
-<option value="1">ティカシールド</option>
-<option value="2">バレスシールド</option>
-<option value="3">コンポジットシールド</option>
-<option value="4">バックラー</option>
-<option value="5">#5: Coke Digital Camcorder</option>
-<option value="6">グレートソード</option>
-<option value="7">クリーバー</option>
-<option value="8">モーニングスター</option>
-<option value="9">グレートモール</option>
-<option value="10">バトルハンマー</option>
-<option value="11">ウォーリアアックス</option>
-<option value="12">ブロードアックス</option>
-<option value="13">スパイクドナックル</option>
-<option value="14">ホブネイルナックル</option>
-<option value="15">ウッドアトラートル</option>
-<option value="16">ボーンアトラートル</option>
-<option value="17">折れた丸太</option>
-<option value="18">アイスソード</option>
-<option value="19">光るアイスソード</option>
-<option value="20">氷の柱</option>
-<option value="21">バトルメイス</option>
-<option value="22">象牙剣</option>
-<option value="23">#23: Cat Hand Club</option>
-<option value="24">#24: Chocolate Pepero Wand</option>
-<option value="25">#25: Strawberry Pepero Wand</option>
-<option value="26">#26: White Pepero Wand</option>
-<option value="27">バリスタ</option>
-<option value="28">ビホルダーソード</option>
-<option value="29">ディティス聖魔ワンド</option>
-<option value="30">レミニア星月の剣</option>
-<option value="31">シャオラネン騎士の弓</option>
-<option value="32">ルィエフェイシェ紫蝶</option>
-<option value="33">バレスグレートソード</option>
-<option value="34">フェザーアトラートル</option>
-<option value="35">アイアンメイス</option>
-<option value="36">#36: giant_female_weapon_flamberge01.pmg</option>
-<option value="37">ベアナックル</option>
-<option value="38">おもちゃのハンマー</option>
-<option value="39">シリンダー</option>
-<option value="40">ウォーソード</option>
-<option value="41">エグゼキュショナーズソード</option>
-<option value="42">イウェカショートソード</option>
-<option value="43">ファイアシリンダー</option>
-<option value="44">アースシリンダー</option>
-<option value="45">ウィンドシリンダー</option>
-<option value="46">ウォーターシリンダー</option>
-<option value="47">ランス</option>
-<option value="48">アイアンクロー</option>
-<option value="49">精霊のグレイトソード</option>
-<option value="50">精霊のクリーバー</option>
-<option value="51">精霊のモーニングスター</option>
-<option value="52">精霊のグレートモール</option>
-<option value="53">精霊のバトルハンマー</option>
-<option value="54">精霊のウォーリアアックス</option>
-<option value="55">精霊のブロードアックス</option>
-<option value="56">精霊のディティス聖魔ワンド</option>
-<option value="57">精霊レミニア星月の剣</option>
-<option value="58">精霊シャオラネン騎士の弓</option>
-<option value="59">精霊のルィエフェイシェ紫蝶</option>
-<option value="60">イカダ用のオール</option>
-<option value="61">#61: (temp)dragon_ship_tool_row</option>
-<option value="62">#62: (temp)</option>
-<option value="63">日傘</option>
-<option value="64">はたき</option>
-<option value="65">クマのぬいぐるみ</option>
-<option value="66">ウサギのぬいぐるみ</option>
-<option value="67">斬龍剣</option>
-<option value="68">巨大生地用麺棒</option>
-<option value="69">ヴァルドール学園のカバン</option>
-<option value="70">キャンディーの杖</option>
-<option value="71">薪用斧</option>
-<option value="72">木工用かんな</option>
-<option value="73">ピシスチューバ</option>
-<option value="74">アンドラスパペット人形</option>
-<option value="75">エラサパペット人形</option>
-<option value="76">女神への奉剣</option>
-<option value="77">ソフトクリーム型ショートソード</option>
-<option value="78">みたらし団子型ソード</option>
-<option value="79">クラッカー型弓</option>
-<option value="80">コンペイトウ型メイス</option>
-<option value="82">クッキー型盾</option>
-<option value="83">タワーシリンダー</option>
-<option value="84">ファルカタ</option>
-<option value="85">フランキスカ</option>
-<option value="86">ハイランダークレイモア</option>
-<option value="81">ロールケーキ型シリンダー</option>
-<option value="87">エルシノアソード</option>
-<option value="88">バトルマンドリン</option>
-<option value="89">グローリーソード</option>
-<option value="89">グローリーソード</option>
-<option value="91">ドラゴントゥース</option>
-<option value="92">トリニティスタッフ</option>
-<option value="93">ボルケーノシリンダー</option>
-<option value="94">アースクエイクシリンダー</option>
-<option value="95">ハリケーンシリンダー</option>
-<option value="96">タイダルウェーブシリンダー</option>
-<option value="97">オリヴィエ・ミラ・アームストロングのソード</option>
-<option value="98">ウィンリィ・ロックベルのスパナ</option>
-<option value="99">ロナパペット人形</option>
-<option value="100">パンパペット人形</option>
-<option value="101">ネコちゃんのぬいぐるみ</option>
-<option value="102">羽根ペンの剣</option>
-<option value="103">フェアリーファイアワンド</option>
-<option value="104">フェアリーアイスワンド</option>
-<option value="105">フェアリーライトニングワンド</option>
-<option value="106">エイヴォンの盾</option>
-<option value="107">ランドセル</option>
-<option value="0">ビホルダーシールド</option>
-<option value="0">ビホルダーシールド</option>
-<option value="0">ビホルダーシールド</option>
-<option value="108">モリアンパペット人形</option>
-<option value="109">キホールパペット人形</option>
-<option value="0">ビホルダーシールド</option>
-<option value="110">タージシールド</option>
-<option value="111">エンドレスウィングスタッフ</option>
-<option value="112">ヴァルキリーの盾</option>
-<option value="113">斬魔の大鎌</option>
-<option value="114">野蛮な狐の鎌</option>
-<option value="115">ブレイスナックル</option>
-<option value="116">チャンピオンナックル</option>
-<option value="117">クマの足跡枕</option>
-<option value="118">遊び用枕</option>
-<option value="119">海のトロールの棍棒</option>
-<option value="120">荒野のトロールの棍棒</option>
-<option value="0">ビホルダーシールド</option>
-<option value="63">日傘</option>
-<option value="121">ビニール傘</option>
-<option value="122">レース傘</option>
-<option value="123">カエル傘</option>
-<option value="124">台湾傘</option>
-<option value="125">アメリカ傘</option>
-<option value="126">日本傘</option>
-<option value="127">パンダ傘</option>
-<option value="128">キラキラ星傘</option>
-<option value="129">蓮の葉傘</option>
-<option value="130">鈴付きチーターの手棒</option>
-<option value="131">デモニックナイトメアドリームキャッチャー</option>
-<option value="132">ムーンライトドリームキャッチャー</option>
-<option value="133">オーディナリードリームキャッチャー</option>
-<option value="134">ネギ(基本型)</option>
-<option value="135">みかん(基本型)</option>
-<option value="136">アイスクリームライトニングワンド</option>
-<option value="137">アイスクリームファイアワンド</option>
-<option value="138">アイスクリームアイスワンド</option>
-<option value="139">エレキギター</option>
+<span class="controllerHeader">Weapon Sub (Right Hand):</span><br>
+<select name="shieldSecondMenu" onChange = "changeShieldSecond(this.value)" style="width:300px;">
+<OPTION value="-1">(none)</OPTION>
+<OPTION value="0">Shield of Beholder</OPTION>
+<OPTION value="1">Tikka Shield</OPTION>
+<OPTION value="2">Vales Shield</OPTION>
+<OPTION value="3">Composite Shield</OPTION>
+<OPTION value="4">Buckler</OPTION>
+<OPTION value="5">Coke Digital Camcorder</OPTION>
+<OPTION value="6">Great Sword</OPTION>
+<OPTION value="7">Cleaver</OPTION>
+<OPTION value="8">Morningstar</OPTION>
+<OPTION value="9">Great Mallet</OPTION>
+<OPTION value="10">Battle Hammer</OPTION>
+<OPTION value="11">Warrior Axe</OPTION>
+<OPTION value="12">Broad Axe</OPTION>
+<OPTION value="13">Spiked Knuckle</OPTION>
+<OPTION value="14">Hobnail Knuckle</OPTION>
+<OPTION value="15">Wood Atlatl</OPTION>
+<OPTION value="16">Bone Atlatl</OPTION>
+<OPTION value="17">Broken Log</OPTION>
+<OPTION value="18">Ice Sword</OPTION>
+<OPTION value="19">Shining Ice Sword</OPTION>
+<OPTION value="20">Ice Pole</OPTION>
+<OPTION value="21">Battle Mace</OPTION>
+<OPTION value="22">Ivory Sword</OPTION>
+<OPTION value="23">Cat Hand Club</OPTION>
+<OPTION value="24">Chocolate Stick Wand</OPTION>
+<OPTION value="25">Strawberry Stick Wand</OPTION>
+<OPTION value="26">White Stick Wand</OPTION>
+<OPTION value="27">Ballista</OPTION>
+<OPTION value="28">Sword of Beholder</OPTION>
+<OPTION value="29">Ditis's Wand of Evil</OPTION>
+<OPTION value="30">Reminia's Star And Moon Sword</OPTION>
+<OPTION value="31">Shaoranen's Bow of Chivalry</OPTION>
+<OPTION value="32">Ruyuefeixue's Amethyst Butterfly</OPTION>
+<OPTION value="33">Vales Great Sword</OPTION>
+<OPTION value="34">Feather Atlatl</OPTION>
+<OPTION value="35">Iron Mace</OPTION>
+<OPTION value="36">#36: giant_female_weapon_flamberge01.pmg</OPTION>
+<OPTION value="37">Bear Knuckle</OPTION>
+<OPTION value="38">Toy hammer</OPTION>
+<OPTION value="39">Cylinder</OPTION>
+<OPTION value="40">War Sword</OPTION>
+<OPTION value="41">Executioner's sword</OPTION>
+<OPTION value="42">Eweca Short Sword</OPTION>
+<OPTION value="43">Fire Cylinder</OPTION>
+<OPTION value="44">Earth Cylinder</OPTION>
+<OPTION value="45">Wind Cylinder</OPTION>
+<OPTION value="46">Water Cylinder</OPTION>
+<OPTION value="47">Jousting Lance</OPTION>
+<OPTION value="48">Iron Claw</OPTION>
+<OPTION value="49">Ego Great Sword</OPTION>
+<OPTION value="50">Ego Cleaver</OPTION>
+<OPTION value="51">Ego Morningstar</OPTION>
+<OPTION value="52">Ego Great Mallet</OPTION>
+<OPTION value="53">Ego Battle Hammer</OPTION>
+<OPTION value="54">Ego Warrior Axe</OPTION>
+<OPTION value="55">Ego Broad Axe</OPTION>
+<OPTION value="56">Ego Ditis's Wand of Evil</OPTION>
+<OPTION value="57">Ego Reminia's Star And Moon Sword</OPTION>
+<OPTION value="58">Ego Shaoranen's Bow of Chivalry</OPTION>
+<OPTION value="59">Ego Ruyuefeixue's Amethyst Butterfly</OPTION>
+<OPTION value="60">(temp)tool_row</OPTION>
+<OPTION value="61">(temp)dragon_ship_tool_row</OPTION>
+<OPTION value="62">(temp)</OPTION>
+<OPTION value="63">Sunshade</OPTION>
+<OPTION value="64">Duster</OPTION>
+<OPTION value="65">Bear Doll</OPTION>
+<OPTION value="66">Rabbit Doll</OPTION>
+<OPTION value="67">Dragon Killer`s Great Two-Handed Sword</OPTION>
+<OPTION value="68">Big Cooking Kneader</OPTION>
+<OPTION value="69">Valdorl School Bag</OPTION>
+<OPTION value="70">Candy Cane</OPTION>
+<OPTION value="71">Axe for Firewood</OPTION>
+<OPTION value="72">Plane for Carpentry</OPTION>
+<OPTION value="73">Physis Tuba</OPTION>
+<OPTION value="74">Andras Puppet</OPTION>
+<OPTION value="75">Elatha Puppet</OPTION>
+<OPTION value="76">Eldra's Two Handed Sword devoted to Goddess</OPTION>
+<OPTION value="77">Soft Ice Cream Short Sword</OPTION>
+<OPTION value="78">Dumpling Sword</OPTION>
+<OPTION value="79">Cracker Bow</OPTION>
+<OPTION value="80">Confeito Mace</OPTION>
+<OPTION value="82">Cookie Shield</OPTION>
+<OPTION value="83">Tower Cylinder</OPTION>
+<OPTION value="84">Falcata</OPTION>
+<OPTION value="85">Francisca</OPTION>
+<OPTION value="86">Highlander Claymore</OPTION>
+<OPTION value="81">Rollcake Cylinder</OPTION>
+<OPTION value="87">Fire Sword of Elsinore</OPTION>
+<OPTION value="88">Battle Mandolin</OPTION>
+<OPTION value="89">Glory Sword</OPTION>
+<OPTION value="89">Glory Sword</OPTION>
+<OPTION value="91">Dragon Tooth</OPTION>
+<OPTION value="92">Trinity Staff</OPTION>
+<OPTION value="93">Volcano Cylinder</OPTION>
+<OPTION value="94">Earthquake Cylinder</OPTION>
+<OPTION value="95">Hurricane Cylinder</OPTION>
+<OPTION value="96">Tidalwave Cylinder</OPTION>
+<OPTION value="97">Olivier Mira Armstrong's Sword</OPTION>
+<OPTION value="98">Winry Rockbell's Spanner</OPTION>
+<OPTION value="99">Lorna Puppet</OPTION>
+<OPTION value="100">Pan Puppet</OPTION>
+<OPTION value="101">Cat Doll</OPTION>
+<OPTION value="102">Quill Sword</OPTION>
+<OPTION value="103">Fire Wand Of Fairy</OPTION>
+<OPTION value="104">Ice Wand Of Fairy</OPTION>
+<OPTION value="105">Lightning Wand Of Fairy</OPTION>
+<OPTION value="106">Shield of Avon</OPTION>
+<OPTION value="107">Ransel</OPTION>
+<OPTION value="0">Shield of Beholder</OPTION>
+<OPTION value="0">Shield of Beholder</OPTION>
+<OPTION value="0">Shield of Beholder</OPTION>
+<OPTION value="108">Morrighan Puppet</OPTION>
+<OPTION value="109">Cichol Puppet</OPTION>
+<OPTION value="0">Shield of Beholder</OPTION>
+<OPTION value="110">Targe Shield</OPTION>
+<OPTION value="111">Endless Wing Staff</OPTION>
+<OPTION value="112">Shield of Valkyrie</OPTION>
+<OPTION value="113">Kill The Devil Scythe</OPTION>
+<OPTION value="114">Barbarous Fox Scythe</OPTION>
+<OPTION value="115">Brace Knuckle</OPTION>
+<OPTION value="116">Champion Knuckle</OPTION>
+<OPTION value="117">Bear's Paw Pillow</OPTION>
+<OPTION value="118">Event Pillow</OPTION>
+<OPTION value="119">Club of Sea Troll</OPTION>
+<OPTION value="120">Club of Wild Troll</OPTION>
+<OPTION value="0">Shield of Beholder</OPTION>
+<OPTION value="63">Sunshade</OPTION>
+<OPTION value="121">Umbrella</OPTION>
+<OPTION value="122">Umbrella</OPTION>
+<OPTION value="123">Umbrella</OPTION>
+<OPTION value="124">Umbrella</OPTION>
+<OPTION value="125">Umbrella</OPTION>
+<OPTION value="126">Umbrella</OPTION>
+<OPTION value="127">Panda Umbrella</OPTION>
+<OPTION value="128">Twinkling Star Umbrella</OPTION>
+<OPTION value="129">A lotus leaf Umbrella</OPTION>
+<OPTION value="130">Cheeta Hand Club</OPTION>
+<OPTION value="131">Demonic Nightmare Dreamcatcher</OPTION>
+<OPTION value="132">Moonlight Dreamcatcher</OPTION>
+<OPTION value="133">Ordinary Dreamcatcher</OPTION>
+<OPTION value="134">Spring Onion Sword Basic</OPTION>
+<OPTION value="135">Tangerine Knuckle Basic</OPTION>
+<OPTION value="136">Ice Cream Lightning Wand</OPTION>
+<OPTION value="137">Ice Cream Fire Wand</OPTION>
+<OPTION value="138">Ice Cream Ice Wand</OPTION>
+<OPTION value="139">Electric Guitar</OPTION>
 
 </select>
 
-<select name="shieldSecondState" onchange="changeShieldSecondState(this.value);" style="width: 80px; visibility: hidden;">
-<option value="0">装備</option>
-<option value="1">解除</option>
+<select name="shieldSecondState" onChange="changeShieldSecondState(this.value);" style="width:80px;">
+<option value="0">Useable</option>
+<option value="1">NotUseable</option>
 </select><br>
-<span class="colorPaletteMini" id="shieldSecondPalette1" onclick="dyeColor(this);changeShieldSecondColorByPalette(1);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(22, 118, 225); background-position: initial initial; background-repeat: initial initial;" title="1676e1"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="shieldSecondPalette1" onClick="dyeColor(this);changeShieldSecondColorByPalette(1);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="shieldSecondColor1">
-<span class="colorPaletteMini" id="shieldSecondPalette2" onclick="dyeColor(this);changeShieldSecondColorByPalette(2);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(60, 200, 213); background-position: initial initial; background-repeat: initial initial;" title="3cc8d5"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="shieldSecondPalette2" onClick="dyeColor(this);changeShieldSecondColorByPalette(2);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="shieldSecondColor2">
-<span class="colorPaletteMini" id="shieldSecondPalette3" onclick="dyeColor(this);changeShieldSecondColorByPalette(3);" oncontextmenu="pickColor(this);return false;" style="background-color: rgb(74, 118, 161); background-position: initial initial; background-repeat: initial initial;" title="4a76a1"><img src="sp.gif"></span>
+<span class="colorPaletteMini" id="shieldSecondPalette3" onClick="dyeColor(this);changeShieldSecondColorByPalette(3);" onContextMenu="pickColor(this);return false;"><img src="sp.gif"></span>
 <input type="text" value="7f7f7f" size="8" name="shieldSecondColor3">
-<a class="controllerLink" href="javascript:void(0);" onclick="dyeShieldSecond(shieldSecondColor1.value,shieldSecondColor2.value,shieldSecondColor3.value);">染色</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="searchPublist(shieldSecondMenu.options[shieldSecondMenu.selectedIndex].text);">コーデ</a> 
-<a class="controllerLink" href="javascript:void(0);" onclick="controller.shieldSecondMenu.value=-1;changeShieldSecond(controller.shieldSecondMenu.value);">解除</a>
+<a class="controllerLink" href="javascript:void(0);" onClick="dyeShieldSecond(shieldSecondColor1.value,shieldSecondColor2.value,shieldSecondColor3.value);">Dye</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="searchPublist(shieldSecondMenu.options[shieldSecondMenu.selectedIndex].text);">Search</a> 
+<a class="controllerLink" href="javascript:void(0);" onClick="controller.shieldSecondMenu.value=-1;changeShieldSecond(controller.shieldSecondMenu.value);">Purge</a>
 </td>
 </tr>
 </tbody>
@@ -11790,67 +11419,80 @@ Now Loading
 </tbody>
 </table>
 
-<form name="formCaptureSnapshot" target="_blank" method="POST" action="http://labo.erinn.biz/cs/snapshot.php">
-	<input type="hidden" name="action" value="captureSnapshot">
-	<input type="hidden" name="code" value="">
-	<input type="hidden" name="q" value="">
-</form>
+<FORM name="formCaptureSnapshot" target="_blank" method="POST" action="snapshot.php">
+	<INPUT type="hidden" name="action" value="captureSnapshot">
+	<INPUT type="hidden" name="code" value="">
+	<INPUT type="hidden" name="q" value="">
+</FORM>
 
-<form name="formCaptureDressroom" target="_blank" method="POST" action="http://labo.erinn.biz/cs/dressroom.php">
-	<input type="hidden" name="action" value="captureDressroom">
-	<input type="hidden" name="code" value="">
-	<input type="hidden" name="q" value="">
-</form>
+<FORM name="formCaptureDressroom" target="_blank" method="POST" action="dressroom.php">
+	<INPUT type="hidden" name="action" value="captureDressroom">
+	<INPUT type="hidden" name="code" value="">
+	<INPUT type="hidden" name="q" value="">
+</FORM>
 
-<form name="formCaptureBlogparts" target="_blank" method="POST" action="http://labo.erinn.biz/cs/blogparts.php">
-	<input type="hidden" name="action" value="captureSnapshot">
-	<input type="hidden" name="code" value="">
-	<input type="hidden" name="q" value="">
-</form>
+<FORM name="formCaptureBlogparts" target="_blank" method="POST" action="blogparts.php">
+	<INPUT type="hidden" name="action" value="captureSnapshot">
+	<INPUT type="hidden" name="code" value="">
+	<INPUT type="hidden" name="q" value="">
+</FORM>
 
-<form name="formEntryPublist" target="_blank" method="POST" action="http://kukulu.erinn.biz/login._mcs2.publist.php">
-	<input type="hidden" name="action" value="addPubList">
-	<input type="hidden" name="code" value="">
-	<input type="hidden" name="q" value="">
-</form>
+<FORM name="formEntryPublist" target="_blank" method="POST" action="http://kukulu.erinn.biz/login._mcs2.publist.php">
+	<INPUT type="hidden" name="action" value="addPubList">
+	<INPUT type="hidden" name="code" value="">
+	<INPUT type="hidden" name="q" value="">
+</FORM>
 
-<form name="formEntryMylist2" target="mylist2if" method="POST" action="http://kukulu.erinn.biz/mcs2.mylist.php">
-	<input type="hidden" name="action" value="addMyList">
-	<input type="hidden" name="code" value="">
-	<input type="hidden" name="q" value="">
-	<input type="hidden" name="name" value="">
-</form>
-
-<div style="display:none;">
-<iframe name="MCODEAPI" src="about:blank" border="0" width="0" height="0"></iframe>
-</div>
-<form name="formMCODEAPIRequest" target="MCODEAPI" method="POST" action="http://labo.erinn.biz/cs/mcode_api.php">
-	<input type="hidden" name="mode" value="">
-	<input type="hidden" name="action" value="">
-	<input type="hidden" name="script" value="">
-</form>
+<FORM name="formEntryMylist2" target="mylist2if" method="POST" action="http://kukulu.erinn.biz/mcs2.mylist.php">
+	<INPUT type="hidden" name="action" value="addMyList">
+	<INPUT type="hidden" name="code" value="">
+	<INPUT type="hidden" name="q" value="">
+	<INPUT type="hidden" name="name" value="">
+</FORM>
 
 <div style="display:none;">
-<iframe name="TrueMabiColor" src="about:blank" border="0" width="0" height="0"></iframe>
+<IFRAME name="MCODEAPI" src="about:blank" border="0" width="0" height="0"></IFRAME>
 </div>
-<form name="formTrueMabiColorRequest" target="TrueMabiColor" method="POST" action="http://labo.erinn.biz/cs/mabitruecolor_api.php">
-	<input type="hidden" name="gcolor" value="">
-	<input type="hidden" name="palette" value="normal1">
-</form>
+<FORM name="formMCODEAPIRequest" target="MCODEAPI" method="POST" action="mcode_api.php">
+	<INPUT type="hidden" name="mode" value="">
+	<INPUT type="hidden" name="action" value="">
+	<INPUT type="hidden" name="script" value="">
+</FORM>
 
-<form name="formPublistSearch" target="_blank" method="GET" action="http://labo.erinn.biz/cs/publist.php">
-	<input type="hidden" name="word" value="">
-</form>
+<div style="display:none;">
+<IFRAME name="TrueMabiColor" src="about:blank" border="0" width="0" height="0"></IFRAME>
+</div>
+<FORM name="formTrueMabiColorRequest" target="TrueMabiColor" method="POST" action="mabitruecolor_api.php">
+	<INPUT type="hidden" name="gcolor" value="">
+	<INPUT type="hidden" name="palette" value="normal1">
+</FORM>
+
+<FORM name="formPublistSearch" target="_blank" method="GET" action="publist.php">
+	<INPUT type="hidden" name="word" value="">
+</FORM>
+
+<center>
+	<div style="padding:5px;">
+
+			<!-- MCS2_Control_Bottom2 -->
+			<div id='div-gpt-ad-1333659646944-0' style='width:336px; height:280px;'>
+			<script type='text/javascript'>
+			googletag.cmd.push(function() { googletag.display('div-gpt-ad-1333659646944-0'); });
+			</script>
+			</div>
+
+	</div>
+</center>
 
 <center>
 
 	<br>
-	<a href="http://labo.erinn.biz/" target="_blank"><img src="b.png" alt="くくらぼ" width="81" height="31" border="0"></a> 
+	<A href="http://labo.erinn.biz/" target="_blank"><IMG src="../b/kl/b.png" alt="くくらぼ" width="81" height="31" border="0"></A> 
 
-	<a href="http://eriwacs.erinn.biz/" target="_blank"><img src="b(1).png" alt="ERIWACS - キャラクターウォッチ" width="81" height="31" border="0"></a> 
-	<a href="http://mari.erinn.biz/" target="_blank"><img src="banner_mabijp1.png" alt="ErinnTrader ≪マリー≫ - マビノギ相場価格調査" width="81" height="31" border="0"></a> 
-	<a href="http://mari.kt.erinn.biz/" target="_blank"><img src="banner_mabijp1(1).png" alt="KukuTimer ≪マリー≫ - マビノギイリアボスタイマー" width="81" height="31" border="0"></a> 
-	<a href="http://mari.kukulu.erinn.biz/" target="_blank"><img src="banner_mabijp1(2).png" alt="KukuTimer ≪マリー≫" width="81" height="31" border="0"></a> 
+	<A href="http://eriwacs.erinn.biz/" target="_blank"><IMG src="../b/ew/b.png" alt="ERIWACS - キャラクターウォッチ" width="81" height="31" border="0"></A> 
+	<A href="http://mari.erinn.biz/" target="_blank"><IMG src="../b/et/banner_mabijp1.png" alt="ErinnTrader ≪マリー≫ - マビノギ相場価格調査" width="81" height="31" border="0"></A> 
+	<A href="http://mari.kt.erinn.biz/" target="_blank"><IMG src="../b/kt/banner_mabijp1.png" alt="KukuTimer ≪マリー≫ - マビノギイリアボスタイマー" width="81" height="31" border="0"></A> 
+	<A href="http://mari.kukulu.erinn.biz/" target="_blank"><IMG src="../b/ku/banner_mabijp1.png" alt="KukuTimer ≪マリー≫" width="81" height="31" border="0"></A> 
 
 	<br>
 	<div><a href="http://aquapal.net/" target="_blank"><img src="aquapal.png" border="0"></a></div>
@@ -11860,7 +11502,7 @@ Now Loading
 	Mabinogi Character Simulator 2 は、マビノギの3Dアバターを<br>
 	自由に着せ替えできるシミュレータです。<br>
 	キャラクターデータベース kukulu と連動して、<br>
-	現在のあなたの容姿を読み込むこともできます。<br>
+	現在のあなたの容姿を読み込むこともできます。<BR>
 	<br>
 	(c) くくらぼ, aquapal/kuku.<br>
 	(c) まびらぼ pseudo Mabinogi Character Simulator http://mabinogi.or.tp/<br>
@@ -11877,6 +11519,5 @@ Now Loading
 <img src="pbg.png" width="0" height="0">
 <img src="pbg2.png" width="0" height="0">
 
-
-
-</body></html>
+</body>
+</html>

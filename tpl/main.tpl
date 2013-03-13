@@ -57,7 +57,7 @@ function cookieset(name, value) {
 	<param name="camera" value="-190 15 0.7" />
 	<param name="onactive" value="0" />
 	<param name="usercode" value="4p6NgM4PsWKQk63A" />
-	<param name="code" value="gTqIXBaE0BGNET7RzvWCuPrQFoa;ykaM15LNSpaPedaM;8q;R6rLpLbQXnWQ3nZR66KRkj6Qmlk;n9aMeEqOKMrPEB2NhBLMl7aQJUqMpMZ2t3bQMpqPsyGAOmUAnJaELwqPKDWQpHYBJInEk1W2" />
+	<param name="code" value="gTqIXBaE0BGNET7RzvWC3k6PUxKMA0rP;8q;R8r;pLbQTZb;l8a2zVqMZnaQERaPk;6Q:5LNX1KMpMZ2t3bQMpqPsyGAWj0BL1qNGk6PqQ48fRIFmikB" />
 	<img src="error.png" alt="Can't load ActiveX plugin" />
 	</object>
 	<script>
