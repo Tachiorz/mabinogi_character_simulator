@@ -80,7 +80,7 @@ def load_db():
             if name is None: name = get_local_name(i[1].attrib['Text_Name0'])
             t = i[1].attrib['App_WearType']
             e = entry.copy()
-            e['name'] = name
+            e['name'] = name.strip('@')
             if equip == 'body':
                 if len(t) > 2: e['t3'] = encrypt(t[2])
                 if len(t) > 1: e['t2'] = encrypt(t[1])
@@ -102,7 +102,12 @@ def load_db():
             if 'File_GiantMesh' in i[1].attrib:
                 e['fname'] = encrypt(i[1].attrib['File_GiantMesh'] + '.pmg')
                 db[equip][FRM_GIANT_M] += [e]
-
+    for frm in range(4):
+        db['body'][frm] = sorted(db['body'][frm], key=lambda e: e['name'])
+        db['hand'][frm] = sorted(db['hand'][frm], key=lambda e: e['name'])
+        db['foot'][frm] = sorted(db['foot'][frm], key=lambda e: e['name'])
+        db['head'][frm] = sorted(db['head'][frm], key=lambda e: e['name'])
+        db['robe'][frm] = sorted(db['robe'][frm], key=lambda e: e['name'])
     t2 = time.clock()
     print "Loaded DB in", t2 - t1, "sec"
 
