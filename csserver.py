@@ -80,7 +80,10 @@ def load_db():
                 if len(t) > 1: e['t2'] = encrypt(t[1])
                 if len(t) > 0: e['t1'] = encrypt(t[0])
             else:
-                e['t1'] = t[0]
+                try:
+                    e['t1'] = int(t)-1
+                except ValueError:
+                    e['t1'] = t[0]
             if 'File_GiantMesh' in i[1].attrib:
                 e['fname'] = encrypt(i[1].attrib['File_GiantMesh'] + '.pmg')
                 db[equip]['giant']['male'] += [e]
@@ -138,6 +141,7 @@ def main():
     assets = package.mabi_assets("..\\package\\")
     t2 = time.clock()
     print "Loaded in", t2 - t1, "sec"
+
     if assets is None: exit(0)
     load_db()
     ie = webbrowser.get(webbrowser.iexplore)

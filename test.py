@@ -1,5 +1,5 @@
 from encrypt import *
-enc_script = "gTqIXBaE0BGNET7RzvWC3k6PUxKMA0rP;8q;R8r;pLbQTZb;l8a2zVqMZnaQERaPk;6Q:5LNX1KMpMZ2t3bQMpqPsyGAWj0BL1qNGk6PqQ48fRIFmikB"
+enc_script = "NdqNjQbP48KP;lJNOv5BL4rPT33Ac:nQR4b;MAmN"
 dec_script = decrypt(enc_script)
 print dec_script
 print enc_script

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os, struct, zlib
-import MT
+import MT, material
 #this is shallow port of https://github.com/darknesstm/MabinogiPackageTool/
 
 
@@ -113,11 +113,13 @@ class mabi_assets:
             if f[-5:] == '.pack':
                 p = mabi_pack(path+f)
                 self._add_enties(p)
+        material.load_materials(self)
 
     def _add_enties(self, pack):
         for e in pack.entries:
             cur = self.tree
             for p in e.name.split('\\'):
+                p = p.lower()
                 if p.find('.') != -1:
                     cur[p] = e
                     t = p[-4:]
@@ -135,33 +137,13 @@ class mabi_assets:
 
     def get_file(self, f):
         d = None
+        f = f.lower()
         t = f[-4:]
         if t in self.types and f in self.types[t]: d = self.types[t][f]
         elif f[-5:] == '.desc':
             # this is ugly
-            return """CastShadow 1
-EnableCartoonRender 0
-GlossTexture _!hairmap
-BackFaceCulling 1
-EnableZCompare 1
-EnableZWrite 1
-EnableAlphaTest 1
-EnableAlphaBlend 1
-ColorOp_0 addsigned
-ColorArg1_0 texture
-ColorArg2_0 diffuse
-AlphaOp_0 selectfirst
-AlphaArg1_0 texture
-AlphaArg2_0 diffuse
-UVGeneration_0 vertex
-ColorOp_1 modulate4x
-ColorArg1_1 texture
-ColorArg2_1 current
-AlphaOp_1 selectfirst
-AlphaArg1_1 current
-AlphaArg2_1 diffuse
-UVGeneration_1 sphere
-"""
+            if f[:-9].lower() in material.materials:
+                return material.materials[f[:-9]].toString()
         else:
             cur = self.tree
             for p in f.split('\\'):
