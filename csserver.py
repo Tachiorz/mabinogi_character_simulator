@@ -142,7 +142,7 @@ def main():
     load_db()
     ie = webbrowser.get(webbrowser.iexplore)
     ie.open('localhost')
-    run(app=app,port=80)
+    #run(app=app,port=80)
     print "Starting web server..."
     server = wsgiserver.CherryPyWSGIServer(
         ('127.0.0.1', 80), app,
