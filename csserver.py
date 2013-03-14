@@ -1,4 +1,4 @@
-from bottle import abort, run, Bottle, static_file, TEMPLATE_PATH, template
+from bottle import abort, run, Bottle, static_file, TEMPLATE_PATH, template, request
 from cherrypy import wsgiserver
 from StringIO import StringIO
 from xml.etree.ElementTree import iterparse
@@ -13,6 +13,11 @@ db = dict()
 framework = 3
 TEMPLATE_PATH.insert(0, 'tpl')
 app = Bottle()
+
+FRM_HUMAN_F = 0
+FRM_HUMAN_M = 1
+FRM_GIANT_F = 2
+FRM_GIANT_M = 3
 
 
 def load_locale_file(name):
@@ -49,8 +54,9 @@ def load_db():
     itemdb = assets.get_file('db\\itemdb.xml')
     itemdb = StringIO(itemdb)
     entry = {'name': "", 'fname': "", 't1': "", 't2': "", 't3': ""}
-    sex = {'male': list(), 'female': list()}
-    item = {'human': deepcopy(sex), 'giant': deepcopy(sex), 'elf': deepcopy(sex)}
+    #sex = {'male': list(), 'female': list()}
+    #item = {'human': deepcopy(sex), 'giant': deepcopy(sex), 'elf': deepcopy(sex)}
+    item = {FRM_HUMAN_F: list(), FRM_HUMAN_M: list(), FRM_GIANT_F: list(), FRM_GIANT_M: list()}
     db['body'] = deepcopy(item)
     db['hand'] = deepcopy(item)
     db['foot'] = deepcopy(item)
@@ -84,12 +90,28 @@ def load_db():
                     e['t1'] = int(t)-1
                 except ValueError:
                     e['t1'] = t[0]
+            if 'File_FemaleMesh' in i[1].attrib:
+                e['fname'] = encrypt(i[1].attrib['File_FemaleMesh'] + '.pmg')
+                db[equip][FRM_HUMAN_F] += [e]
+            if 'File_MaleMesh' in i[1].attrib:
+                e['fname'] = encrypt(i[1].attrib['File_MaleMesh'] + '.pmg')
+                db[equip][FRM_HUMAN_M] += [e]
+            if 'File_FemaleGiantMesh' in i[1].attrib:
+                e['fname'] = encrypt(i[1].attrib['File_FemaleGiantMesh'] + '.pmg')
+                db[equip][FRM_GIANT_F] += [e]
             if 'File_GiantMesh' in i[1].attrib:
                 e['fname'] = encrypt(i[1].attrib['File_GiantMesh'] + '.pmg')
-                db[equip]['giant']['male'] += [e]
+                db[equip][FRM_GIANT_M] += [e]
+
     t2 = time.clock()
     print "Loaded DB in", t2 - t1, "sec"
 
+
+def print_params(route):
+    for k, v in request.query.allitems():
+        print route, "GET", k, v
+    for k, v in request.forms.allitems():
+        print route, "POST", k, v
 
 @app.route('/cs/serve.x/<name>')
 def callback(name):
@@ -100,42 +122,48 @@ def callback(name):
             return res
         else:
             print "Not found"
+            pass
     abort(404, "Not found")
 
 
-@app.route('/main', method=['POST','GET'])
+@app.route('/main', method=['POST', 'GET'])
 def callback():
+    print_params("/main")
     return template('main.tpl')
 
 
 @app.route('/control')
 def callback():
-    race = 'giant'
-    sex = 'male'
-    if framework == 3:
-        race, sex = 'giant', 'male'
-    body = db['body'][race][sex]
-    hand = db['hand'][race][sex]
-    foot = db['foot'][race][sex]
-    head = db['head'][race][sex]
-    robe = db['robe'][race][sex]
+    print_params("/control")
+    frm = request.query.framework
+    if frm == '': frm = FRM_GIANT_M
+    frm = int(frm)
+    body = db['body'][frm]
+    hand = db['hand'][frm]
+    foot = db['foot'][frm]
+    head = db['head'][frm]
+    robe = db['robe'][frm]
     return template('control.tpl', body=body, hand=hand, foot=foot, head=head, robe=robe)
 
 
 @app.route('/')
 def callback():
-    return template('index.tpl')
+    print_params("/")
+    control_opt = ''
+    frm = request.query.framework
+    if frm != '': control_opt = "?framework=" + frm
+    else: frm = 3
+    return template('index.tpl', framework=int(frm), control_opt=control_opt)
 
 
 @app.route('/<path:path>')
 def callback(path):
-    print path
+    #print path
     return static_file(path, root="static")
 
 
 def main():
     global assets
-
     print "Loading game assets..."
     t1 = time.clock()
     assets = package.mabi_assets("..\\package\\")

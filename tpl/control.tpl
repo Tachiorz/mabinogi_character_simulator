@@ -655,7 +655,7 @@ function changeFramework()
 {
 	//if (confirm('')){
 		sFramework = controller.csFramework.value;
-		parent.location.href="?action=changeFramework&framework="+sFramework;
+		parent.location.href="/?action=changeFramework&framework="+sFramework;
 	//} else {
 	//	controller.csFramework.value = sFramework;
 	//}

@@ -30,7 +30,7 @@ function config_load()
 	contol.sAvatarAA = "2";	//1@3
 	contol.sBgColorp = "FFFFFF";	//1@4
 	contol.sBgColor = contol.convertColor(contol.sBgColorp);
-	contol.sFramework = "3";	//2@1
+	contol.sFramework = "{{framework}}";	//2@1
 	contol.sHeightScalep = "0.4";	//3@1
 	contol.sFatnessScalep = "0.9";	//3@2
 	contol.sTopScalep = "0.6";	//3@3
@@ -44,7 +44,7 @@ function config_load()
 	contol.sHairColorIndex = "11";	//6@2
 	contol.sHairColorp = "7B2C10";	//7@1
 	contol.sHairColor = contol.convertColor(contol.sHairColorp);
-	contol.sHeadIndex = "-1";	//8@1
+	contol.sHeadIndex = "5";	//8@1
 	contol.sHeadWearState = "0";	//8@2
 	contol.sHeadColor1p = "00687F";	//9@1
 	contol.sHeadColor1 = contol.convertColor(contol.sHeadColor1p);
@@ -59,7 +59,7 @@ function config_load()
 	contol.sFaceColor2 = contol.convertColor(contol.sFaceColor2p);
 	contol.sFaceColor3p = "000000";	//11@3
 	contol.sFaceColor3 = contol.convertColor(contol.sFaceColor3p);
-	contol.sBodyIndex = "-2";	//12@1
+	contol.sBodyIndex = "5";	//12@1
 	contol.sBodyColor1p = "516E7B";	//13@1
 	contol.sBodyColor1 = contol.convertColor(contol.sBodyColor1p);
 	contol.sBodyColor2p = "1F4C56";	//13@2
@@ -72,7 +72,7 @@ function config_load()
 	contol.sHandColor2 = contol.convertColor(contol.sHandColor2p);
 	contol.sHandColor3p = "4a76a1";	//15@3
 	contol.sHandColor3 = contol.convertColor(contol.sHandColor3p);
-	contol.sFootIndex = "-1";	//16@1
+	contol.sFootIndex = "5";	//16@1
 	contol.sFootColor1p = "183532";	//17@1
 	contol.sFootColor1 = contol.convertColor(contol.sFootColor1p);
 	contol.sFootColor2p = "4E7070";	//17@2
@@ -142,7 +142,7 @@ function shortURL2()
 		
 		<frame name="main" id="maind" src="main">
 
-		<frame style="border-left-width : 2px;border-left-style : solid;border-left-color : silver;" name="contol" src="control">
+		<frame style="border-left-width : 2px;border-left-style : solid;border-left-color : silver;" name="contol" src="control{{control_opt}}">
 	  
 					<frame name="launcher" src="about:blank">
 						
