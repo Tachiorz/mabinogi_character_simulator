@@ -140,9 +140,9 @@ def main():
     print "Loaded in", t2 - t1, "sec"
     if assets is None: exit(0)
     load_db()
-    #ie = webbrowser.get(webbrowser.iexplore)
-    #ie.open('localhost')
-    #run(app=app,port=80)
+    ie = webbrowser.get(webbrowser.iexplore)
+    ie.open('localhost')
+    run(app=app,port=80)
     print "Starting web server..."
     server = wsgiserver.CherryPyWSGIServer(
         ('127.0.0.1', 80), app,
