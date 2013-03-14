@@ -41,6 +41,8 @@ def enc_sub(c):
     return res
 
 def encrypt(script):
+    script = script.strip('\x00')
+    script += ' '*(3 - len(script)%3)
     result = ""
     i = 0
     while i < len(script):
