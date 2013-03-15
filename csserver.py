@@ -30,18 +30,19 @@ def load_locale_file(name):
     locale[name] = dict()
     for l in lines:
         i, n = l.split('\t')
-        locale[name][i] = n.strip('\r\n')
+        i = int(i.strip(u'\ufeff'))
+        locale[name][int(i)] = n.strip('\r\n')
     lines.close()
     t2 = time.clock()
     print "Locale file %s loaded in %f sec" % (fname, t2 - t1)
 
 
 def get_local_name(name):
-    if name[:3] == '_LT':
+    if name[:3] == u'_LT':
         _, name, n = name[4:-1].split('.')
         load_locale_file(name)
-        if n in locale[name]:
-            return locale[name][n]
+        if int(n) in locale[name]:
+            return locale[name][int(n)]
         else: return None
     else:
         return name
@@ -77,7 +78,7 @@ def load_db():
             elif i[1].attrib['Category'][:len(robe)] == robe: equip = 'robe'
             else: continue
             name = get_local_name(i[1].attrib['Text_Name1'])
-            if name is None: name = get_local_name(i[1].attrib['Text_Name0'])
+            if name is None: name = i[1].attrib['Text_Name0']
             t = i[1].attrib['App_WearType']
             e = entry.copy()
             e['name'] = name.strip('@')
